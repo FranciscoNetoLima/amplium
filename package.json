@@ -1,0 +1,24 @@
+{
+  "name": "amplium",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "check": "node --check src/interactions.js && node --check vite.config.js && vite build",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check:languages": "node scripts/verify-language.mjs",
+    "check:security": "node scripts/verify-security.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "prettier": "^3.9.9",
+    "vite": "^8.3.1"
+  }
+}

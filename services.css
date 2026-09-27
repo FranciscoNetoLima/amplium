@@ -1,0 +1,450 @@
+.services-section .section-head {
+  align-items: center;
+}
+.services-section h2 {
+  font-size: clamp(2.6rem, 6vw, 5.5rem);
+  letter-spacing: -0.055em;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+.service-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  min-height: 290px;
+  padding: 32px;
+  border: 1px solid #ffffff12;
+  border-radius: 18px;
+  background: #0d0e15;
+  transition:
+    border-color 0.3s,
+    background 0.3s,
+    transform 0.3s,
+    opacity 0.7s;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at 90% 85%, #7760ca15, transparent 70%);
+  pointer-events: none;
+}
+.service-card:hover {
+  border-color: #a58be550;
+  background: #11121b;
+  transform: translateY(-4px);
+}
+.service-number {
+  color: #c3a7f3;
+  font-family: monospace;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+.service-card h3 {
+  margin: 16px 0 20px;
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  line-height: 1.15;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+}
+.service-card p {
+  position: relative;
+  z-index: 2;
+  max-width: 470px;
+  margin: 0;
+  color: #b0b5c7;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.service-caption {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  padding-top: 36px;
+  color: #c3a7f3;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.service-card--sites {
+  grid-column: span 2;
+  grid-row: span 2;
+  min-height: 598px;
+  padding: 38px;
+}
+.service-card--sites h3 {
+  font-size: 2.2rem;
+}
+.service-card--sites p {
+  max-width: 400px;
+}
+.service-card--landing {
+  grid-column: span 2;
+  min-height: 270px;
+}
+.service-card--landing p {
+  max-width: 340px;
+}
+.service-card--commerce,
+.service-card--crm {
+  min-height: 310px;
+}
+.service-card--automation,
+.service-card--ads {
+  grid-column: span 2;
+  min-height: 280px;
+}
+.service-card--automation p,
+.service-card--ads p {
+  max-width: 370px;
+}
+.service-visual {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  transition:
+    opacity 0.4s,
+    transform 0.4s;
+}
+.service-card:hover .service-visual {
+  opacity: 0.5;
+  transform: translateY(-6px);
+}
+.website-preview {
+  width: 78%;
+  height: 285px;
+  right: -4%;
+  bottom: 50px;
+  transform: rotate(-8deg);
+  border: 1px solid #9276c870;
+  border-radius: 14px;
+  background: #171522;
+  box-shadow: -25px 22px 70px #0009;
+  opacity: 0.52;
+}
+.service-card:hover .website-preview {
+  opacity: 0.65;
+  transform: rotate(-6deg) translateY(-6px);
+}
+.preview-topbar {
+  height: 29px;
+  border-bottom: 1px solid #8875b43b;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 12px;
+}
+.preview-topbar > span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #b49ad07a;
+}
+.preview-topbar i {
+  font-size: 0.5rem;
+  font-style: normal;
+  letter-spacing: 0.15em;
+  margin-left: auto;
+  color: #b8a7dc;
+}
+.preview-page {
+  padding: 18px 24px;
+}
+.preview-nav {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  margin-bottom: 22px;
+}
+.preview-nav b {
+  width: 34px;
+  height: 7px;
+  background: #ad97d6;
+  margin-right: auto;
+}
+.preview-nav span {
+  width: 28px;
+  height: 4px;
+  background: #615a79;
+}
+.preview-headline {
+  color: #d1c2ed;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+.preview-copy {
+  height: 4px;
+  width: 50%;
+  background: #635b7b;
+  margin-top: 12px;
+}
+.preview-copy.short {
+  width: 38%;
+  margin-top: 7px;
+}
+.preview-button {
+  height: 17px;
+  width: 75px;
+  border-radius: 3px;
+  background: #8164b8;
+  margin-top: 14px;
+}
+.preview-tiles {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.preview-tiles span {
+  height: 47px;
+  flex: 1;
+  border: 1px solid #75658c55;
+  border-radius: 5px;
+  background: #75658c10;
+}
+.landing-preview {
+  right: -30px;
+  bottom: 15px;
+  width: 235px;
+  height: 170px;
+  transform: rotate(-10deg);
+}
+.landing-line {
+  height: 11px;
+  width: 170px;
+  background: #8870b6;
+  margin: 12px 0;
+  border-radius: 3px;
+}
+.landing-line:nth-child(2) {
+  width: 120px;
+}
+.landing-cta {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 12px 17px;
+  border: 1px solid #b69adb;
+  border-radius: 30px;
+  color: #b69adb;
+  font-size: 0.8rem;
+}
+.landing-orbit {
+  position: absolute;
+  right: -35px;
+  top: -50px;
+  width: 160px;
+  height: 160px;
+  border: 1px solid #957dba;
+  border-radius: 50%;
+}
+.commerce-preview {
+  display: flex;
+  gap: 10px;
+  right: -20px;
+  bottom: 22px;
+  transform: rotate(-12deg);
+}
+.commerce-preview > div {
+  width: 76px;
+  height: 110px;
+  padding: 8px;
+  border: 1px solid #9380bf66;
+  border-radius: 8px;
+  background: #232032;
+}
+.commerce-preview span {
+  display: block;
+  height: 59px;
+  border-radius: 5px;
+  background: #69568c;
+}
+.commerce-preview i,
+.commerce-preview b {
+  display: block;
+  width: 40px;
+  height: 4px;
+  margin-top: 9px;
+  background: #a493c7;
+}
+.commerce-preview b {
+  width: 24px;
+  background: #766292;
+}
+.crm-preview {
+  display: flex;
+  gap: 9px;
+  right: -22px;
+  bottom: 13px;
+  transform: rotate(-10deg);
+}
+.crm-preview > div {
+  width: 75px;
+  min-height: 130px;
+  padding: 10px 7px;
+  border: 1px solid #83759d66;
+  border-radius: 7px;
+  background: #1d1b2b;
+}
+.crm-preview i {
+  display: block;
+  width: 29px;
+  height: 4px;
+  margin-bottom: 12px;
+  background: #bea3f1;
+}
+.crm-preview span {
+  display: block;
+  height: 25px;
+  background: #70598970;
+  margin-top: 7px;
+  border-radius: 4px;
+  border: 1px solid #a38bb140;
+}
+.automation-preview {
+  display: flex;
+  align-items: center;
+  right: -40px;
+  bottom: 38px;
+  transform: rotate(-12deg);
+}
+.automation-preview span {
+  padding: 16px 13px;
+  border: 1px solid #b999e077;
+  border-radius: 9px;
+  background: #231c35;
+  color: #cab6e7;
+  font-size: 0.75rem;
+}
+.automation-preview i {
+  width: 30px;
+  height: 1px;
+  background: #b999e0;
+}
+.ads-preview {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  right: 26px;
+  bottom: 0;
+  height: 160px;
+  transform: skewY(-12deg);
+}
+.ads-preview span {
+  width: 24px;
+  height: 30%;
+  background: linear-gradient(#9775c577, #55447822);
+  border: 1px solid #a380d344;
+  border-bottom: 0;
+  border-radius: 5px 5px 0 0;
+}
+.ads-preview span:nth-child(2) {
+  height: 40%;
+}
+.ads-preview span:nth-child(3) {
+  height: 35%;
+}
+.ads-preview span:nth-child(4) {
+  height: 62%;
+}
+.ads-preview span:nth-child(5) {
+  height: 72%;
+}
+.ads-preview span:nth-child(6) {
+  height: 94%;
+}
+@media (max-width: 1000px) {
+  .service-card {
+    padding: 26px;
+  }
+  .service-card--sites {
+    padding: 32px;
+  }
+  .service-card--commerce,
+  .service-card--crm {
+    grid-column: span 2;
+  }
+  .service-card--sites {
+    grid-row: auto;
+    min-height: 410px;
+  }
+  .service-card--landing {
+    min-height: 410px;
+  }
+  .service-card--landing p {
+    max-width: 100%;
+  }
+  .landing-preview {
+    bottom: 40px;
+  }
+  .service-card h3 {
+    font-size: 1.5rem;
+  }
+  .service-card--sites h3 {
+    font-size: 1.8rem;
+  }
+  .website-preview {
+    height: 235px;
+    bottom: 0;
+    opacity: 0.28;
+  }
+  .service-caption {
+    font-size: 0.75rem;
+  }
+}
+@media (max-width: 600px) {
+  .services-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .service-card,
+  .service-card--sites,
+  .service-card--landing,
+  .service-card--commerce,
+  .service-card--crm,
+  .service-card--automation,
+  .service-card--ads {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 310px;
+    padding: 26px;
+  }
+  .service-card--sites {
+    min-height: 380px;
+  }
+  .service-card h3,
+  .service-card--sites h3 {
+    font-size: 1.5rem;
+  }
+  .service-card p {
+    font-size: 1rem;
+  }
+  .service-caption {
+    max-width: 220px;
+    line-height: 1.5;
+  }
+  .service-visual {
+    opacity: 0.2;
+  }
+  .website-preview {
+    opacity: 0.3;
+    bottom: 25px;
+  }
+  .landing-preview {
+    bottom: 15px;
+  }
+  .service-card:hover {
+    transform: none;
+  }
+}

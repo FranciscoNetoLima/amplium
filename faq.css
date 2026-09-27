@@ -1,0 +1,106 @@
+.faq-section {
+  background: radial-gradient(ellipse at 85% 15%, #24365a22, transparent 60%), #080b12;
+  border-top: 1px solid #ffffff14;
+}
+.faq-list {
+  border-top: 1px solid #ffffff1a;
+}
+.faq-item {
+  border-bottom: 1px solid #ffffff14;
+  transition: background 0.6s;
+}
+.faq-item.is-open {
+  background: #15243a44;
+}
+.faq-item h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.faq-item button {
+  display: grid;
+  grid-template-columns: 32px 1fr 36px;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 26px 18px;
+  text-align: left;
+  background: none;
+  border: 0;
+  color: #dce5f3;
+  line-height: 1.5;
+}
+.faq-item button:hover {
+  color: #a9cbff;
+}
+.faq-number {
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: #7188aa;
+}
+.faq-toggle {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #7d9bc433;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #90b4eb;
+  transition:
+    transform 0.6s,
+    background 0.6s;
+}
+.faq-item.is-open .faq-toggle {
+  transform: rotate(45deg);
+  background: #3762a233;
+}
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s;
+}
+.faq-item.is-open .faq-answer {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.faq-answer > div {
+  overflow: hidden;
+  min-height: 0;
+}
+.faq-answer p {
+  max-width: 850px;
+  margin: 0;
+  padding: 0 70px 28px;
+  color: #a6b2c6;
+  line-height: 1.75;
+  font-size: 0.9375rem;
+}
+@media (max-width: 800px) {
+  .faq-item h3 {
+    font-size: 1rem;
+  }
+  .faq-item button {
+    padding: 22px 6px;
+    grid-template-columns: 24px 1fr 30px;
+    gap: 12px;
+  }
+  .faq-toggle {
+    width: 28px;
+    height: 28px;
+  }
+  .faq-answer p {
+    padding: 0 42px 24px;
+    font-size: 0.875rem;
+  }
+}
+@media (max-width: 480px) {
+  .faq-answer p {
+    padding-right: 10px;
+  }
+}

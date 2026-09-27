@@ -1,0 +1,105 @@
+.hero-art:before {
+  content: none;
+}
+.hero-symbol {
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 24px 42px #4154cb44);
+}
+.hero-backdrop {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  width: 820px;
+  max-width: 175%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  translate: var(--ribbon-x, 0px) calc(var(--hero-parallax, 0px) + var(--ribbon-y, 0px));
+  pointer-events: none;
+}
+.hero-aura {
+  position: absolute;
+  width: 55%;
+  height: 55%;
+  border-radius: 50%;
+  filter: blur(55px);
+  opacity: 0.25;
+  animation: hero-aura-breathe 12s ease-in-out infinite;
+}
+.hero-aura-blue {
+  left: 4%;
+  top: 28%;
+  background: radial-gradient(ellipse, #237ed6, transparent 70%);
+}
+.hero-aura-violet {
+  right: 0;
+  top: 8%;
+  background: radial-gradient(ellipse, #6e45cf, transparent 70%);
+  animation-delay: -6s;
+}
+.hero-core-glow {
+  position: absolute;
+  inset: 20%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #4d65b51c, transparent 70%);
+}
+@keyframes hero-aura-breathe {
+  50% {
+    transform: translate(12px, -16px) scale(1.12);
+    opacity: 0.38;
+  }
+}
+@media (max-width: 980px) {
+  .hero-art {
+    height: 340px;
+    justify-content: center;
+    overflow: visible;
+  }
+  .hero-backdrop {
+    width: 410px;
+    max-width: 120%;
+  }
+  .hero-symbol {
+    width: 270px;
+  }
+  .hero-aura {
+    filter: blur(35px);
+  }
+}
+.hero-ribbons {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero-ribbons {
+  mask-image:
+    linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent),
+    linear-gradient(transparent, #000 7%, #000 93%, transparent);
+  mask-composite: intersect;
+}
+.hero-symbol-motion {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: min(37vw, 470px);
+  transform: perspective(950px) translate3d(var(--symbol-x, 0px), var(--symbol-y, 0px), 0)
+    rotateX(var(--symbol-rotate-x, 0deg)) rotateY(var(--symbol-rotate-y, 0deg))
+    rotateZ(var(--symbol-roll, 0deg));
+  scale: calc(1 + var(--symbol-energy, 0) * 0.025);
+  transform-origin: center;
+  will-change: transform;
+}
+.hero-symbol-motion .hero-symbol {
+  width: 100%;
+  filter: drop-shadow(0 24px 42px #4154cb44)
+    drop-shadow(0 0 22px rgb(106 127 255 / calc(var(--symbol-energy, 0) * 0.3)));
+  transition: filter 0.6s ease;
+}
+@media (max-width: 980px) {
+  .hero-symbol-motion {
+    width: 270px;
+  }
+}
