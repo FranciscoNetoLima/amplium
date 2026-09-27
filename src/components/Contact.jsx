@@ -146,6 +146,12 @@ export default function Contact() {
     interacted.current = true;
     setReview(true);
   };
+  const stepReady =
+    step === 1
+      ? Boolean(answers.goal)
+      : step === 2
+        ? Boolean(answers.situation)
+        : Boolean(normalizeText(answers.name, 100)) && isValidContact(answers.contact);
   const safeMessage = normalizeText(message, 2400, true);
   const situation = situations[answers.goal];
   const title = review
@@ -360,7 +366,7 @@ export default function Contact() {
             {t(
               review ? (
                 <a
-                  className={`primary${safeMessage ? '' : ' is-disabled'}`}
+                  className={`primary${safeMessage ? ' is-ready' : ' is-disabled'}`}
                   aria-disabled={!safeMessage}
                   tabIndex={safeMessage ? 0 : -1}
                   href={safeMessage ? buildWhatsAppUrl(safeMessage) : undefined}
@@ -370,7 +376,11 @@ export default function Contact() {
                   {t('Conversar no WhatsApp ↗')}
                 </a>
               ) : (
-                <button type="submit" className="primary" disabled={step === 1 && !answers.goal}>
+                <button
+                  type="submit"
+                  className={`primary${stepReady ? ' is-ready' : ''}`}
+                  disabled={step === 1 && !answers.goal}
+                >
                   {t(
                     step === 3
                       ? 'Revisar mensagem →'

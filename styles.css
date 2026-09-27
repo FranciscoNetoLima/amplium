@@ -821,10 +821,27 @@ section[tabindex='-1']:focus {
   font-size: 0.8125rem;
   border: 0;
   cursor: pointer;
+  background: #344052;
+  color: #b7c3d4;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+.brief-wizard-actions > .primary.is-ready {
+  background: #f1f6ff;
+  color: #101725;
+  box-shadow: 0 4px 22px #80aaff18;
+}
+.brief-wizard-actions > .primary.is-ready:hover {
+  background: #ffffff;
+  box-shadow: 0 6px 26px #80aaff30;
 }
 .brief-wizard-actions > .primary:disabled,
 .brief-wizard-actions > .is-disabled {
-  opacity: 0.4;
+  background: #344052;
+  color: #b7c3d4;
   cursor: default;
   transform: none;
   pointer-events: none;
