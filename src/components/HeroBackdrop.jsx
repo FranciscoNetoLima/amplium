@@ -29,6 +29,27 @@ const curves = [
     [645, -65],
   ],
 ];
+const curveSamples = curves.map((points) =>
+  Array.from({ length: 81 }, (_, step) => {
+    const t = step / 80;
+    const segment = t < 0.5 ? 0 : 3;
+    const v = t < 0.5 ? t * 2 : (t - 0.5) * 2;
+    const u = 1 - v;
+    const p = points.slice(segment, segment + 4);
+    return {
+      t,
+      envelope: Math.sin(Math.PI * t),
+      cos5: Math.cos(t * 5),
+      sin4: Math.sin(t * 4 + curves.indexOf(points)),
+      baseX:
+        u ** 3 * p[0][0] + 3 * u * u * v * p[1][0] + 3 * u * v * v * p[2][0] + v ** 3 * p[3][0],
+      baseY:
+        u ** 3 * p[0][1] + 3 * u * u * v * p[1][1] + 3 * u * v * v * p[2][1] + v ** 3 * p[3][1],
+      spread: 0,
+      wave: 0,
+    };
+  }),
+);
 export default function HeroBackdrop() {
   const canvasRef = useRef(null);
   useEffect(() => {
@@ -40,8 +61,10 @@ export default function HeroBackdrop() {
     const symbol = hero.querySelector('.hero-symbol-motion');
     const art = hero.querySelector('.hero-art');
     const symbolPointer = { x: 0, y: 0, energy: 0, tx: 0, ty: 0, targetEnergy: 0 };
-    let frame,
-      previous = 0;
+    let frame = 0;
+    let previous = 0;
+    let active = !document.hidden;
+    const frameInterval = 1000 / 30;
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
     const resize = () => {
       const size = Math.round(canvas.clientWidth * Math.min(devicePixelRatio || 1, 2));
@@ -76,6 +99,12 @@ export default function HeroBackdrop() {
     hero.addEventListener('pointermove', move);
     hero.addEventListener('pointerleave', leave);
     const render = (now) => {
+      frame = 0;
+      if (!active) return;
+      if (previous && now - previous < frameInterval) {
+        frame = requestAnimationFrame(render);
+        return;
+      }
       const ease = 1 - Math.exp(-Math.min(now - (previous || now), 64) / 220);
       previous = now;
       symbolPointer.x += (symbolPointer.tx - symbolPointer.x) * ease;
@@ -98,7 +127,11 @@ export default function HeroBackdrop() {
       ctx.clearRect(0, 0, 640, 640);
       ctx.globalCompositeOperation = 'lighter';
       const time = now / 1000;
-      curves.forEach((points, index) => {
+      curveSamples.forEach((samples, index) => {
+        for (const sample of samples) {
+          sample.spread = 75 + 32 * Math.sin(sample.t * Math.PI * 2 + time * 0.16 + index * 1.7);
+          sample.wave = Math.sin(sample.t * 9 - time * 0.3 + index) * 12 * sample.envelope;
+        }
         const gradient =
           index === 0
             ? ctx.createLinearGradient(-40, 590, 465, 545)
@@ -112,28 +145,14 @@ export default function HeroBackdrop() {
         for (let strand = 0; strand < 64; strand++) {
           const offset = (strand - 31.5) / 31.5;
           ctx.beginPath();
-          for (let step = 0; step <= 80; step++) {
-            const t = step / 80,
-              envelope = Math.sin(Math.PI * t);
-            const segment = t < 0.5 ? 0 : 3,
-              v = t < 0.5 ? t * 2 : (t - 0.5) * 2,
-              u = 1 - v;
-            const p = points.slice(segment, segment + 4);
-            const spread =
-              offset * (75 + 32 * Math.sin(t * Math.PI * 2 + time * 0.16 + index * 1.7));
-            const wave = Math.sin(t * 9 - time * 0.3 + index) * 12 * envelope;
+          for (let step = 0; step < samples.length; step++) {
+            const sample = samples[step];
+            const spread = offset * sample.spread;
+            const wave = sample.wave;
             const x =
-              u ** 3 * p[0][0] +
-              3 * u * u * v * p[1][0] +
-              3 * u * v * v * p[2][0] +
-              v ** 3 * p[3][0] +
-              envelope * (spread + wave + pointer.x * 37 * Math.sin(t * 4 + index));
+              sample.baseX + sample.envelope * (spread + wave + pointer.x * 37 * sample.sin4);
             const y =
-              u ** 3 * p[0][1] +
-              3 * u * u * v * p[1][1] +
-              3 * u * v * v * p[2][1] +
-              v ** 3 * p[3][1] +
-              envelope * (spread * Math.cos(t * 5 + index) + wave + pointer.y * 32);
+              sample.baseY + sample.envelope * (spread * sample.cos5 + wave + pointer.y * 32);
             if (step === 0) ctx.moveTo(x, y);
             else ctx.lineTo(x, y);
           }
@@ -158,10 +177,35 @@ export default function HeroBackdrop() {
       ctx.globalAlpha = 1;
       frame = requestAnimationFrame(render);
     };
-    frame = requestAnimationFrame(render);
+    const schedule = () => {
+      if (active && !frame) frame = requestAnimationFrame(render);
+    };
+    const onVisibility = () => {
+      active = !document.hidden && hero.getBoundingClientRect().bottom > 0;
+      if (active) schedule();
+      else {
+        cancelAnimationFrame(frame);
+        frame = 0;
+        previous = 0;
+      }
+    };
+    const visibility = new IntersectionObserver(([entry]) => {
+      active = entry.isIntersecting && !document.hidden;
+      if (active) schedule();
+      else {
+        cancelAnimationFrame(frame);
+        frame = 0;
+        previous = 0;
+      }
+    });
+    visibility.observe(hero);
+    document.addEventListener('visibilitychange', onVisibility);
+    schedule();
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
+      visibility.disconnect();
+      document.removeEventListener('visibilitychange', onVisibility);
       hero.removeEventListener('pointermove', move);
       hero.removeEventListener('pointerleave', leave);
     };
