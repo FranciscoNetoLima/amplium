@@ -38,6 +38,7 @@ export const technologies = [
       <img
         className="tech-agent-icon"
         src="assets/hermes-agent.svg"
+        loading="lazy"
         width="30"
         height="30"
         alt=""
