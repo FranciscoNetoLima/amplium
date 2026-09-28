@@ -125,9 +125,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-wordmark" aria-hidden="true">
-          <svg viewBox="710 240 1260 205" focusable="false">
-            <image href="assets/amplium-logo-720.webp" width="2170" height="725" />
-          </svg>
+          <img src="assets/amplium-wordmark.webp" width="1260" height="205" alt="" loading="lazy" />
         </div>
       </footer>
     </>

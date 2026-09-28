@@ -211,13 +211,13 @@ export function initializeInteractions() {
       bottom.offsetHeight -
       parseFloat(getComputedStyle(bottom).marginTop);
     const mobile = innerWidth <= 800;
-    const cardLimit = mobile ? (innerHeight <= 680 ? 340 : 400) : 600;
+    const cardLimit = mobile ? (sticky.clientHeight <= 680 ? 340 : 400) : 600;
     solutions.style.setProperty(
       '--solution-card-height',
       `${Math.max(mobile ? 160 : 260, Math.min(cardLimit, available))}px`,
     );
     solutionTravel = Math.max(0, rail.scrollWidth - rail.parentElement.clientWidth);
-    solutionRange = Math.max(solutionTravel, innerHeight * 1.5);
+    solutionRange = Math.max(solutionTravel, sticky.clientHeight * 1.5);
     solutions.style.height = sticky.offsetHeight + solutionRange + 'px';
     renderSolutions();
   };
@@ -240,7 +240,13 @@ export function initializeInteractions() {
     if (card) revealSolution(solutionCards.indexOf(card));
   });
   listen(window, 'scroll', scheduleSolutions, { passive: true });
-  listen(window, 'resize', measureSolutions);
+  let solutionViewportWidth = innerWidth;
+  listen(window, 'resize', () => {
+    if (innerWidth > 800 || innerWidth !== solutionViewportWidth) {
+      solutionViewportWidth = innerWidth;
+      measureSolutions();
+    } else scheduleSolutions();
+  });
   document.fonts.ready.then(() => {
     if (disposed) return;
     fitLoops();
