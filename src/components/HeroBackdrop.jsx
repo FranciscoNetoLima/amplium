@@ -34,8 +34,8 @@ export default function HeroBackdrop() {
   useEffect(() => {
     const compact = window.matchMedia('(max-width: 980px), (pointer: coarse)').matches;
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const strandCount = compact ? 32 : 64;
-    const sampleCount = compact ? 48 : 80;
+    const strandCount = 64;
+    const sampleCount = 80;
     const frameInterval = compact ? 1000 / 30 : 0;
     let active = !document.hidden;
     const canvas = canvasRef.current,
@@ -152,7 +152,7 @@ export default function HeroBackdrop() {
           ctx.stroke();
         }
       });
-      for (let i = 0; i < (compact ? 20 : 36); i++) {
+      for (let i = 0; i < 36; i++) {
         ctx.globalAlpha = 0.12 + (0.22 * (1 + Math.sin(time * 0.7 + i))) / 2;
         ctx.fillStyle = '#92baff';
         ctx.beginPath();
