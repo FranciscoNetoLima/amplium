@@ -38,7 +38,15 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="preload" href="/assets/symbol-1.png" as="image" fetchpriority="high" />
+    <link
+      rel="preload"
+      href="/assets/symbol-1-640.webp"
+      as="image"
+      type="image/webp"
+      imagesrcset="/assets/symbol-1-400.webp 400w, /assets/symbol-1-640.webp 640w"
+      imagesizes="(max-width: 980px) 270px, min(37vw, 470px)"
+      fetchpriority="high"
+    />
     <link rel="stylesheet" href="/fonts.css" />
   </head>
   <body>

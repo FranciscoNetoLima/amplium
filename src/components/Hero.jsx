@@ -34,6 +34,8 @@ export default function Hero() {
               <img
                 className="hero-symbol"
                 src="assets/symbol-1.png"
+                srcSet="assets/symbol-1-400.webp 400w, assets/symbol-1-640.webp 640w"
+                sizes="(max-width: 980px) 270px, min(37vw, 470px)"
                 alt={t('')}
                 width="1254"
                 height="1254"

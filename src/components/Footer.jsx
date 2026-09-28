@@ -10,6 +10,8 @@ export default function Footer() {
               <a className="footer-brand" href="#inicio" aria-label={t('Amplium — início')}>
                 <img
                   src="assets/amplium-logo.png"
+                  srcSet="assets/amplium-logo-360.webp 360w, assets/amplium-logo-720.webp 720w"
+                  sizes="210px"
                   alt={t('Amplium — Technology, Amplified.')}
                   width="2170"
                   height="725"
@@ -124,7 +126,7 @@ export default function Footer() {
         </div>
         <div className="footer-wordmark" aria-hidden="true">
           <svg viewBox="710 240 1260 205" focusable="false">
-            <image href="assets/amplium-logo.png" width="2170" height="725" />
+            <image href="assets/amplium-logo-720.webp" width="2170" height="725" />
           </svg>
         </div>
       </footer>

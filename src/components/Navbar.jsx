@@ -10,6 +10,8 @@ export default function Navbar() {
             <img
               className="brand-logo"
               src="assets/amplium-logo.png"
+              srcSet="assets/amplium-logo-360.webp 360w, assets/amplium-logo-720.webp 720w"
+              sizes="210px"
               alt={t('Amplium — Technology, Amplified.')}
               width="2170"
               height="725"
