@@ -181,12 +181,9 @@ export function initializeInteractions() {
   let solutionTravel = 0;
   let solutionRange = 1;
   let solutionFrame = 0;
-  let activeSolution = -1;
   const renderSolutions = () => {
     solutionFrame = 0;
-    const bounds = solutions.getBoundingClientRect();
-    if (bounds.bottom < 0 || bounds.top > innerHeight) return;
-    const distance = -bounds.top;
+    const distance = -solutions.getBoundingClientRect().top;
     const ratio = Math.max(0, Math.min(1, distance / solutionRange));
     rail.style.transform = 'translate3d(' + -ratio * solutionTravel + 'px,0,0)';
     solutions.style.setProperty('--solution-progress', ratio);
@@ -194,12 +191,8 @@ export function initializeInteractions() {
       solutionCards.length - 1,
       Math.round(ratio * (solutionCards.length - 1)),
     );
-    if (index !== activeSolution) {
-      if (activeSolution >= 0) solutionCards[activeSolution].classList.remove('is-current');
-      solutionCards[index].classList.add('is-current');
-      currentSolution.textContent = String(index + 1).padStart(2, '0');
-      activeSolution = index;
-    }
+    currentSolution.textContent = String(index + 1).padStart(2, '0');
+    solutionCards.forEach((card, i) => card.classList.toggle('is-current', i === index));
   };
   const scheduleSolutions = () => {
     if (!solutionFrame) solutionFrame = requestAnimationFrame(renderSolutions);
@@ -518,7 +511,6 @@ export function initializeInteractions() {
     // Separate layout reads from style writes and preserve hover transforms.
     measurements.forEach(({ element, state, value }) => {
       const difference = value - state.progress;
-      if (Math.abs(difference) <= 0.001 && state.progress === value) return;
       if (Math.abs(difference) > 0.001) {
         state.progress += difference * (1 - Math.exp(-elapsed / 180));
         settling = true;
