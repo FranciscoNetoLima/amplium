@@ -226,7 +226,6 @@ export function initializeInteractions() {
     solutionTravel = Math.max(0, rail.scrollWidth - rail.parentElement.clientWidth);
     solutionRange = Math.max(solutionTravel, innerHeight * 1.5);
     solutions.style.height = sticky.offsetHeight + solutionRange + 'px';
-    activeSolution = -1;
     renderSolutions();
   };
   const revealSolution = (index) => {
