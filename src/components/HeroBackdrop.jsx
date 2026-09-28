@@ -32,12 +32,6 @@ const curves = [
 export default function HeroBackdrop() {
   const canvasRef = useRef(null);
   useEffect(() => {
-    const compact = window.matchMedia('(max-width: 980px), (pointer: coarse)').matches;
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const strandCount = 64;
-    const sampleCount = 80;
-    const frameInterval = compact ? 1000 / 30 : 0;
-    let active = !document.hidden;
     const canvas = canvasRef.current,
       ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -50,9 +44,7 @@ export default function HeroBackdrop() {
       previous = 0;
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
     const resize = () => {
-      const size = Math.round(
-        canvas.clientWidth * Math.min(devicePixelRatio || 1, compact ? 1.25 : 2),
-      );
+      const size = Math.round(canvas.clientWidth * Math.min(devicePixelRatio || 1, 2));
       canvas.width = size;
       canvas.height = size;
     };
@@ -84,8 +76,6 @@ export default function HeroBackdrop() {
     hero.addEventListener('pointermove', move);
     hero.addEventListener('pointerleave', leave);
     const render = (now) => {
-      frame = requestAnimationFrame(render);
-      if (!active || (frameInterval && now - previous < frameInterval)) return;
       const ease = 1 - Math.exp(-Math.min(now - (previous || now), 64) / 220);
       previous = now;
       symbolPointer.x += (symbolPointer.tx - symbolPointer.x) * ease;
@@ -119,11 +109,11 @@ export default function HeroBackdrop() {
         gradient.addColorStop(0.85, index === 0 ? '#246bd9' : '#a078ff');
         gradient.addColorStop(1, '#8c5eff00');
         ctx.strokeStyle = gradient;
-        for (let strand = 0; strand < strandCount; strand++) {
-          const offset = (strand - (strandCount - 1) / 2) / ((strandCount - 1) / 2);
+        for (let strand = 0; strand < 64; strand++) {
+          const offset = (strand - 31.5) / 31.5;
           ctx.beginPath();
-          for (let step = 0; step <= sampleCount; step++) {
-            const t = step / sampleCount,
+          for (let step = 0; step <= 80; step++) {
+            const t = step / 80,
               envelope = Math.sin(Math.PI * t);
             const segment = t < 0.5 ? 0 : 3,
               v = t < 0.5 ? t * 2 : (t - 0.5) * 2,
@@ -166,20 +156,12 @@ export default function HeroBackdrop() {
         ctx.fill();
       }
       ctx.globalAlpha = 1;
+      frame = requestAnimationFrame(render);
     };
-    const onVisibility = () => {
-      active = !document.hidden && !motionQuery.matches;
-      previous = 0;
-    };
-    document.addEventListener('visibilitychange', onVisibility);
-    motionQuery.addEventListener('change', onVisibility);
-    onVisibility();
     frame = requestAnimationFrame(render);
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
-      document.removeEventListener('visibilitychange', onVisibility);
-      motionQuery.removeEventListener('change', onVisibility);
       hero.removeEventListener('pointermove', move);
       hero.removeEventListener('pointerleave', leave);
     };
