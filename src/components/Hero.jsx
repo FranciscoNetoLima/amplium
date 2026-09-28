@@ -31,7 +31,16 @@ export default function Hero() {
           <div className="hero-art" aria-hidden="true">
             <HeroBackdrop />
             <div className="hero-symbol-motion">
-              <img className="hero-symbol" src="assets/symbol-1.png" alt={t('')} />
+              <img
+                className="hero-symbol"
+                src="assets/symbol-1.png"
+                alt={t('')}
+                width="1254"
+                height="1254"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+              />
             </div>
           </div>
         </div>
