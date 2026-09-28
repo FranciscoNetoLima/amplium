@@ -940,7 +940,7 @@
     margin-bottom: 12px;
   }
   .solution-card {
-    grid-template-rows: 116px minmax(0, 1fr);
+    grid-template-rows: 132px minmax(0, 1fr);
   }
   .solution-window,
   .solution-card.is-current .solution-window {
@@ -1030,7 +1030,7 @@
 @media (max-width: 800px) and (max-height: 680px) {
   .solution-window,
   .solution-card.is-current .solution-window {
-    transform: translate(-50%, -50%) scale(0.38) rotate(var(--window-angle));
+    transform: translate(-50%, -50%) scale(0.43) rotate(var(--window-angle));
   }
   .solution-copy {
     padding-top: 10px;
