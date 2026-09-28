@@ -20,7 +20,7 @@ export default function HeroBackdrop() {
     let frame = 0;
     let previous = 0;
     let active = !document.hidden;
-    const frameInterval = 1000 / 30;
+    const frameInterval = worker ? 0 : 1000 / 30;
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
     const resize = () => {
       const size = Math.round(canvas.clientWidth * Math.min(devicePixelRatio || 1, 2));
