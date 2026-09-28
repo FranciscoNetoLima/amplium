@@ -835,7 +835,7 @@
     height: var(--solution-card-height);
     max-height: none;
     grid-template-columns: 1fr;
-    grid-template-rows: clamp(76px, 18svh, 145px) minmax(0, 1fr);
+    grid-template-rows: clamp(138px, 22svh, 176px) minmax(0, 1fr);
   }
   .solution-art {
     min-height: 0;
@@ -847,7 +847,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 270px;
+    width: 300px;
     max-width: none;
     translate: 0 0;
     transform: translate(-50%, -50%) scale(0.42) rotate(-3deg);
@@ -940,7 +940,7 @@
     margin-bottom: 12px;
   }
   .solution-card {
-    grid-template-rows: 76px minmax(0, 1fr);
+    grid-template-rows: 116px minmax(0, 1fr);
   }
   .solution-window,
   .solution-card.is-current .solution-window {
@@ -1000,34 +1000,47 @@
   }
   .solution-window,
   .solution-card.is-current .solution-window {
-    transform: translate(-50%, -50%) scale(0.42) rotate(var(--window-angle));
+    transform: translate(-50%, -50%) scale(0.54) rotate(var(--window-angle));
     transition:
       transform 1.4s cubic-bezier(0.22, 1, 0.36, 1),
       box-shadow 0.8s;
   }
   .solution-copy {
     justify-content: flex-start;
-    padding-top: 22px;
-    padding-bottom: 22px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  .solution-meta {
+    margin-bottom: 6px;
+  }
+  .solution-copy h3 {
+    margin-bottom: 8px;
+  }
+  .solution-copy .solution-mobile-summary {
+    line-height: 1.45;
+  }
+  .solution-details {
+    margin: 2px 0 0;
   }
   .solution-link {
     margin-top: auto;
+    padding-top: 8px;
   }
 }
 @media (max-width: 800px) and (max-height: 680px) {
   .solution-window,
   .solution-card.is-current .solution-window {
-    transform: translate(-50%, -50%) scale(0.23) rotate(var(--window-angle));
+    transform: translate(-50%, -50%) scale(0.38) rotate(var(--window-angle));
   }
   .solution-copy {
-    padding-top: 14px;
-    padding-bottom: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 }
 
 @media (max-width: 800px) {
   .solution-link {
-    margin-top: 16px;
+    margin-top: auto;
   }
 }
 
