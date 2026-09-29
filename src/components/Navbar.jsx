@@ -44,11 +44,17 @@ export default function Navbar() {
               aria-expanded="false"
               aria-label={t('Abrir menu')}
             >
-              ☰
+              <span className="menu-icon menu-icon-open" aria-hidden="true">
+                ☰
+              </span>
+              <span className="menu-icon menu-icon-close" aria-hidden="true">
+                ×
+              </span>
             </button>
           </div>
         </nav>
       </header>
+      <div className="nav-scrim" aria-hidden="true" />
     </>
   );
 }

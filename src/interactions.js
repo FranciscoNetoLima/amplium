@@ -107,15 +107,18 @@ export function initializeInteractions() {
   );
   listen(window, 'resize', updateNav);
   updateNav();
-  const closeMenu = () => {
-    links.classList.remove('open');
-    menu.setAttribute('aria-expanded', 'false');
-    menu.setAttribute('aria-label', t('Abrir menu'));
-  };
-  listen(menu, 'click', () => {
-    const open = links.classList.toggle('open');
+  const scrim = document.querySelector('.nav-scrim');
+  const setMenuOpen = (open) => {
+    links.classList.toggle('open', open);
+    scrim.classList.toggle('is-open', open);
     menu.setAttribute('aria-expanded', String(open));
     menu.setAttribute('aria-label', t(open ? 'Fechar menu' : 'Abrir menu'));
+  };
+  const closeMenu = () => setMenuOpen(false);
+  listen(menu, 'click', () => setMenuOpen(!links.classList.contains('open')));
+  listen(scrim, 'click', closeMenu);
+  listen(window, 'resize', () => {
+    if (innerWidth > 980 && links.classList.contains('open')) closeMenu();
   });
   links.querySelectorAll('a').forEach((link) => listen(link, 'click', closeMenu));
   listen(document, 'keydown', (event) => {
