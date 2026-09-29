@@ -199,14 +199,14 @@ export default function Process() {
         <div>
           <div className="eyebrow">{t('03 / Como trabalhamos')}</div>
           <h2 id="process-heading">
-            {t('Um caminho claro,')}
+            {t('Previsibilidade, método e')}
             <br />
-            {t('da conversa à entrega.')}
+            {t('zero surpresas no percurso.')}
           </h2>
         </div>
         <p>
           {t(
-            'Entendemos sua necessidade, definimos o escopo e avançamos com apresentações, validações e testes. Você sabe o que está sendo feito e participa das decisões em cada etapa.',
+            'Não trabalhamos com palpites. Cada entrega passa por diagnóstico real de negócio, validação estratégica e testes rigorosos antes de ir para o ar, garantindo uma ferramenta pronta para gerar resultados desde o primeiro dia.',
           )}
         </p>
       </div>
