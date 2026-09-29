@@ -133,7 +133,7 @@ a:focus-visible {
   padding: 95px 0;
 }
 .hero h1 {
-  font-size: clamp(3.8rem, 7.4vw, 7.5rem);
+  font-size: clamp(3.572rem, 6.956vw, 7.05rem);
   line-height: 0.94;
   letter-spacing: -0.075em;
   margin: 30px 0 28px;
@@ -436,7 +436,7 @@ section {
     padding: 84px 0 0;
   }
   .hero h1 {
-    font-size: clamp(3.5rem, 12vw, 5.5rem);
+    font-size: clamp(3.29rem, 11.28vw, 5.17rem);
   }
   .hero-art {
     height: 280px;
@@ -503,7 +503,7 @@ section {
 }
 @media (max-width: 400px) {
   .hero h1 {
-    font-size: clamp(3rem, 13vw, 3.5rem);
+    font-size: clamp(2.82rem, 12.22vw, 3.29rem);
   }
   .hero-action {
     gap: 10px;
