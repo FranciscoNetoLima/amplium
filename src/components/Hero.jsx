@@ -16,7 +16,7 @@ export default function Hero() {
             </h1>
             <p>
               {t(
-                'Atraia os clientes certos e ganhe tempo para crescer. Criamos sites, campanhas e automações que valorizam sua marca, facilitam suas vendas e simplificam sua operação.',
+                'Transformamos sua presença digital em oportunidades de negócio. Criamos sites, campanhas e soluções que ajudam você a atrair os clientes certos, destacar o valor da sua empresa e vender mais.',
               )}
             </p>
             <div className="hero-action">

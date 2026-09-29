@@ -20,15 +20,21 @@ try {
   const locale = await server.ssrLoadModule('/src/i18n.js');
   const pt = renderToStaticMarkup(React.createElement(App));
   assert(pt.includes('Atendimento nacional e internacional'));
+  assert(
+    pt.includes(
+      'Transformamos sua presença digital em oportunidades de negócio. Criamos sites, campanhas e soluções que ajudam você a atrair os clientes certos, destacar o valor da sua empresa e vender mais.',
+    ),
+  );
   const footer = pt.slice(pt.indexOf('<footer'), pt.indexOf('</footer>'));
   assert(!footer.includes('href="#captacao"'));
   locale.setLanguage('en');
   const en = renderToStaticMarkup(React.createElement(App));
-  assert(en.includes('Our services.'));
+  assert(en.includes('Solutions to move your business forward.'));
+  assert(en.includes('We turn your digital presence into business opportunities.'));
   assert(en.includes('Serving Brazil and international clients'));
   assert(en.includes('I already have Instagram. Why invest in a website?'));
   assert(en.includes('What would you like to improve?'));
-  assert(!en.includes('Nossos serviços.'));
+  assert(!en.includes('Soluções para seu negócio avançar.'));
   assert(!en.includes('Captação de oportunidades'));
   assert(en.includes('Step 1 of 3'));
   assert.equal(document.documentElement.lang, 'en');
@@ -47,7 +53,7 @@ try {
   locale.setLanguage('pt');
   assert.equal(locale.t(translated), combined);
   const again = renderToStaticMarkup(React.createElement(App));
-  assert(again.includes('Nossos serviços.'));
+  assert(again.includes('Soluções para seu negócio avançar.'));
   assert.equal(document.documentElement.lang, 'pt-BR');
   const dictionary = JSON.parse(fs.readFileSync('src/translations.json', 'utf8'));
   locale.setLanguage('en');

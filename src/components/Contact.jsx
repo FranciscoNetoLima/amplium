@@ -165,10 +165,10 @@ export default function Contact() {
     <section className="closing" id="contato">
       <div className="wrap closing-inner reveal">
         <div className="eyebrow">{t('O próximo passo é seu')}</div>
-        <h2>{t('Vamos ampliar o que seu negócio pode fazer?')}</h2>
+        <h2>{t('Seu próximo cliente precisa encontrar uma boa razão para escolher você.')}</h2>
         <p>
           {t(
-            'Conte o que você precisa melhorar. A Amplium ajuda a definir o caminho e o escopo do projeto.',
+            'Conte seu objetivo para a Amplium. Vamos definir uma solução que faça sentido para o seu negócio.',
           )}
         </p>
         <form className="project-brief brief-wizard" method="post" onSubmit={submit}>
@@ -373,7 +373,7 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {t('Conversar no WhatsApp ↗')}
+                  {t('Conversar sobre meu projeto ↗')}
                 </a>
               ) : (
                 <button

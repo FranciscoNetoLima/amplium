@@ -25,12 +25,8 @@ export default function Solutions() {
           <div className="wrap solutions-header">
             <div>
               <div className="eyebrow">{t('02 / Soluções')}</div>
-              <h2 id="solutions-heading">{t('Da ideia à solução.')}</h2>
-              <p>
-                {t(
-                  'Comece pelo que precisa melhorar. Combinamos serviços em um caminho para o seu negócio.',
-                )}
-              </p>
+              <h2 id="solutions-heading">{t('Comece pelo que seu negócio precisa resolver.')}</h2>
+              <p>{t('Escolha seu objetivo. Nós combinamos as soluções para chegar lá.')}</p>
             </div>
             <div className="solutions-counter" aria-hidden="true">
               <span id="solution-current">01</span>
@@ -99,15 +95,15 @@ export default function Solutions() {
                     <span>{t('01 / Conquistar confiança')}</span>
                     <span>{t('Plano integrado')}</span>
                   </div>
-                  <h3>{t('Transforme visitas em boas conversas.')}</h3>
+                  <h3>{t('Mostre por que escolher sua empresa.')}</h3>
                   <p className="solution-description">
                     <strong>{t('Seu cliente chega, mas não entende seu diferencial?')}</strong>
                     {t(
-                      ' Organizamos a apresentação da empresa, os argumentos e as respostas às dúvidas em um site com um caminho direto para o atendimento.',
+                      ' Apresente seus diferenciais em um site que responde às dúvidas do cliente e facilita o contato.',
                     )}
                   </p>
                   <p className="solution-mobile-summary">
-                    {t('Apresente seus diferenciais e facilite o contato com sua equipe.')}
+                    {t('Um site que valoriza sua empresa desde a primeira visita.')}
                   </p>
                   <button type="button" className="solution-details" onClick={showDetail}>
                     {t('Ver detalhes ')}
@@ -177,15 +173,15 @@ export default function Solutions() {
                     <span>{t('02 / Gerar oportunidades')}</span>
                     <span>{t('Plano integrado')}</span>
                   </div>
-                  <h3>{t('Conecte divulgação e venda.')}</h3>
+                  <h3>{t('Transforme divulgação em conversas.')}</h3>
                   <p className="solution-description">
                     <strong>{t('Sua oferta precisa chegar a novos clientes?')}</strong>
                     {t(
-                      ' Unimos anúncios, uma página focada e registro dos contatos no CRM. Sua equipe acompanha o caminho da campanha até a conversa e o orçamento.',
+                      ' Conecte anúncios, uma oferta clara e CRM para acompanhar os contatos recebidos.',
                     )}
                   </p>
                   <p className="solution-mobile-summary">
-                    {t('Conecte anúncios, landing page e CRM para acompanhar cada oportunidade.')}
+                    {t('Saiba de onde vêm os interessados na sua oferta.')}
                   </p>
                   <button type="button" className="solution-details" onClick={showDetail}>
                     {t('Ver detalhes ')}
@@ -255,15 +251,15 @@ export default function Solutions() {
                     <span>{t('03 / Facilitar a compra')}</span>
                     <span>{t('Plano integrado')}</span>
                   </div>
-                  <h3>{t('Uma jornada de compra completa.')}</h3>
+                  <h3>{t('Deixe a compra mais simples.')}</h3>
                   <p className="solution-description">
                     <strong>{t('Vender depende de trocar muitas mensagens?')}</strong>
                     {t(
-                      ' Conectamos catálogo, pagamento e acompanhamento do pedido. O cliente encontra as informações para comprar, e sua equipe mantém o atendimento próximo quando ele precisa de ajuda.',
+                      ' Reúna produtos, pagamento e pedidos em uma experiência prática para o cliente.',
                     )}
                   </p>
                   <p className="solution-mobile-summary">
-                    {t('Integre catálogo, pagamentos e pedidos para facilitar a compra.')}
+                    {t('Menos obstáculos entre a escolha e o pedido.')}
                   </p>
                   <button type="button" className="solution-details" onClick={showDetail}>
                     {t('Ver detalhes ')}
@@ -333,15 +329,15 @@ export default function Solutions() {
                     <span>{t('04 / Acompanhar negociações')}</span>
                     <span>{t('Plano integrado')}</span>
                   </div>
-                  <h3>{t('Dê continuidade a cada contato.')}</h3>
+                  <h3>{t('Não perca o próximo contato.')}</h3>
                   <p className="solution-description">
                     <strong>{t('Propostas e retornos ficam esquecidos?')}</strong>
                     {t(
-                      ' Reunimos histórico, responsáveis e etapas da negociação em um CRM com lembretes e rotinas de acompanhamento. Cada oportunidade ganha um próximo passo claro para a equipe.',
+                      ' Organize propostas, histórico e retornos para dar continuidade a cada oportunidade.',
                     )}
                   </p>
                   <p className="solution-mobile-summary">
-                    {t('Organize contatos, propostas e retornos com CRM e lembretes.')}
+                    {t('Cada negociação com um próximo passo definido.')}
                   </p>
                   <button type="button" className="solution-details" onClick={showDetail}>
                     {t('Ver detalhes ')}
@@ -411,15 +407,15 @@ export default function Solutions() {
                     <span>{t('05 / Agilizar o atendimento')}</span>
                     <span>{t('Plano integrado')}</span>
                   </div>
-                  <h3>{t('Respostas ágeis. Pessoas por perto.')}</h3>
+                  <h3>{t('Responda mais rápido, com contexto.')}</h3>
                   <p className="solution-description">
                     <strong>{t('Perguntas repetidas ocupam o dia da equipe?')}</strong>
                     {t(
-                      ' Estruturamos respostas, triagem e registro dos pedidos com automação e IA. Os casos que precisam de atenção seguem para uma pessoa, com o contexto da conversa.',
+                      ' Automatize perguntas frequentes e encaminhe à equipe o que precisa de atenção humana.',
                     )}
                   </p>
                   <p className="solution-mobile-summary">
-                    {t('Automatize perguntas e triagens, com sua equipe por perto.')}
+                    {t('Atendimento ágil sem perder a proximidade.')}
                   </p>
                   <button type="button" className="solution-details" onClick={showDetail}>
                     {t('Ver detalhes ')}
@@ -489,15 +485,15 @@ export default function Solutions() {
                     <span>{t('06 / Simplificar a operação')}</span>
                     <span>{t('Plano integrado')}</span>
                   </div>
-                  <h3>{t('Menos retrabalho entre ferramentas.')}</h3>
+                  <h3>{t('Menos trabalho repetido para sua equipe.')}</h3>
                   <p className="solution-description">
                     <strong>{t('Sua equipe copia os mesmos dados em vários lugares?')}</strong>
                     {t(
-                      ' Mapeamos o processo e conectamos sistemas, formulários e rotinas internas. As informações circulam entre as ferramentas, com uma visão organizada do que precisa ser feito.',
+                      ' Conecte ferramentas e organize processos que hoje dependem de tarefas manuais.',
                     )}
                   </p>
                   <p className="solution-mobile-summary">
-                    {t('Conecte sistemas e rotinas para reduzir o trabalho repetido.')}
+                    {t('Sua operação flui melhor com sistemas conectados.')}
                   </p>
                   <button type="button" className="solution-details" onClick={showDetail}>
                     {t('Ver detalhes ')}
@@ -567,15 +563,15 @@ export default function Solutions() {
                     <span>{t('07 / Decidir com clareza')}</span>
                     <span>{t('Plano integrado')}</span>
                   </div>
-                  <h3>{t('Enxergue o caminho dos resultados.')}</h3>
+                  <h3>{t('Saiba o que está funcionando.')}</h3>
                   <p className="solution-description">
                     <strong>{t('Os números estão espalhados e difíceis de comparar?')}</strong>
                     {t(
-                      ' Reunimos dados de campanhas, contatos e vendas em uma visão comum. Indicadores definidos para seu negócio ajudam a identificar gargalos e orientar os próximos ajustes.',
+                      ' Reúna dados de campanhas, contatos e vendas para identificar onde melhorar.',
                     )}
                   </p>
                   <p className="solution-mobile-summary">
-                    {t('Reúna campanhas, contatos e vendas em indicadores claros.')}
+                    {t('Decisões melhores começam com indicadores claros.')}
                   </p>
                   <button type="button" className="solution-details" onClick={showDetail}>
                     {t('Ver detalhes ')}

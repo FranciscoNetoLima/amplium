@@ -3,26 +3,22 @@ import { technologies } from './TechnologyIcons.jsx';
 const steps = [
   {
     title: 'Diagnóstico e planejamento',
-    description:
-      'Entendemos seu negócio e definimos as prioridades, o escopo e o cronograma do projeto.',
+    description: 'Entendemos seu negócio e definimos prioridades, escopo e prazo.',
     label: 'Entender',
   },
   {
     title: 'Design e validação',
-    description:
-      'Organizamos o conteúdo e apresentamos o visual para sua aprovação antes de desenvolver.',
+    description: 'Você vê e aprova a proposta visual antes do desenvolvimento.',
     label: 'Validar',
   },
   {
     title: 'Desenvolvimento e testes',
-    description:
-      'Construímos a solução e testamos os principais fluxos em diferentes tamanhos de tela.',
+    description: 'Construímos a solução e testamos os caminhos essenciais.',
     label: 'Construir',
   },
   {
     title: 'Publicação e continuidade',
-    description:
-      'Preparamos a publicação e orientamos o uso da solução. As condições de suporte, manutenção e evolução são definidas na proposta.',
+    description: 'Colocamos o projeto no ar e orientamos sua equipe sobre o uso.',
     label: 'Entregar',
   },
 ];
@@ -199,14 +195,14 @@ export default function Process() {
         <div>
           <div className="eyebrow">{t('03 / Como trabalhamos')}</div>
           <h2 id="process-heading">
-            {t('Um caminho claro,')}
+            {t('Clareza do primeiro')}
             <br />
-            {t('da conversa à entrega.')}
+            {t('contato à entrega.')}
           </h2>
         </div>
         <p>
           {t(
-            'Entendemos sua necessidade, definimos o escopo e avançamos com apresentações, validações e testes. Você sabe o que está sendo feito e participa das decisões em cada etapa.',
+            'Entendemos seu objetivo, apresentamos a solução, validamos com você e colocamos o projeto em funcionamento.',
           )}
         </p>
       </div>

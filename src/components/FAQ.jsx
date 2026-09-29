@@ -4,32 +4,31 @@ const questions = [
   {
     question: 'Já tenho Instagram. Por que investir em um site?',
     answer:
-      'O Instagram ajuda na divulgação e no relacionamento com o público. O site oferece um espaço próprio para organizar seus serviços, diferenciais, projetos, dúvidas e formas de contato. Assim, quem procura sua empresa consegue entender melhor o que você oferece antes de pedir um orçamento.',
+      'O Instagram ajuda as pessoas a descobrir sua marca. No site, elas encontram seus serviços, diferenciais e formas de contato em um só lugar.',
   },
   {
     question: 'Como saber se preciso de um site ou de uma landing page?',
     answer:
-      'O site é indicado para apresentar a empresa, seus serviços e diferentes informações em uma estrutura completa. A landing page concentra uma oferta e uma ação específica, como solicitar orçamento, realizar um cadastro ou comprar. A escolha depende do seu objetivo e de como as pessoas chegarão até a página.',
+      'O site apresenta sua empresa de forma completa. A landing page concentra uma oferta e conduz o visitante a uma ação específica.',
   },
   {
     question: 'Como sistemas, CRM e automações podem ajudar minha empresa?',
     answer:
-      'Um CRM organiza contatos e negociações. Sistemas centralizam informações e processos, enquanto automações e IA ajudam em tarefas repetitivas e no atendimento. Primeiro entendemos sua rotina para definir o que faz sentido conectar ou desenvolver.',
+      'O CRM organiza contatos e negociações. As automações reduzem tarefas repetitivas e ajudam sua equipe a acompanhar cada oportunidade.',
   },
   {
     question: 'Vocês também cuidam dos anúncios e da captação de clientes?',
     answer:
-      'Sim. Podemos combinar tráfego pago, landing page e acompanhamento dos contatos no CRM. Assim, sua equipe acompanha as oportunidades até a negociação. A verba de anúncios é definida separadamente e paga à plataforma utilizada.',
+      'Sim. Podemos conectar anúncios, landing page e CRM para acompanhar os contatos gerados. A verba dos anúncios é definida à parte.',
   },
   {
     question: 'Quanto custa e quanto tempo leva para desenvolver um projeto?',
     answer:
-      'O valor e o prazo dependem das páginas, funcionalidades, integrações e materiais necessários. Após entender sua necessidade, apresentamos uma proposta com escopo, cronograma, investimento e condições de pagamento.',
+      'Depende do escopo. Após entender seu projeto, apresentamos proposta com investimento, prazo e entregas.',
   },
   {
     question: 'Posso atualizar o projeto e contar com suporte depois da entrega?',
-    answer:
-      'Quando o projeto inclui recursos de edição, orientamos sua equipe sobre como atualizar os conteúdos previstos. Suporte, manutenção, hospedagem e novas funcionalidades seguem as condições definidas na proposta.',
+    answer: 'As condições de suporte, manutenção e futuras melhorias são definidas na proposta.',
   },
 ];
 export default function FAQ() {
@@ -41,13 +40,9 @@ export default function FAQ() {
         <div className="section-head reveal">
           <div>
             <div className="eyebrow">{t('04 / Dúvidas frequentes')}</div>
-            <h2 id="faq-heading">{t('Antes do próximo passo.')}</h2>
+            <h2 id="faq-heading">{t('O que você precisa saber para começar.')}</h2>
           </div>
-          <p>
-            {t(
-              'Respostas para ajudar você a escolher a solução e entender como começamos seu projeto.',
-            )}
-          </p>
+          <p>{t('Respostas diretas para escolher a solução certa.')}</p>
         </div>
         <div className="faq-list reveal">
           {t(
