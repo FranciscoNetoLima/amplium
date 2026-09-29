@@ -20,9 +20,6 @@ export default function LanguageSwitch() {
         >
           PT
         </button>
-        <span className="language-divider" aria-hidden="true">
-          /
-        </span>
         <button
           type="button"
           lang="en"

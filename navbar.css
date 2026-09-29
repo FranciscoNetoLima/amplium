@@ -236,9 +236,6 @@ section {
     width: 34px;
     height: 34px;
   }
-  .language-switch {
-    font-size: 10px;
-  }
 }
 
 @media (min-width: 981px) and (max-width: 1200px) {
@@ -253,43 +250,40 @@ section {
   display: flex;
   align-items: center;
   gap: 2px;
-}
-.language-divider {
-  color: #596476;
-  font-size: 12px;
+  padding: 3px;
+  border: 1px solid #ffffff14;
+  border-radius: 8px;
+  background: #ffffff05;
 }
 .language-switch button {
-  position: relative;
-  border: 0;
-  border-radius: 4px;
-  padding: 0 4px;
-  min-height: 36px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 0 6px;
+  min-height: 29px;
+  min-width: 34px;
   display: grid;
   place-items: center;
   font: inherit;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   line-height: 1;
-  color: #8994a6;
+  color: #9aa4b5;
   background: transparent;
   cursor: pointer;
-  transition: color 0.2s;
+  transition:
+    color 0.2s,
+    background 0.2s,
+    border-color 0.2s;
 }
 .language-switch button:hover {
-  color: #e0eaff;
+  color: #f3f7ff;
+  background: #ffffff0a;
 }
 .language-switch button[aria-pressed='true'] {
   color: #f3f7ff;
-}
-.language-switch button[aria-pressed='true']::after {
-  content: '';
-  position: absolute;
-  left: 4px;
-  right: 4px;
-  bottom: 3px;
-  height: 1px;
-  background: currentColor;
+  border-color: #ffffff1c;
+  background: #ffffff14;
 }
 .language-switch button:focus-visible {
   outline: 2px solid #91b5ff;
