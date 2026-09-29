@@ -108,12 +108,40 @@ export function initializeInteractions() {
   listen(window, 'resize', updateNav);
   updateNav();
   const scrim = document.querySelector('.nav-scrim');
+  let lockedScrollY = null;
+  let previousBodyStyles;
+  const unlockPage = () => {
+    if (lockedScrollY === null) return;
+    const scrollPosition = lockedScrollY;
+    lockedScrollY = null;
+    Object.assign(document.body.style, previousBodyStyles);
+    window.scrollTo({ top: scrollPosition, behavior: 'instant' });
+  };
   const setMenuOpen = (open) => {
+    if (open && lockedScrollY === null && innerWidth <= 980) {
+      stopScroll();
+      lockedScrollY = scrollY;
+      previousBodyStyles = {
+        position: document.body.style.position,
+        top: document.body.style.top,
+        left: document.body.style.left,
+        right: document.body.style.right,
+        width: document.body.style.width,
+      };
+      Object.assign(document.body.style, {
+        position: 'fixed',
+        top: `-${lockedScrollY}px`,
+        left: '0',
+        right: '0',
+        width: '100%',
+      });
+    } else if (!open) unlockPage();
     links.classList.toggle('open', open);
     scrim.classList.toggle('is-open', open);
     menu.setAttribute('aria-expanded', String(open));
     menu.setAttribute('aria-label', t(open ? 'Fechar menu' : 'Abrir menu'));
   };
+  restores.push(unlockPage);
   const closeMenu = () => setMenuOpen(false);
   listen(menu, 'click', () => setMenuOpen(!links.classList.contains('open')));
   listen(scrim, 'click', closeMenu);
@@ -610,6 +638,10 @@ export function initializeInteractions() {
     window,
     'wheel',
     (event) => {
+      if (lockedScrollY !== null) {
+        event.preventDefault();
+        return;
+      }
       if (
         event.ctrlKey ||
         event.metaKey ||
@@ -626,6 +658,7 @@ export function initializeInteractions() {
     { passive: false },
   );
   listen(document, 'keydown', (event) => {
+    if (lockedScrollY !== null) return;
     if (
       event.defaultPrevented ||
       event.ctrlKey ||

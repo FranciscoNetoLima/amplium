@@ -358,9 +358,9 @@ section {
     position: fixed;
     inset: 0;
     z-index: 99;
-    background: #04091294;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: #040912b8;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
