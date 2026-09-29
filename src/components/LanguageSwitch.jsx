@@ -9,20 +9,7 @@ export default function LanguageSwitch() {
       aria-label={t('Idioma do site')}
       data-language={language}
     >
-      <svg
-        className="language-globe"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        aria-hidden="true"
-      >
-        <circle cx="12" cy="12" r="9" />
-        <ellipse cx="12" cy="12" rx="4" ry="9" />
-        <path d="M3 12h18M5 6.5h14M5 17.5h14" />
-      </svg>
       <div className="language-options">
-        <span className="language-indicator" aria-hidden="true" />
         <button
           type="button"
           lang="pt-BR"
@@ -33,6 +20,9 @@ export default function LanguageSwitch() {
         >
           PT
         </button>
+        <span className="language-divider" aria-hidden="true">
+          /
+        </span>
         <button
           type="button"
           lang="en"
