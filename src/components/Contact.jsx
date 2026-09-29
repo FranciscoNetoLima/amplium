@@ -165,10 +165,10 @@ export default function Contact() {
     <section className="closing" id="contato">
       <div className="wrap closing-inner reveal">
         <div className="eyebrow">{t('O próximo passo é seu')}</div>
-        <h2>{t('Pronto para dar o próximo passo na estrutura digital da sua empresa?')}</h2>
+        <h2>{t('Vamos ampliar o que seu negócio pode fazer?')}</h2>
         <p>
           {t(
-            'Selecione abaixo o principal desafio do seu negócio neste momento e vamos desenhar a solução ideal para a sua realidade.',
+            'Conte o que você precisa melhorar. A Amplium ajuda a definir o caminho e o escopo do projeto.',
           )}
         </p>
         <form className="project-brief brief-wizard" method="post" onSubmit={submit}>

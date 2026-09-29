@@ -8,23 +8,23 @@ export default function Hero() {
         <div className="wrap hero-grid">
           <div className="hero-copy">
             <h1>
-              {t('Tecnologia que transforma')}
+              {t('Tecnologia')}
               <br />
-              {t(' a presença da sua empresa ')}
-              <em>{t('em')}</em>
-              <br /> <span className="hero-condensed">{t('faturamento.')}</span>
+              {t(' que ')}
+              <em>{t('amplia')}</em>
+              <br /> <span className="hero-condensed">{t('o seu negócio.')}</span>
             </h1>
             <p>
               {t(
-                'Criamos ecossistemas digitais de alta conversão. Sites que geram autoridade imediata, automações que poupam horas da sua equipe e tráfego qualificado para fechar negócios com previsibilidade.',
+                'Atraia os clientes certos e ganhe tempo para crescer. Criamos sites, campanhas e automações que valorizam sua marca, facilitam suas vendas e simplificam sua operação.',
               )}
             </p>
             <div className="hero-action">
               <a className="primary" href="#contato">
-                {t('Quero estruturar o meu negócio')}
+                {t('Vamos conversar ↗')}
               </a>
               <a className="plain-link" href="#solucoes">
-                {t('Ver soluções práticas ↓')}
+                {t('Conheça as soluções ↓')}
               </a>
             </div>
           </div>
