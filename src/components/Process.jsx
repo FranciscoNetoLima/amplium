@@ -3,22 +3,26 @@ import { technologies } from './TechnologyIcons.jsx';
 const steps = [
   {
     title: 'Diagnóstico e planejamento',
-    description: 'Entendemos seu negócio e definimos prioridades, escopo e prazo.',
+    description:
+      'Entendemos seu negócio e definimos as prioridades, o escopo e o cronograma do projeto.',
     label: 'Entender',
   },
   {
     title: 'Design e validação',
-    description: 'Você vê e aprova a proposta visual antes do desenvolvimento.',
+    description:
+      'Organizamos o conteúdo e apresentamos o visual para sua aprovação antes de desenvolver.',
     label: 'Validar',
   },
   {
     title: 'Desenvolvimento e testes',
-    description: 'Construímos a solução e testamos os caminhos essenciais.',
+    description:
+      'Construímos a solução e testamos os principais fluxos em diferentes tamanhos de tela.',
     label: 'Construir',
   },
   {
     title: 'Publicação e continuidade',
-    description: 'Colocamos o projeto no ar e orientamos sua equipe sobre o uso.',
+    description:
+      'Preparamos a publicação e orientamos o uso da solução. As condições de suporte, manutenção e evolução são definidas na proposta.',
     label: 'Entregar',
   },
 ];
