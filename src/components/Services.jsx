@@ -18,12 +18,12 @@ export default function Services() {
           </p>
         </div>
         <div className="services-grid">
-          <article className="service-card service-card--sites reveal">
+          <article id="servico-sites" className="service-card service-card--sites reveal">
             <span className="service-number">01 //</span>
             <h3>{t('Sites')}</h3>
             <p>
               {t(
-                'Mostre o valor da sua empresa e facilite o contato de quem já procura pelo que você oferece.',
+                'Apresente seus diferenciais, responda às dúvidas do cliente e facilite o contato de quem procura o que sua empresa oferece.',
               )}
             </p>
             <div className="service-visual website-preview" aria-hidden="true">
@@ -55,13 +55,17 @@ export default function Services() {
                 </div>
               </div>
             </div>
-            <span className="service-caption">{t('Presença digital com identidade')}</span>
+            <span className="service-caption">
+              {t('Informações claras para escolher com confiança')}
+            </span>
           </article>
-          <article className="service-card service-card--landing reveal">
+          <article id="servico-landing-pages" className="service-card service-card--landing reveal">
             <span className="service-number">02 //</span>
             <h3>{t('Landing pages')}</h3>
             <p>
-              {t('Dê à sua oferta uma página clara, feita para transformar interesse em contatos.')}
+              {t(
+                'Dê aos seus anúncios um destino claro: uma página que apresenta sua oferta e conduz o visitante ao pedido de orçamento ou à compra.',
+              )}
             </p>
             <div className="service-visual landing-preview" aria-hidden="true">
               <div className="landing-line"></div>
@@ -69,13 +73,15 @@ export default function Services() {
               <div className="landing-cta">{t('Vamos conversar ↗')}</div>
               <div className="landing-orbit"></div>
             </div>
-            <span className="service-caption">{t('Da oferta ao próximo passo')}</span>
+            <span className="service-caption">{t('Uma oferta, um próximo passo')}</span>
           </article>
-          <article className="service-card service-card--commerce reveal">
+          <article id="servico-e-commerce" className="service-card service-card--commerce reveal">
             <span className="service-number">03 //</span>
             <h3>{t('E-commerce')}</h3>
             <p>
-              {t('Deixe seus produtos fáceis de encontrar e a compra mais simples de concluir.')}
+              {t(
+                'Permita que seus clientes escolham produtos, paguem e façam pedidos sem depender de uma troca de mensagens a cada compra.',
+              )}
             </p>
             <div className="service-visual commerce-preview" aria-hidden="true">
               <div>
@@ -94,13 +100,17 @@ export default function Services() {
                 <b></b>
               </div>
             </div>
-            <span className="service-caption">{t('Sua loja, online')}</span>
+            <span className="service-caption">
+              {t('Produtos, pagamentos e pedidos conectados')}
+            </span>
           </article>
-          <article className="service-card service-card--crm reveal">
+          <article id="servico-aplicacoes-crm" className="service-card service-card--crm reveal">
             <span className="service-number">04 //</span>
-            <h3>{t('Sistemas & CRM')}</h3>
+            <h3>{t('Aplicações e CRM')}</h3>
             <p>
-              {t('Organize contatos e negociações para sua equipe saber qual é o próximo passo.')}
+              {t(
+                'Centralize contatos, propostas e rotinas em aplicações sob medida e CRM. Dê continuidade a cada oportunidade e simplifique a operação.',
+              )}
             </p>
             <div className="service-visual crm-preview" aria-hidden="true">
               <div>
@@ -119,13 +129,20 @@ export default function Services() {
                 <span></span>
               </div>
             </div>
-            <span className="service-caption">{t('Uma operação mais organizada')}</span>
+            <span className="service-caption">
+              {t('Histórico e próximas ações em um só lugar')}
+            </span>
           </article>
-          <article className="service-card service-card--automation reveal">
+          <article
+            id="servico-automacoes-ia"
+            className="service-card service-card--automation reveal"
+          >
             <span className="service-number">05 //</span>
-            <h3>{t('Automações & IA')}</h3>
+            <h3>{t('Automações e IA')}</h3>
             <p>
-              {t('Reduza tarefas repetitivas e libere tempo para atender melhor seus clientes.')}
+              {t(
+                'Reduza tarefas repetitivas e agilize respostas, para sua equipe dedicar mais atenção aos clientes e às atividades que fazem o negócio avançar.',
+              )}
             </p>
             <div className="service-visual automation-preview" aria-hidden="true">
               <span>{t('Entrada')}</span>
@@ -134,13 +151,17 @@ export default function Services() {
               <i></i>
               <span>{t('Ação')}</span>
             </div>
-            <span className="service-caption">{t('Ferramentas que trabalham juntas')}</span>
+            <span className="service-caption">
+              {t('Mais tempo para o que precisa da sua equipe')}
+            </span>
           </article>
-          <article className="service-card service-card--ads reveal">
+          <article id="servico-trafego-pago" className="service-card service-card--ads reveal">
             <span className="service-number">06 //</span>
             <h3>{t('Tráfego pago')}</h3>
             <p>
-              {t('Apresente sua oferta ao público certo e acompanhe as oportunidades geradas.')}
+              {t(
+                'Leve sua oferta a potenciais clientes e acompanhe os contatos gerados para orientar as próximas decisões da campanha.',
+              )}
             </p>
             <div className="service-visual ads-preview" aria-hidden="true">
               <span></span>
@@ -150,7 +171,9 @@ export default function Services() {
               <span></span>
               <span></span>
             </div>
-            <span className="service-caption">{t('Sua oferta encontra seu público')}</span>
+            <span className="service-caption">
+              {t('Campanhas orientadas pelos contatos gerados')}
+            </span>
           </article>
         </div>
         <article id="captacao" className="capture-card reveal" aria-labelledby="capture-heading">
@@ -160,7 +183,7 @@ export default function Services() {
             <h3 id="capture-heading">{t('Da divulgação à negociação.')}</h3>
             <p className="capture-description">
               {t(
-                'Unimos anúncios, landing page e CRM para você atrair interessados e acompanhar cada oportunidade até a conversa com sua equipe.',
+                'Anúncios, landing page e CRM conectados ajudam a acompanhar o caminho entre divulgação, contato e negociação. Sua equipe recebe o histórico para dar continuidade a cada oportunidade.',
               )}
             </p>
             <a

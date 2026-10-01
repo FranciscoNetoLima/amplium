@@ -7,12 +7,11 @@ export default function Hero() {
       <section className="hero" id="inicio">
         <div className="wrap hero-grid">
           <div className="hero-copy">
-            <h1>
-              {t('Tecnologia')}
+            <h1 className="hero-benefits-title">
+              {t('Mais clientes,')}
               <br />
-              {t(' que ')}
-              <em>{t('amplia')}</em>
-              <br /> <span className="hero-condensed">{t('o seu negócio.')}</span>
+              <em>{t(' mais vendas e')}</em>
+              <br /> <span className="hero-condensed">{t(' menos trabalho manual.')}</span>
             </h1>
             <p>
               {t(
@@ -21,7 +20,7 @@ export default function Hero() {
             </p>
             <div className="hero-action">
               <a className="primary" href="#contato">
-                {t('Vamos conversar ↗')}
+                {t('Conte seu projeto')}
               </a>
               <a className="plain-link" href="#solucoes">
                 {t('Conheça as soluções ↓')}

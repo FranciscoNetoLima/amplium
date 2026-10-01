@@ -99,7 +99,7 @@ export default function Solutions() {
                   <p className="solution-description">
                     <strong>{t('Seu cliente chega, mas não entende seu diferencial?')}</strong>
                     {t(
-                      ' Apresente seus diferenciais em um site que responde às dúvidas do cliente e facilita o contato.',
+                      ' Isso dificulta a avaliação da empresa. Reúna serviços, diferenciais e respostas em um site com um caminho claro para o contato.',
                     )}
                   </p>
                   <p className="solution-mobile-summary">
@@ -175,13 +175,13 @@ export default function Solutions() {
                   </div>
                   <h3>{t('Transforme divulgação em conversas.')}</h3>
                   <p className="solution-description">
-                    <strong>{t('Sua oferta precisa chegar a novos clientes?')}</strong>
+                    <strong>{t('Sua divulgação gera interesse, mas o contato se perde?')}</strong>
                     {t(
-                      ' Conecte anúncios, uma oferta clara e CRM para acompanhar os contatos recebidos.',
+                      ' Conecte anúncios, landing page e CRM para acompanhar o caminho entre divulgação, contato e negociação.',
                     )}
                   </p>
                   <p className="solution-mobile-summary">
-                    {t('Saiba de onde vêm os interessados na sua oferta.')}
+                    {t('Anúncios, landing page e CRM conectam o interesse à negociação.')}
                   </p>
                   <button type="button" className="solution-details" onClick={showDetail}>
                     {t('Ver detalhes ')}
@@ -255,7 +255,7 @@ export default function Solutions() {
                   <p className="solution-description">
                     <strong>{t('Vender depende de trocar muitas mensagens?')}</strong>
                     {t(
-                      ' Reúna produtos, pagamento e pedidos em uma experiência prática para o cliente.',
+                      ' Essa espera pode dificultar a compra. Reúna produtos, pagamento e pedidos para o cliente escolher e comprar com mais facilidade.',
                     )}
                   </p>
                   <p className="solution-mobile-summary">
@@ -331,9 +331,11 @@ export default function Solutions() {
                   </div>
                   <h3>{t('Não perca o próximo contato.')}</h3>
                   <p className="solution-description">
-                    <strong>{t('Propostas e retornos ficam esquecidos?')}</strong>
+                    <strong>
+                      {t('Propostas e retornos esquecidos podem interromper uma negociação.')}
+                    </strong>
                     {t(
-                      ' Organize propostas, histórico e retornos para dar continuidade a cada oportunidade.',
+                      ' Centralize o histórico, organize os próximos contatos e acompanhe cada oportunidade até a decisão do cliente.',
                     )}
                   </p>
                   <p className="solution-mobile-summary">
@@ -411,7 +413,7 @@ export default function Solutions() {
                   <p className="solution-description">
                     <strong>{t('Perguntas repetidas ocupam o dia da equipe?')}</strong>
                     {t(
-                      ' Automatize perguntas frequentes e encaminhe à equipe o que precisa de atenção humana.',
+                      ' O cliente espera enquanto a equipe repete respostas. Automatize dúvidas frequentes e encaminhe os casos que precisam de atenção humana com o contexto do contato.',
                     )}
                   </p>
                   <p className="solution-mobile-summary">
@@ -487,9 +489,13 @@ export default function Solutions() {
                   </div>
                   <h3>{t('Menos trabalho repetido para sua equipe.')}</h3>
                   <p className="solution-description">
-                    <strong>{t('Sua equipe copia os mesmos dados em vários lugares?')}</strong>
+                    <strong>
+                      {t(
+                        'Copiar os mesmos dados em ferramentas diferentes ocupa tempo e aumenta a chance de erro.',
+                      )}
+                    </strong>
                     {t(
-                      ' Conecte ferramentas e organize processos que hoje dependem de tarefas manuais.',
+                      ' Integre sistemas e automatize rotinas para simplificar o trabalho da equipe.',
                     )}
                   </p>
                   <p className="solution-mobile-summary">
@@ -567,7 +573,7 @@ export default function Solutions() {
                   <p className="solution-description">
                     <strong>{t('Os números estão espalhados e difíceis de comparar?')}</strong>
                     {t(
-                      ' Reúna dados de campanhas, contatos e vendas para identificar onde melhorar.',
+                      ' Isso dificulta entender o que merece atenção. Reúna dados de campanhas, contatos e vendas em indicadores claros para orientar as próximas decisões.',
                     )}
                   </p>
                   <p className="solution-mobile-summary">

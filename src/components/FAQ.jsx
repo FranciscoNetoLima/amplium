@@ -4,7 +4,7 @@ const questions = [
   {
     question: 'Já tenho Instagram. Por que investir em um site?',
     answer:
-      'O Instagram ajuda as pessoas a descobrir sua marca. No site, elas encontram seus serviços, diferenciais e formas de contato em um só lugar.',
+      'Instagram e site se complementam: o Instagram ajuda na descoberta e no relacionamento; o site organiza serviços, diferenciais e informações para o visitante avaliar sua empresa e entrar em contato.',
   },
   {
     question: 'Como saber se preciso de um site ou de uma landing page?',
@@ -14,7 +14,7 @@ const questions = [
   {
     question: 'Como sistemas, CRM e automações podem ajudar minha empresa?',
     answer:
-      'O CRM organiza contatos e negociações. As automações reduzem tarefas repetitivas e ajudam sua equipe a acompanhar cada oportunidade.',
+      'Aplicações sob medida, como ferramentas internas, portais e organização de pedidos, se adaptam à operação da empresa. O CRM reúne contatos e negociações; as automações reduzem tarefas repetitivas.',
   },
   {
     question: 'Vocês também cuidam dos anúncios e da captação de clientes?',

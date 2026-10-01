@@ -448,3 +448,17 @@
     transform: none;
   }
 }
+
+.service-card[id] {
+  scroll-margin-top: 116px;
+}
+.service-card--landing p,
+.service-card--automation p,
+.service-card--ads p {
+  max-width: 460px;
+}
+@media (max-width: 980px) {
+  .service-card[id] {
+    scroll-margin-top: 100px;
+  }
+}

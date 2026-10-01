@@ -12,5 +12,6 @@ import '../solutions.css';
 import '../process.css';
 import '../faq.css';
 import '../hero-art.css';
+import '../demonstrations.css';
 
 createRoot(document.getElementById('root')).render(<App />);

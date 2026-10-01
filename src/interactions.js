@@ -73,8 +73,8 @@ export function initializeInteractions() {
   document.body.append(progress);
   const menu = document.querySelector('.menu');
   const links = document.querySelector('.links');
-  const navItems = [...links.querySelectorAll('a')];
-  const navSections = navItems.map((link) => document.getElementById(link.hash.slice(1)));
+  const navItems = [...links.querySelectorAll('[data-nav-section]')];
+  const navSections = navItems.map((item) => document.getElementById(item.dataset.navSection));
   let navFrame = 0;
   const updateNav = () => {
     navFrame = 0;
@@ -86,7 +86,7 @@ export function initializeInteractions() {
     document
       .querySelector('.hero-art')
       .style.setProperty('--hero-parallax', `${Math.min(scrollY, innerHeight) * 0.06}px`);
-    let current = 0;
+    let current = -1;
     navSections.forEach((section, i) => {
       if (section && section.getBoundingClientRect().top <= 160) current = i;
     });
@@ -135,7 +135,10 @@ export function initializeInteractions() {
         right: '0',
         width: '100%',
       });
-    } else if (!open) unlockPage();
+    } else if (!open) {
+      unlockPage();
+      window.dispatchEvent(new Event('navmenuclose'));
+    }
     links.classList.toggle('open', open);
     scrim.classList.toggle('is-open', open);
     menu.setAttribute('aria-expanded', String(open));
@@ -458,6 +461,7 @@ export function initializeInteractions() {
     '.solution-art',
     '.solution-copy > *',
     '.solutions-bottom',
+    '.demonstration-card > *',
     '.process-card > *',
     '.tech-caption',
     '.tech-strip',
@@ -639,6 +643,7 @@ export function initializeInteractions() {
     'wheel',
     (event) => {
       if (lockedScrollY !== null) {
+        if (links.contains(event.target) && ownsVerticalScroll(event.target)) return;
         event.preventDefault();
         return;
       }
