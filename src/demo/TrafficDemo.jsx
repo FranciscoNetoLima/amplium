@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ShowcaseShell, useDemoCopy } from './ShowcaseShell.jsx';
 
 const copy = {
@@ -9,6 +9,25 @@ const copy = {
     steps: ['Anúncio', 'Landing page', 'Solicitação', 'CRM'],
     next: 'Continuar percurso →',
     previous: '← Etapa anterior',
+    externalNote:
+      'Este link abre outra demonstração em uma nova aba; seu percurso aqui continua disponível.',
+    inPageNote: 'O botão do anúncio avança apenas esta simulação; a campanha não está ativa.',
+    campaignStatus: 'Campanha fictícia / não veiculada',
+    objective: 'Objetivo da campanha',
+    objectiveText:
+      'Apresentar a manutenção preventiva e orientar interessados até um pedido de avaliação.',
+    offerName: 'Manutenção preventiva de ar-condicionado',
+    offerMatch: 'A mensagem do anúncio e a oferta da página mantêm o mesmo serviço em foco.',
+    recordCreated: 'Oportunidade fictícia organizada no CRM demonstrativo.',
+    recordStatus: 'Etapa comercial',
+    statusNew: 'Novo contato',
+    nextAction: 'Próxima ação sugerida',
+    nextActions: [
+      'Confirmar o tipo de equipamento e o ambiente.',
+      'Entender os sinais observados antes de orientar a avaliação.',
+      'Explicar o escopo do serviço e combinar os próximos passos.',
+    ],
+    recordId: 'OPORTUNIDADE / EXEMPLO 01',
     adTitle: 'O ar-condicionado pede atenção?',
     adText:
       'Conheça a manutenção preventiva da Brisa Clima e entenda o cuidado indicado para o seu espaço.',
@@ -46,6 +65,24 @@ const copy = {
     steps: ['Ad', 'Landing page', 'Enquiry', 'CRM'],
     next: 'Continue journey →',
     previous: '← Previous step',
+    externalNote: 'This link opens another demo in a new tab; your journey here stays available.',
+    inPageNote: 'The ad button advances this simulation only; the campaign is not active.',
+    campaignStatus: 'Fictional campaign / not running',
+    objective: 'Campaign objective',
+    objectiveText:
+      'Present preventive maintenance and guide interested visitors to request an assessment.',
+    offerName: 'Preventive air-conditioning maintenance',
+    offerMatch: 'The ad message and landing-page offer keep the same service in focus.',
+    recordCreated: 'Fictional opportunity added to the demo CRM.',
+    recordStatus: 'Sales stage',
+    statusNew: 'New contact',
+    nextAction: 'Suggested next action',
+    nextActions: [
+      'Confirm the equipment type and the space.',
+      'Understand the reported signs before guiding the assessment.',
+      'Explain the service scope and agree on next steps.',
+    ],
+    recordId: 'OPPORTUNITY / EXAMPLE 01',
     adTitle: 'Does your air conditioner need attention?',
     adText:
       'Explore Brisa Clima preventive maintenance and understand the right care for your space.',
@@ -83,12 +120,28 @@ const crm = '/demonstracoes/aplicacoes-crm';
 export default function TrafficDemo() {
   const c = useDemoCopy(copy);
   const [step, setStep] = useState(0);
+  const [furthestStep, setFurthestStep] = useState(0);
   const [type, setType] = useState('residencia');
   const [need, setNeed] = useState('manutencao');
   const [record, setRecord] = useState(null);
   const [notice, setNotice] = useState('');
+  const stageTitle = useRef(null);
+  const previousStep = useRef(step);
+  useEffect(() => {
+    if (previousStep.current !== step) {
+      stageTitle.current?.focus({ preventScroll: true });
+      previousStep.current = step;
+    }
+  }, [step]);
+  const goToStep = (nextStep) => {
+    const safeStep = Math.min(3, Math.max(0, nextStep));
+    setStep(safeStep);
+    setFurthestStep((current) => Math.max(current, safeStep));
+    if (safeStep !== 3) setNotice('');
+  };
   const reset = () => {
     setStep(0);
+    setFurthestStep(0);
     setType('residencia');
     setNeed('manutencao');
     setRecord(null);
@@ -96,9 +149,10 @@ export default function TrafficDemo() {
   };
   const submit = (event) => {
     event.preventDefault();
-    setRecord({ type, need });
+    setRecord({ type, need, status: 'novo' });
     setStep(3);
-    setNotice('');
+    setFurthestStep(3);
+    setNotice(c.recordCreated);
   };
   const crmUrl = `${crm}?origem=campanha&tipo=${record?.type ?? type}&necessidade=${record?.need ?? need}`;
   const typeName = (value) => c.types[value === 'empresa' ? 1 : 0];
@@ -119,10 +173,10 @@ export default function TrafficDemo() {
             <button
               type="button"
               key={label}
-              className={step === index ? 'is-active' : ''}
+              className={`${step === index ? 'is-active' : ''} ${index < step ? 'is-done' : ''}`.trim()}
               aria-current={step === index ? 'step' : undefined}
-              disabled={index === 3 && !record}
-              onClick={() => setStep(index)}
+              disabled={index > furthestStep || (index === 3 && !record)}
+              onClick={() => goToStep(index)}
             >
               <span>0{index + 1}</span>
               {label}
@@ -132,12 +186,14 @@ export default function TrafficDemo() {
         <p role="status" className="showcase-success">
           {notice}
         </p>
-        <section className="traffic-stage" aria-live="polite">
+        <section className={`traffic-stage traffic-stage--${step}`}>
           {step === 0 && (
             <>
               <div className="traffic-stage-copy">
                 <span className="showcase-eyebrow">{c.kicker} / 01</span>
-                <h2>{c.adTitle}</h2>
+                <h2 ref={stageTitle} tabIndex={-1}>
+                  {c.adTitle}
+                </h2>
                 <p>{c.adText}</p>
                 <div className="traffic-facts">
                   <div>
@@ -145,16 +201,21 @@ export default function TrafficDemo() {
                     <span>{c.audienceText}</span>
                   </div>
                   <div>
+                    <strong>{c.objective}</strong>
+                    <span>{c.objectiveText}</span>
+                  </div>
+                  <div>
                     <strong>{c.message}</strong>
                     <span>{c.messageText}</span>
                   </div>
                 </div>
-                <button type="button" className="showcase-button" onClick={() => setStep(1)}>
+                <button type="button" className="showcase-button" onClick={() => goToStep(1)}>
                   {c.next}
                 </button>
               </div>
               <div className="traffic-ad">
-                <span>{c.sponsored}</span>
+                <span className="traffic-ad-status">{c.campaignStatus}</span>
+                <small className="traffic-ad-context">{c.sponsored}</small>
                 <div className="traffic-ad-art" aria-hidden="true">
                   <i />
                   <b />
@@ -162,7 +223,10 @@ export default function TrafficDemo() {
                 <strong>BRISA CLIMA</strong>
                 <h3>{c.adTitle}</h3>
                 <p>{c.adText}</p>
-                <span className="traffic-ad-button">{c.adButton}</span>
+                <button type="button" className="traffic-ad-button" onClick={() => goToStep(1)}>
+                  {c.adButton}
+                </button>
+                <small className="traffic-in-page-note">{c.inPageNote}</small>
               </div>
             </>
           )}
@@ -170,7 +234,9 @@ export default function TrafficDemo() {
             <>
               <div className="traffic-stage-copy">
                 <span className="showcase-eyebrow">{c.kicker} / 02</span>
-                <h2>{c.landingTitle}</h2>
+                <h2 ref={stageTitle} tabIndex={-1}>
+                  {c.landingTitle}
+                </h2>
                 <p>{c.landingText}</p>
                 <div className="showcase-actions">
                   <a
@@ -178,13 +244,15 @@ export default function TrafficDemo() {
                     href={landing}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`${c.openLanding}. ${c.externalNote}`}
                   >
                     {c.openLanding}
                   </a>
-                  <button type="button" className="showcase-button" onClick={() => setStep(2)}>
+                  <button type="button" className="showcase-button" onClick={() => goToStep(2)}>
                     {c.next}
                   </button>
                 </div>
+                <p className="traffic-external-note">{c.externalNote}</p>
               </div>
               <div className="traffic-browser" aria-label={c.landingTitle}>
                 <div className="traffic-browser-bar">
@@ -194,7 +262,9 @@ export default function TrafficDemo() {
                 </div>
                 <span className="showcase-eyebrow">BRISA CLIMA</span>
                 <h3>{c.adTitle}</h3>
+                <strong className="traffic-offer-name">{c.offerName}</strong>
                 <p>{c.landingText}</p>
+                <p className="traffic-promise-match">{c.offerMatch}</p>
                 <a href={landing} target="_blank" rel="noopener noreferrer">
                   {c.openLanding}
                 </a>
@@ -205,20 +275,38 @@ export default function TrafficDemo() {
             <>
               <div className="traffic-stage-copy">
                 <span className="showcase-eyebrow">{c.kicker} / 03</span>
-                <h2>{c.contactTitle}</h2>
+                <h2 ref={stageTitle} tabIndex={-1}>
+                  {c.contactTitle}
+                </h2>
                 <p>{c.contactText}</p>
               </div>
               <form className="showcase-form traffic-form" onSubmit={submit}>
                 <label>
                   {c.type}
-                  <select value={type} onChange={(event) => setType(event.target.value)}>
+                  <select
+                    value={type}
+                    onChange={(event) => {
+                      setType(event.target.value);
+                      setRecord(null);
+                      setFurthestStep(2);
+                      setNotice('');
+                    }}
+                  >
                     <option value="residencia">{c.types[0]}</option>
                     <option value="empresa">{c.types[1]}</option>
                   </select>
                 </label>
                 <label>
                   {c.need}
-                  <select value={need} onChange={(event) => setNeed(event.target.value)}>
+                  <select
+                    value={need}
+                    onChange={(event) => {
+                      setNeed(event.target.value);
+                      setRecord(null);
+                      setFurthestStep(2);
+                      setNotice('');
+                    }}
+                  >
                     <option value="manutencao">{c.needs[0]}</option>
                     <option value="falha">{c.needs[1]}</option>
                     <option value="informacao">{c.needs[2]}</option>
@@ -234,14 +322,24 @@ export default function TrafficDemo() {
             <>
               <div className="traffic-stage-copy">
                 <span className="showcase-eyebrow">{c.kicker} / 04</span>
-                <h2>{c.crmTitle}</h2>
+                <h2 ref={stageTitle} tabIndex={-1}>
+                  {c.crmTitle}
+                </h2>
                 <p>{c.crmText}</p>
-                <a className="showcase-button" href={crmUrl}>
+                <a
+                  className="showcase-button"
+                  href={crmUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${c.viewCrm}. ${c.externalNote}`}
+                >
                   {c.viewCrm}
                 </a>
+                <p className="traffic-external-note">{c.externalNote}</p>
               </div>
               <div className="traffic-record">
                 <span className="showcase-eyebrow">CRM / {c.record}</span>
+                <span className="traffic-record-id">{c.recordId}</span>
                 <h3>BRISA CLIMA</h3>
                 <dl>
                   <div>
@@ -256,6 +354,16 @@ export default function TrafficDemo() {
                     <dt>{c.source}</dt>
                     <dd>✓</dd>
                   </div>
+                  <div>
+                    <dt>{c.recordStatus}</dt>
+                    <dd>{c.statusNew}</dd>
+                  </div>
+                  <div>
+                    <dt>{c.nextAction}</dt>
+                    <dd>
+                      {c.nextActions[['manutencao', 'falha', 'informacao'].indexOf(record.need)]}
+                    </dd>
+                  </div>
                 </dl>
               </div>
             </>
@@ -265,7 +373,7 @@ export default function TrafficDemo() {
           <button
             type="button"
             className="showcase-quiet-button traffic-back"
-            onClick={() => setStep((current) => current - 1)}
+            onClick={() => goToStep(step - 1)}
           >
             {c.previous}
           </button>
