@@ -2,7 +2,12 @@
   "rewrites": [
     { "source": "/demonstracoes/site-servicos", "destination": "/index.html" },
     { "source": "/demonstracoes/site-servicos/servicos", "destination": "/index.html" },
-    { "source": "/demonstracoes/site-servicos/contato", "destination": "/index.html" }
+    { "source": "/demonstracoes/site-servicos/contato", "destination": "/index.html" },
+    { "source": "/demonstracoes/landing-page", "destination": "/index.html" },
+    { "source": "/demonstracoes/e-commerce", "destination": "/index.html" },
+    { "source": "/demonstracoes/aplicacoes-crm", "destination": "/index.html" },
+    { "source": "/demonstracoes/automacoes-ia", "destination": "/index.html" },
+    { "source": "/demonstracoes/trafego-pago", "destination": "/index.html" }
   ],
   "headers": [
     {
