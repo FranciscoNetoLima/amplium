@@ -12,6 +12,7 @@ const copy = {
     quote: 'Solicitar orçamento →',
     learn: 'Entenda o serviço ↓',
     visual: 'Conforto para o seu espaço, cuidado para o seu equipamento.',
+    artTag: 'CONFORTO TÉRMICO / CUIDADO PLANEJADO',
     offer: 'O que está incluído na conversa inicial',
     offerText:
       'O atendimento começa entendendo seu equipamento, o uso do ambiente e os sinais que você percebe. Assim, o escopo do serviço fica claro antes da execução.',
@@ -60,9 +61,12 @@ const copy = {
     name: 'Nome de exemplo',
     namePlaceholder: 'Pessoa Exemplo',
     email: 'E-mail de exemplo',
+    requiredField: 'Informe este dado fictício para testar a solicitação.',
+    invalidName: 'Use pelo menos 2 caracteres.',
+    invalidEmail: 'Informe um e-mail de exemplo válido.',
+    invalidMessage: 'Descreva o pedido com pelo menos 10 caracteres.',
     space: 'Tipo de ambiente',
     spaceDefault: 'Selecione',
-    fill: 'Preencha este campo.',
     home: 'Residência',
     business: 'Empresa',
     message: 'O que acontece com o equipamento?',
@@ -80,6 +84,7 @@ const copy = {
     quote: 'Request a quote →',
     learn: 'Explore the service ↓',
     visual: 'Comfort for your space, care for your equipment.',
+    artTag: 'INDOOR COMFORT / PLANNED CARE',
     offer: 'What the first conversation covers',
     offerText:
       'We start by understanding your equipment, how the space is used and what you have noticed. That makes the scope clear before work begins.',
@@ -118,9 +123,12 @@ const copy = {
     name: 'Example name',
     namePlaceholder: 'Example Person',
     email: 'Example email',
+    requiredField: 'Enter this fictional detail to test the request.',
+    invalidName: 'Use at least 2 characters.',
+    invalidEmail: 'Enter a valid example email address.',
+    invalidMessage: 'Describe the request using at least 10 characters.',
     space: 'Type of space',
     spaceDefault: 'Select one',
-    fill: 'Please fill out this field.',
     home: 'Home',
     business: 'Business',
     message: 'What is happening with the unit?',
@@ -134,26 +142,43 @@ export default function LandingDemo() {
   const c = useDemoCopy(copy);
   const [submitted, setSubmitted] = useState(false);
   const [values, setValues] = useState({ name: '', email: '', space: '', message: '' });
+  const [errors, setErrors] = useState({});
+  const validateField = (name, value) => {
+    const normalized = value.trim();
+    if (!normalized) return c.requiredField;
+    if (name === 'name' && normalized.length < 2) return c.invalidName;
+    if (name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalized)) {
+      return c.invalidEmail;
+    }
+    if (name === 'message' && normalized.length < 10) return c.invalidMessage;
+    return '';
+  };
   const update = (event) => {
-    event.target.setCustomValidity('');
+    const { name, value } = event.target;
     setSubmitted(false);
-    setValues((current) => ({ ...current, [event.target.name]: event.target.value }));
+    setValues((current) => ({ ...current, [name]: value }));
+    setErrors((current) =>
+      current[name] ? { ...current, [name]: validateField(name, value) } : current,
+    );
   };
   const submit = (event) => {
     event.preventDefault();
-    for (const [key, value] of Object.entries(values)) {
-      if (!value.trim()) {
-        const field = event.currentTarget.elements.namedItem(key);
-        field.setCustomValidity(c.fill);
-        field.reportValidity();
-        return;
-      }
+    const nextErrors = Object.fromEntries(
+      Object.entries(values).map(([key, value]) => [key, validateField(key, value)]),
+    );
+    setErrors(nextErrors);
+    const firstInvalid = Object.keys(nextErrors).find((key) => nextErrors[key]);
+    if (firstInvalid) {
+      event.currentTarget.elements.namedItem(firstInvalid)?.focus();
+      return;
     }
     setSubmitted(true);
+    setErrors({});
     setValues({ name: '', email: '', space: '', message: '' });
   };
   const reset = () => {
     setSubmitted(false);
+    setErrors({});
     setValues({ name: '', email: '', space: '', message: '' });
   };
   return (
@@ -180,6 +205,7 @@ export default function LandingDemo() {
           </div>
         </div>
         <div className="landing-art" aria-hidden="true">
+          <span className="landing-art-tag">{c.artTag}</span>
           <span className="landing-art-sun" />
           <span className="landing-art-unit" />
           <span className="landing-art-line landing-art-line-one" />
@@ -193,7 +219,7 @@ export default function LandingDemo() {
           <h2>{c.offer}</h2>
           <p>{c.offerText}</p>
         </div>
-        <div className="showcase-three-grid">
+        <div className="showcase-three-grid landing-benefits">
           {c.benefits.map(([title, text], index) => (
             <article className="showcase-card" key={title}>
               <span className="showcase-card-number">0{index + 1} /</span>
@@ -202,6 +228,9 @@ export default function LandingDemo() {
             </article>
           ))}
         </div>
+        <a className="showcase-text-link landing-offer-cta" href="#formulario">
+          {c.quote}
+        </a>
       </section>
       <section className="showcase-wrap showcase-section landing-steps">
         <div className="showcase-section-head">
@@ -240,7 +269,7 @@ export default function LandingDemo() {
           <h2>{c.formTitle}</h2>
           <p>{c.formText}</p>
         </div>
-        <form className="showcase-form" onSubmit={submit}>
+        <form className="showcase-form landing-form" onSubmit={submit} noValidate>
           <div className="showcase-form-row">
             <label>
               {c.name}
@@ -252,7 +281,14 @@ export default function LandingDemo() {
                 value={values.name}
                 onChange={update}
                 placeholder={c.namePlaceholder}
+                aria-invalid={Boolean(errors.name)}
+                aria-describedby={errors.name ? 'landing-name-error' : undefined}
               />
+              {errors.name && (
+                <span className="landing-field-error" id="landing-name-error" role="alert">
+                  {errors.name}
+                </span>
+              )}
             </label>
             <label>
               {c.email}
@@ -264,16 +300,35 @@ export default function LandingDemo() {
                 value={values.email}
                 onChange={update}
                 placeholder="exemplo@example.com"
+                aria-invalid={Boolean(errors.email)}
+                aria-describedby={errors.email ? 'landing-email-error' : undefined}
               />
+              {errors.email && (
+                <span className="landing-field-error" id="landing-email-error" role="alert">
+                  {errors.email}
+                </span>
+              )}
             </label>
           </div>
           <label>
             {c.space}
-            <select name="space" required value={values.space} onChange={update}>
+            <select
+              name="space"
+              required
+              value={values.space}
+              onChange={update}
+              aria-invalid={Boolean(errors.space)}
+              aria-describedby={errors.space ? 'landing-space-error' : undefined}
+            >
               <option value="">{c.spaceDefault}</option>
               <option value="residencia">{c.home}</option>
               <option value="empresa">{c.business}</option>
             </select>
+            {errors.space && (
+              <span className="landing-field-error" id="landing-space-error" role="alert">
+                {errors.space}
+              </span>
+            )}
           </label>
           <label>
             {c.message}
@@ -286,7 +341,14 @@ export default function LandingDemo() {
               value={values.message}
               onChange={update}
               placeholder={c.messagePlaceholder}
+              aria-invalid={Boolean(errors.message)}
+              aria-describedby={errors.message ? 'landing-message-error' : undefined}
             />
+            {errors.message && (
+              <span className="landing-field-error" id="landing-message-error" role="alert">
+                {errors.message}
+              </span>
+            )}
           </label>
           <button type="submit" className="showcase-button">
             {c.send}
