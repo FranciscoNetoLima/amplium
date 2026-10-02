@@ -369,12 +369,23 @@ section {
   background: #27272b;
 }
 .nav-chevron {
-  font-size: 1rem;
-  line-height: 1;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+}
+.nav-chevron::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
   transition: transform 0.25s;
 }
-.nav-solutions-trigger[aria-expanded='true'] .nav-chevron {
-  transform: rotate(180deg);
+.nav-solutions-trigger[aria-expanded='true'] .nav-chevron::before {
+  transform: translateY(2px) rotate(225deg);
 }
 .nav-solutions-panel {
   position: absolute;

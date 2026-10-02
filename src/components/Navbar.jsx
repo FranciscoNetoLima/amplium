@@ -74,9 +74,7 @@ export default function Navbar() {
                 onClick={() => setSolutionsOpen(!solutionsOpen)}
               >
                 {t('Soluções')}
-                <span className="nav-chevron" aria-hidden="true">
-                  ⌄
-                </span>
+                <span className="nav-chevron" aria-hidden="true" />
               </button>
               <div className="nav-solutions-panel" id="nav-solutions-panel" hidden={!solutionsOpen}>
                 <ul>
@@ -100,7 +98,7 @@ export default function Navbar() {
               </div>
             </div>
             <a href="#metodo" data-nav-section="metodo">
-              {t('Como funciona')}
+              {t('Como trabalhamos')}
             </a>
             <a href="#faq" data-nav-section="faq">
               {t('Dúvidas')}

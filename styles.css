@@ -971,6 +971,7 @@ section[tabindex='-1']:focus {
 
 .hero h1.hero-benefits-title {
   font-size: clamp(3.3rem, 5.5vw, 6.2rem);
+  line-height: 0.9;
   letter-spacing: -0.06em;
 }
 .hero-benefits-title .hero-condensed {

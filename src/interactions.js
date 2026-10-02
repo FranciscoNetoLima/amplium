@@ -461,7 +461,6 @@ export function initializeInteractions() {
     '.solution-art',
     '.solution-copy > *',
     '.solutions-bottom',
-    '.demonstration-card > *',
     '.process-card > *',
     '.tech-caption',
     '.tech-strip',
