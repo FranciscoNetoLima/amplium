@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ShowcaseShell, useDemoCopy } from './ShowcaseShell.jsx';
 
 const stages = ['novo', 'conversa', 'proposta', 'concluido'];
@@ -89,6 +89,19 @@ const copy = {
       falha: 'Avaliar falha no aparelho',
       informacao: 'Entender o serviço',
     },
+    metrics: ['Oportunidades ativas', 'Em negociação', 'Valor em aberto', 'Concluídas'],
+    resultCount: (count) => `${count} ${count === 1 ? 'resultado' : 'resultados'}`,
+    noResults: 'Nenhuma oportunidade encontrada. Ajuste os filtros ou a busca.',
+    createAction: 'Nova oportunidade',
+    edit: 'Editar oportunidade',
+    update: 'Salvar alterações',
+    created: 'Oportunidade adicionada ao funil.',
+    updated: 'Oportunidade atualizada.',
+    moved: 'Etapa da oportunidade atualizada.',
+    noteSaved: 'Observação registrada no histórico.',
+    pipeline: 'Funil comercial',
+    openValue: 'Valor potencial das etapas em aberto',
+    stageOf: 'Etapa atual',
     seedSubjects: [
       'Site para apresentar o cardápio',
       'Landing page de lançamento',
@@ -140,6 +153,19 @@ const copy = {
       falha: 'Assess a faulty unit',
       informacao: 'Understand the service',
     },
+    metrics: ['Active opportunities', 'In negotiation', 'Open pipeline value', 'Completed'],
+    resultCount: (count) => `${count} ${count === 1 ? 'result' : 'results'}`,
+    noResults: 'No opportunities found. Adjust your search or filters.',
+    createAction: 'New opportunity',
+    edit: 'Edit opportunity',
+    update: 'Save changes',
+    created: 'Opportunity added to the pipeline.',
+    updated: 'Opportunity updated.',
+    moved: 'Opportunity stage updated.',
+    noteSaved: 'Note added to the history.',
+    pipeline: 'Sales pipeline',
+    openValue: 'Potential value across open stages',
+    stageOf: 'Current stage',
     seedSubjects: [
       'Website to present the menu',
       'Launch landing page',
@@ -184,21 +210,35 @@ export default function CrmDemo() {
   const [filter, setFilter] = useState('all');
   const [selectedId, setSelectedId] = useState(null);
   const [adding, setAdding] = useState(false);
+  const [editingId, setEditingId] = useState(null);
+  const [editedIds, setEditedIds] = useState(() => new Set());
   const [newItem, setNewItem] = useState({ client: '', contact: '', subject: '', value: '' });
   const [note, setNote] = useState('');
   const [notice, setNotice] = useState('');
-  const clientOf = (item) => (item.id === 5 && fromCampaign ? c.campaignClient : item.client);
+  const detailDialog = useRef(null);
+  const clientOf = (item) =>
+    item.id === 5 && fromCampaign && !editedIds.has(item.id) ? c.campaignClient : item.client;
+  const contactOf = (item) =>
+    item.id === 5 && fromCampaign && !editedIds.has(item.id) ? c.contactPlaceholder : item.contact;
   const subjectOf = (item) =>
-    item.id === 5 && fromCampaign
+    item.id === 5 && fromCampaign && !editedIds.has(item.id)
       ? `${c.campaignNeeds[campaignNeed]} / ${c.campaignTypes[campaignType]}`
-      : item.id >= 1 && item.id <= 4
+      : item.id >= 1 && item.id <= 4 && !editedIds.has(item.id)
         ? c.seedSubjects[item.id - 1]
         : item.subject;
   const selected = items.find((item) => item.id === selectedId);
+  const metrics = [
+    items.filter((item) => item.stage !== 'concluido').length,
+    items.filter((item) => ['conversa', 'proposta'].includes(item.stage)).length,
+    items
+      .filter((item) => item.stage !== 'concluido')
+      .reduce((total, item) => total + (Number(item.value) || 0), 0),
+    items.filter((item) => item.stage === 'concluido').length,
+  ];
   const visible = items.filter(
     (item) =>
       (filter === 'all' || filter === item.stage) &&
-      `${clientOf(item)} ${item.contact} ${subjectOf(item)}`
+      `${clientOf(item)} ${contactOf(item)} ${subjectOf(item)}`
         .toLocaleLowerCase()
         .includes(query.trim().toLocaleLowerCase()),
   );
@@ -208,16 +248,66 @@ export default function CrmDemo() {
     setFilter('all');
     setSelectedId(null);
     setAdding(false);
+    setEditingId(null);
+    setEditedIds(new Set());
     setNewItem({ client: '', contact: '', subject: '', value: '' });
     setNote('');
     setNotice(c.resetNotice);
   };
-  const move = (id, stage) =>
-    setItems((current) => current.map((item) => (item.id === id ? { ...item, stage } : item)));
+  const move = (id, stage) => {
+    const current = items.find((item) => item.id === id);
+    if (!current || current.stage === stage) return;
+    setItems((list) => list.map((item) => (item.id === id ? { ...item, stage } : item)));
+    setNotice(c.moved);
+  };
+  useEffect(() => {
+    if (selected && detailDialog.current && !detailDialog.current.open) {
+      detailDialog.current.showModal();
+    }
+  }, [selected]);
+  const closeDetails = () => {
+    detailDialog.current?.close();
+    setSelectedId(null);
+    setNote('');
+  };
+  const startEdit = () => {
+    if (!selected) return;
+    setNewItem({
+      client: clientOf(selected),
+      contact: contactOf(selected),
+      subject: subjectOf(selected),
+      value: selected.value ? String(selected.value) : '',
+    });
+    setEditingId(selected.id);
+    setAdding(true);
+    closeDetails();
+  };
   const create = (event) => {
     event.preventDefault();
     if (!newItem.client.trim() || !newItem.contact.trim() || !newItem.subject.trim()) return;
-    const id = Date.now();
+    const id = editingId ?? Date.now();
+    if (editingId !== null) {
+      setItems((current) =>
+        current.map((item) =>
+          item.id === editingId
+            ? {
+                ...item,
+                client: newItem.client.trim(),
+                contact: newItem.contact.trim(),
+                subject: newItem.subject.trim(),
+                value: Number(newItem.value) || 0,
+              }
+            : item,
+        ),
+      );
+      setEditedIds((current) => new Set(current).add(editingId));
+      setNotice(c.updated);
+      setSelectedId(editingId);
+      setEditingId(null);
+      setAdding(false);
+      setNewItem({ client: '', contact: '', subject: '', value: '' });
+      return;
+    }
     setItems((current) => [
       {
         id,
@@ -233,6 +323,7 @@ export default function CrmDemo() {
     setNewItem({ client: '', contact: '', subject: '', value: '' });
     setAdding(false);
     setSelectedId(id);
+    setNotice(c.created);
   };
   const addNote = (event) => {
     event.preventDefault();
@@ -243,6 +334,7 @@ export default function CrmDemo() {
       ),
     );
     setNote('');
+    setNotice(c.noteSaved);
   };
   return (
     <ShowcaseShell
@@ -263,17 +355,39 @@ export default function CrmDemo() {
           <button
             type="button"
             className="showcase-button"
-            onClick={() => setAdding((value) => !value)}
+            onClick={() => {
+              setEditingId(null);
+              setNewItem({ client: '', contact: '', subject: '', value: '' });
+              setAdding((value) => !value);
+            }}
             aria-expanded={adding}
           >
-            {c.create} +
+            {c.createAction} +
           </button>
         </div>
         <p role="status" className="showcase-success">
           {notice}
         </p>
+        <section className="crm-metrics" aria-label={c.pipeline}>
+          {metrics.map((metric, index) => (
+            <article
+              className={`crm-metric${index === 2 ? ' crm-metric--value' : ''}`}
+              key={metric}
+            >
+              <span>{c.metrics[index]}</span>
+              <strong>{index === 2 ? money(metric) : metric}</strong>
+              {index === 2 && <small>{c.openValue}</small>}
+            </article>
+          ))}
+        </section>
         {adding && (
           <form className="crm-create showcase-form" onSubmit={create}>
+            <div className="crm-form-heading">
+              <div>
+                <span className="showcase-eyebrow">{c.kicker}</span>
+                <h2>{editingId !== null ? c.edit : c.create}</h2>
+              </div>
+            </div>
             <div className="showcase-form-row">
               <label>
                 {c.client}
@@ -327,12 +441,16 @@ export default function CrmDemo() {
             </label>
             <div className="showcase-actions">
               <button type="submit" className="showcase-button">
-                {c.save}
+                {editingId !== null ? c.update : c.save}
               </button>
               <button
                 type="button"
                 className="showcase-quiet-button"
-                onClick={() => setAdding(false)}
+                onClick={() => {
+                  setAdding(false);
+                  setEditingId(null);
+                  setNewItem({ client: '', contact: '', subject: '', value: '' });
+                }}
               >
                 {c.cancel}
               </button>
@@ -361,6 +479,15 @@ export default function CrmDemo() {
             </select>
           </label>
         </div>
+        <div className="crm-board-summary">
+          <h2>{c.pipeline}</h2>
+          <span>{c.resultCount(visible.length)}</span>
+        </div>
+        {visible.length === 0 && (
+          <p className="crm-no-results" role="status">
+            {c.noResults}
+          </p>
+        )}
         <div className="crm-board">
           {stages.map((stage, index) => (
             <section className="crm-column" key={stage} aria-label={c.stages[index]}>
@@ -373,11 +500,14 @@ export default function CrmDemo() {
                   .filter((item) => item.stage === stage)
                   .map((item) => (
                     <article className="crm-card" key={item.id}>
-                      <span className="showcase-eyebrow">#{String(item.id).slice(-4)}</span>
+                      <div className="crm-card-topline">
+                        <span className="showcase-eyebrow">#{String(item.id).slice(-4)}</span>
+                        <span className={`crm-stage-pill crm-stage-pill--${item.stage}`}>
+                          {c.stages[stages.indexOf(item.stage)]}
+                        </span>
+                      </div>
                       <h3>{clientOf(item)}</h3>
-                      <small>
-                        {item.id === 5 && fromCampaign ? c.contactPlaceholder : item.contact}
-                      </small>
+                      <small>{contactOf(item)}</small>
                       <p>{subjectOf(item)}</p>
                       <strong>{item.value ? money(item.value) : '—'}</strong>
                       <div className="crm-card-actions">
@@ -407,7 +537,7 @@ export default function CrmDemo() {
                       </div>
                     </article>
                   ))}
-                {!visible.some((item) => item.stage === stage) && (
+                {visible.length > 0 && !visible.some((item) => item.stage === stage) && (
                   <p className="crm-empty">{c.empty}</p>
                 )}
               </div>
@@ -415,27 +545,48 @@ export default function CrmDemo() {
           ))}
         </div>
         {selected && (
-          <section className="crm-details" aria-labelledby="crm-detail-title">
+          <dialog
+            className="crm-details"
+            ref={detailDialog}
+            aria-labelledby="crm-detail-title"
+            onClose={() => {
+              setSelectedId(null);
+              setNote('');
+            }}
+            onClick={(event) => {
+              if (event.target === event.currentTarget) closeDetails();
+            }}
+          >
+            <div className="crm-details-kicker">
+              <span className="showcase-eyebrow">{c.details}</span>
+              <button
+                type="button"
+                className="crm-dialog-close"
+                onClick={closeDetails}
+                aria-label={c.close}
+              >
+                ×
+              </button>
+            </div>
             <div className="crm-details-head">
               <div>
                 <span className="showcase-eyebrow">#{selected.id}</span>
                 <h2 id="crm-detail-title">{clientOf(selected)}</h2>
                 <p>
-                  {c.contactLabel}:{' '}
-                  {selected.id === 5 && fromCampaign ? c.contactPlaceholder : selected.contact}
+                  {c.contactLabel}: {contactOf(selected)}
                 </p>
                 <p>{subjectOf(selected)}</p>
               </div>
               <button
                 type="button"
-                className="showcase-quiet-button"
-                onClick={() => setSelectedId(null)}
+                className="showcase-quiet-button crm-edit-action"
+                onClick={startEdit}
               >
-                {c.close} ×
+                {c.edit}
               </button>
             </div>
             <label>
-              {c.move}
+              {c.stageOf}
               <select
                 value={selected.stage}
                 onChange={(event) => move(selected.id, event.target.value)}
@@ -474,7 +625,7 @@ export default function CrmDemo() {
                 {c.addNote}
               </button>
             </form>
-          </section>
+          </dialog>
         )}
       </div>
     </ShowcaseShell>
