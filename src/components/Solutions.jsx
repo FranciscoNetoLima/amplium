@@ -24,7 +24,7 @@ export default function Solutions() {
         <div className="solutions-sticky">
           <div className="wrap solutions-header">
             <div>
-              <div className="eyebrow">{t('02 / Soluções')}</div>
+              <div className="eyebrow">{t('02 / Objetivos do seu negócio')}</div>
               <h2 id="solutions-heading">{t('Comece pelo que seu negócio precisa resolver.')}</h2>
               <p>{t('Escolha seu objetivo. Nós combinamos as soluções para chegar lá.')}</p>
             </div>

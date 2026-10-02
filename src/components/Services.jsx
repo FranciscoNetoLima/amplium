@@ -10,7 +10,7 @@ export default function Services() {
       >
         <div className="section-head reveal">
           <div>
-            <div className="eyebrow">{t('01 / O que fazemos')}</div>
+            <div className="eyebrow">{t('01 / Soluções')}</div>
             <h2 id="services-heading">{t('Soluções para seu negócio avançar.')}</h2>
           </div>
           <p>

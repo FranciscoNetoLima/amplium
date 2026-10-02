@@ -55,10 +55,10 @@ export default function Footer() {
                   <a href="#inicio">{t('Início')}</a>
                 </li>
                 <li>
-                  <a href="#servicos">{t('Serviços')}</a>
+                  <a href="#servicos">{t('Soluções')}</a>
                 </li>
                 <li>
-                  <a href="#solucoes">{t('Soluções')}</a>
+                  <a href="#solucoes">{t('Objetivos do seu negócio')}</a>
                 </li>
                 <li>
                   <a href="#metodo">{t('Como trabalhamos')}</a>
