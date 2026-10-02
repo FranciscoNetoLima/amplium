@@ -3,13 +3,67 @@ import { t, useLanguage, localizedWhatsApp } from '../i18n.js';
 import LanguageSwitch from './LanguageSwitch.jsx';
 
 const services = [
-  ['servico-sites', 'Sites', 'Apresente seus diferenciais e facilite o contato.'],
-  ['servico-landing-pages', 'Landing pages', 'Dê à sua oferta um caminho até o orçamento.'],
-  ['servico-e-commerce', 'E-commerce', 'Facilite a escolha, o pagamento e o pedido.'],
-  ['servico-aplicacoes-crm', 'Aplicações e CRM', 'Organize contatos, negociações e rotinas.'],
-  ['servico-automacoes-ia', 'Automações e IA', 'Libere a equipe das tarefas repetitivas.'],
-  ['servico-trafego-pago', 'Tráfego pago', 'Divulgue sua oferta e acompanhe os contatos.'],
+  ['servico-sites', 'Sites', 'Apresente melhor sua empresa.'],
+  ['servico-landing-pages', 'Landing pages', 'Transforme interesse em contatos.'],
+  ['servico-e-commerce', 'E-commerce', 'Facilite suas vendas online.'],
+  ['servico-aplicacoes-crm', 'Aplicações e CRM', 'Organize a operação e as vendas.'],
+  ['servico-automacoes-ia', 'Automações e IA', 'Agilize tarefas e atendimento.'],
+  ['servico-trafego-pago', 'Tráfego pago', 'Alcance potenciais clientes.'],
 ];
+
+function ServiceIcon({ index }) {
+  return (
+    <span className="nav-service-icon" aria-hidden="true">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {index === 0 && (
+          <>
+            <circle cx="12" cy="12" r="8" />
+            <path d="M4 12h16M12 4c-2 2-3 5-3 8s1 6 3 8M12 4c2 2 3 5 3 8s-1 6-3 8" />
+          </>
+        )}
+        {index === 1 && (
+          <>
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <path d="M4 9h16" />
+          </>
+        )}
+        {index === 2 && (
+          <>
+            <path d="M5 9h14l-1 11H6L5 9Z" />
+            <path d="M9 9V7a3 3 0 0 1 6 0v2" />
+          </>
+        )}
+        {index === 3 && (
+          <>
+            <rect x="4" y="4" width="6" height="6" rx="1" />
+            <rect x="14" y="4" width="6" height="6" rx="1" />
+            <rect x="4" y="14" width="6" height="6" rx="1" />
+            <rect x="14" y="14" width="6" height="6" rx="1" />
+          </>
+        )}
+        {index === 4 && (
+          <>
+            <rect x="3" y="4" width="7" height="7" rx="2" />
+            <rect x="14" y="13" width="7" height="7" rx="2" />
+            <path d="M7 11v4a3 3 0 0 0 3 3h4" />
+          </>
+        )}
+        {index === 5 && (
+          <>
+            <path d="M4 20V5M4 20h16M8 17v-5M12 17V8M16 17v-8M20 17v-4" />
+          </>
+        )}
+      </svg>
+    </span>
+  );
+}
 
 export default function Navbar() {
   useLanguage();
@@ -78,11 +132,14 @@ export default function Navbar() {
               </button>
               <div className="nav-solutions-panel" id="nav-solutions-panel" hidden={!solutionsOpen}>
                 <ul>
-                  {services.map(([id, name, benefit]) => (
+                  {services.map(([id, name, benefit], index) => (
                     <li key={id}>
                       <a href={'#' + id} onClick={() => setSolutionsOpen(false)}>
-                        <strong>{t(name)}</strong>
-                        <span>{t(benefit)}</span>
+                        <ServiceIcon index={index} />
+                        <span className="nav-service-copy">
+                          <strong>{t(name)}</strong>
+                          <span>{t(benefit)}</span>
+                        </span>
                       </a>
                     </li>
                   ))}
@@ -93,7 +150,7 @@ export default function Navbar() {
                   onClick={() => setSolutionsOpen(false)}
                 >
                   {t('Escolha a solução pelo seu objetivo')}
-                  <span aria-hidden="true">↗</span>
+                  <span aria-hidden="true">→</span>
                 </a>
               </div>
             </div>
