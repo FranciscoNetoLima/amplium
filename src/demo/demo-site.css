@@ -87,6 +87,9 @@
 .demo-nav > a:not(.demo-nav-cta) {
   padding-block: 10px;
   color: #526a61;
+  transition:
+    color 180ms ease,
+    box-shadow 180ms ease;
 }
 .demo-nav > a.is-active,
 .demo-nav > a:hover {
@@ -101,6 +104,9 @@
   border-radius: 5px;
   background: #244b40;
   color: #fff;
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
 }
 .demo-nav .demo-nav-cta:hover,
 .demo-button:hover {
@@ -116,6 +122,18 @@
   width: 42px;
   height: 42px;
   font-size: 1.3rem;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+.demo-menu-button:hover {
+  border-color: #789b68;
+  background: #e9efdf;
+}
+.demo-menu-button:active {
+  transform: scale(0.96);
 }
 .demo-kicker {
   display: block;
@@ -153,11 +171,18 @@
   font-weight: 750;
   cursor: pointer;
   transition:
-    background 0.2s,
-    transform 0.2s;
+    background-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
 }
 .demo-button:hover {
   transform: translateY(-2px);
+  box-shadow: 0 9px 20px #244b4026;
+}
+.demo-button:active,
+.demo-nav .demo-nav-cta:active {
+  transform: translateY(0) scale(0.985);
+  box-shadow: none;
 }
 .demo-text-link {
   display: inline-flex;
@@ -168,13 +193,19 @@
   color: #244b40 !important;
   font-size: 0.84rem;
   font-weight: 750;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
 }
 .demo-text-link:hover {
   color: #ac683c !important;
+  border-color: currentColor;
+  transform: translateY(-1px);
 }
 .demo-hero {
   display: grid;
-  grid-template-columns: 1fr 0.94fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.94fr);
   align-items: stretch;
   gap: 28px;
   padding-block: 72px 86px;
@@ -184,13 +215,13 @@
   padding-block: 32px;
 }
 .demo-hero h1 {
-  max-width: 680px;
+  max-width: 12ch;
   margin: 24px 0 22px;
   font-size: clamp(3rem, 5.8vw, 5.75rem);
   line-height: 1.04;
 }
 .demo-hero-copy > p {
-  max-width: 510px;
+  max-width: 46ch;
   font-size: 1.08rem;
 }
 .demo-actions {
@@ -223,6 +254,18 @@
   isolation: isolate;
   border-radius: 8px;
   background: linear-gradient(140deg, #dce8d4, #b9d0b8 58%, #9bbba5);
+  box-shadow: 0 24px 55px #315d9220;
+  animation: demo-art-arrive 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes demo-art-arrive {
+  from {
+    opacity: 0.7;
+    transform: translateY(12px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 .demo-hero-art::after {
   content: '';
@@ -359,6 +402,15 @@
   border: 1px solid var(--demo-line);
   border-radius: 6px;
   background: #fff;
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+.demo-value-grid article:hover {
+  transform: translateY(-4px);
+  border-color: #bdcdbd;
+  box-shadow: 0 14px 35px #234b3b12;
 }
 .demo-value-grid article > span,
 .demo-service-top {
@@ -392,13 +444,13 @@
   padding-block: 80px 55px;
 }
 .demo-page-head h1 {
-  max-width: 800px;
+  max-width: 14ch;
   margin: 20px 0;
   font-size: clamp(3rem, 6vw, 5rem);
   line-height: 1.08;
 }
 .demo-page-head p {
-  max-width: 620px;
+  max-width: 56ch;
   font-size: 1.04rem;
 }
 .demo-services-grid {
@@ -410,11 +462,21 @@
 .demo-service {
   display: flex;
   flex-direction: column;
-  min-height: 345px;
-  padding: 34px;
+  min-height: 360px;
+  padding: clamp(25px, 3vw, 36px);
   border: 1px solid var(--demo-line);
   border-radius: 6px;
   background: #fff;
+  box-shadow: 0 5px 18px #234b3b08;
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+.demo-service:hover {
+  transform: translateY(-4px);
+  border-color: #bdcdbd;
+  box-shadow: 0 16px 36px #234b3b14;
 }
 .demo-service-top {
   display: flex;
@@ -430,6 +492,13 @@
   background: #e9efdf;
   color: #35684f;
   font-size: 1.5rem;
+  transition:
+    transform 200ms ease,
+    background-color 200ms ease;
+}
+.demo-service:hover .demo-service-icon {
+  transform: rotate(-5deg) scale(1.04);
+  background: #dfead3;
 }
 .demo-service h2 {
   margin: 32px 0 12px;
@@ -527,6 +596,22 @@
   color: #163634;
   font: inherit;
   font-weight: 400;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+.demo-form :is(input, select, textarea):hover {
+  border-color: #9caf9c;
+}
+.demo-form :is(input, select, textarea):focus {
+  border-color: #668667;
+  background: #fff;
+  box-shadow: 0 0 0 3px #789b6822;
+}
+.demo-form :is(input, select, textarea):user-invalid {
+  border-color: #a64d3c;
+  box-shadow: 0 0 0 3px #a64d3c19;
 }
 .demo-form textarea {
   resize: vertical;
@@ -655,6 +740,12 @@
     grid-template-columns: 1fr;
     gap: 26px;
   }
+  .demo-page-head {
+    padding-block: 64px 40px;
+  }
+  .demo-services-grid {
+    gap: 13px;
+  }
 }
 @media (max-width: 560px) {
   .demo-container {
@@ -673,7 +764,9 @@
     font-size: 1.13rem;
   }
   .demo-hero h1 {
-    font-size: clamp(2.65rem, 11vw, 3.8rem);
+    max-width: 11ch;
+    font-size: clamp(2.6rem, 10.7vw, 3.75rem);
+    line-height: 1.02;
   }
   .demo-hero-art {
     min-height: 310px;
@@ -701,8 +794,12 @@
     margin-bottom: 70px;
   }
   .demo-service {
-    min-height: 320px;
+    min-height: 0;
     padding: 26px;
+  }
+  .demo-service h2 {
+    margin-top: 24px;
+    font-size: clamp(1.45rem, 6.4vw, 1.8rem);
   }
   .demo-note {
     padding: 28px;
@@ -716,6 +813,9 @@
   }
   .demo-form-row {
     grid-template-columns: 1fr;
+  }
+  .demo-form .demo-button {
+    width: 100%;
   }
   .demo-footer .demo-container {
     align-items: flex-start;
@@ -732,5 +832,16 @@
   .demo-site *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+  .demo-hero-art {
+    animation: none !important;
+  }
+  .demo-value-grid article,
+  .demo-service,
+  .demo-service-icon,
+  .demo-text-link,
+  .demo-button,
+  .demo-menu-button {
+    transform: none !important;
   }
 }

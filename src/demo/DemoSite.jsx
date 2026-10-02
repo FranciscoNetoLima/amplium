@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { t, useLanguage } from '../i18n.js';
 import './demo-site.css';
 
@@ -39,9 +39,9 @@ const services = [
   ],
 ];
 
-function Link({ href, children, className = '' }) {
+function Link({ href, children, className = '', onClick, ariaCurrent }) {
   return (
-    <a className={className} href={href}>
+    <a className={className} href={href} onClick={onClick} aria-current={ariaCurrent}>
       {t(children)}
     </a>
   );
@@ -309,6 +309,25 @@ export default function DemoSite() {
   const page =
     path === `${root}/servicos` ? 'services' : path === `${root}/contato` ? 'contact' : 'home';
   const [menuOpen, setMenuOpen] = useState(false);
+  const headerRef = useRef(null);
+  const menuButtonRef = useRef(null);
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+    const closeMenu = (event) => {
+      if (event.type === 'keydown' && event.key === 'Escape') {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      } else if (event.type === 'pointerdown' && !headerRef.current?.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('keydown', closeMenu);
+    document.addEventListener('pointerdown', closeMenu);
+    return () => {
+      document.removeEventListener('keydown', closeMenu);
+      document.removeEventListener('pointerdown', closeMenu);
+    };
+  }, [menuOpen]);
   useEffect(() => {
     document.title = `${t(page === 'home' ? 'Início' : page === 'services' ? 'Serviços' : 'Contato')} — ${t('Brisa Clima | Projeto demonstrativo')}`;
     document
@@ -326,14 +345,15 @@ export default function DemoSite() {
           <a href="/#servico-sites">{t('Voltar à Amplium')} ↗</a>
         </div>
       </div>
-      <header className="demo-header">
+      <header className="demo-header" ref={headerRef}>
         <div className="demo-container demo-header-inner">
-          <Link href={root} className="demo-brand">
+          <Link href={root} className="demo-brand" onClick={() => setMenuOpen(false)}>
             BRISA CLIMA
           </Link>
           <button
             type="button"
             className="demo-menu-button"
+            ref={menuButtonRef}
             aria-expanded={menuOpen}
             aria-controls="demo-navigation"
             aria-label={t(menuOpen ? 'Fechar menu' : 'Abrir menu')}
@@ -347,11 +367,21 @@ export default function DemoSite() {
             aria-label={t('Navegação principal')}
           >
             {routes.map(([href, label]) => (
-              <Link key={href} href={href} className={path === href ? 'is-active' : ''}>
+              <Link
+                key={href}
+                href={href}
+                className={path === href ? 'is-active' : ''}
+                ariaCurrent={path === href ? 'page' : undefined}
+                onClick={() => setMenuOpen(false)}
+              >
                 {label}
               </Link>
             ))}
-            <Link href={`${root}/contato`} className="demo-nav-cta">
+            <Link
+              href={`${root}/contato`}
+              className="demo-nav-cta"
+              onClick={() => setMenuOpen(false)}
+            >
               Solicitar orçamento ↗
             </Link>
           </nav>
