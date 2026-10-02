@@ -76,6 +76,28 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
+.service-demo-link {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin-top: 18px;
+  color: #cbd9f8;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+.service-demo-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.service-demo-link:focus-visible {
+  outline: 2px solid #a5bfff;
+  outline-offset: 5px;
+  border-radius: 2px;
+}
 .service-card--sites {
   grid-column: span 2;
   grid-row: span 2;

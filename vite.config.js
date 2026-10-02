@@ -65,7 +65,7 @@ export default defineConfig(({ command, mode }) => {
         },
       },
     ],
-    base: './',
+    base: '/',
     build: { sourcemap: false },
     server: { host: '127.0.0.1', port: 4173, strictPort: true, headers: developmentHeaders },
     preview: { host: '127.0.0.1', port: 4173, strictPort: true, headers: productionHeaders },

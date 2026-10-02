@@ -13,4 +13,10 @@ import '../process.css';
 import '../faq.css';
 import '../hero-art.css';
 
-createRoot(document.getElementById('root')).render(<App />);
+if (window.location.pathname.startsWith('/demonstracoes/site-servicos')) {
+  import('./demo/DemoSite.jsx').then(({ default: DemoSite }) => {
+    createRoot(document.getElementById('root')).render(<DemoSite />);
+  });
+} else {
+  createRoot(document.getElementById('root')).render(<App />);
+}

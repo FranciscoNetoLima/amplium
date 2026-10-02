@@ -1,4 +1,9 @@
 {
+  "rewrites": [
+    { "source": "/demonstracoes/site-servicos", "destination": "/index.html" },
+    { "source": "/demonstracoes/site-servicos/servicos", "destination": "/index.html" },
+    { "source": "/demonstracoes/site-servicos/contato", "destination": "/index.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -58,6 +58,15 @@ export default function Services() {
             <span className="service-caption">
               {t('Informações claras para escolher com confiança')}
             </span>
+            <a
+              className="service-demo-link"
+              href="/demonstracoes/site-servicos"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t('Ver site de exemplo (abre em nova aba)')}
+            >
+              {t('Ver site de exemplo')} <span aria-hidden="true">↗</span>
+            </a>
           </article>
           <article id="servico-landing-pages" className="service-card service-card--landing reveal">
             <span className="service-number">02 //</span>
