@@ -7,11 +7,9 @@ export default function HeroBackdrop() {
     const canvas = canvasRef.current;
     const useWorker =
       typeof Worker !== 'undefined' && typeof canvas.transferControlToOffscreen === 'function';
-    const worker = useWorker
-      ? new Worker(new URL('../hero-ribbons.worker.js', import.meta.url), { type: 'module' })
-      : null;
-    const ctx = worker ? null : canvas.getContext('2d');
-    if (!worker && !ctx) return;
+    let worker = null;
+    let ctx = null;
+    let initialized = false;
     const hero = canvas.closest('.hero'),
       backdrop = canvas.parentElement;
     const symbol = hero.querySelector('.hero-symbol-motion');
@@ -19,10 +17,11 @@ export default function HeroBackdrop() {
     const symbolPointer = { x: 0, y: 0, energy: 0, tx: 0, ty: 0, targetEnergy: 0 };
     let frame = 0;
     let previous = 0;
-    let active = !document.hidden;
-    const frameInterval = worker ? 0 : 1000 / 30;
+    let active = false;
+    const frameInterval = useWorker ? 0 : 1000 / 30;
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
     const resize = () => {
+      if (!initialized) return;
       const size = Math.round(canvas.clientWidth * Math.min(devicePixelRatio || 1, 2));
       if (worker) worker.postMessage({ type: 'resize', size });
       else {
@@ -32,11 +31,18 @@ export default function HeroBackdrop() {
     };
     const observer = new ResizeObserver(resize);
     observer.observe(canvas);
-    if (worker) {
-      const offscreen = canvas.transferControlToOffscreen();
-      worker.postMessage({ type: 'init', canvas: offscreen }, [offscreen]);
-    }
-    resize();
+    const initializeRenderer = () => {
+      if (initialized) return;
+      if (useWorker) {
+        worker = new Worker(new URL('../hero-ribbons.worker.js', import.meta.url), {
+          type: 'module',
+        });
+        const offscreen = canvas.transferControlToOffscreen();
+        worker.postMessage({ type: 'init', canvas: offscreen }, [offscreen]);
+      } else ctx = canvas.getContext('2d');
+      initialized = true;
+      resize();
+    };
     const move = (event) => {
       if (event.pointerType === 'mouse') {
         const bounds = art.getBoundingClientRect();
@@ -94,7 +100,7 @@ export default function HeroBackdrop() {
       pointer.y += (pointer.ty - pointer.y) * ease;
       backdrop.style.setProperty('--ribbon-x', `${pointer.x * 16}px`);
       backdrop.style.setProperty('--ribbon-y', `${pointer.y * 12}px`);
-      if (!worker) drawRibbons(ctx, canvas, now, pointer);
+      if (!worker && ctx) drawRibbons(ctx, canvas, now, pointer);
       if (
         !worker ||
         Math.abs(symbolPointer.x - symbolPointer.tx) > 0.001 ||
@@ -109,7 +115,9 @@ export default function HeroBackdrop() {
       if (active && !frame) frame = requestAnimationFrame(render);
     };
     const onVisibility = () => {
-      active = !document.hidden && hero.getBoundingClientRect().bottom > 0;
+      const bounds = canvas.getBoundingClientRect();
+      active = !document.hidden && bounds.bottom > 0 && bounds.top < innerHeight;
+      if (active) initializeRenderer();
       if (worker) worker.postMessage({ type: 'active', active });
       if (active) schedule();
       else {
@@ -120,6 +128,7 @@ export default function HeroBackdrop() {
     };
     const visibility = new IntersectionObserver(([entry]) => {
       active = entry.isIntersecting && !document.hidden;
+      if (active) initializeRenderer();
       if (worker) worker.postMessage({ type: 'active', active });
       if (active) schedule();
       else {
@@ -128,9 +137,8 @@ export default function HeroBackdrop() {
         previous = 0;
       }
     });
-    visibility.observe(hero);
+    visibility.observe(canvas);
     document.addEventListener('visibilitychange', onVisibility);
-    schedule();
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
