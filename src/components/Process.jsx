@@ -4,26 +4,26 @@ const steps = [
   {
     title: 'Diagnóstico e planejamento',
     description:
-      'Entendemos seu negócio e definimos as prioridades, o escopo e o cronograma do projeto.',
-    label: 'Entender',
+      'Identificamos o que seu negócio precisa melhorar e definimos a solução, as prioridades e o plano de execução.',
+    label: 'ENTENDER',
   },
   {
-    title: 'Design e validação',
+    title: 'Proposta e validação',
     description:
-      'Organizamos o conteúdo e apresentamos o visual para sua aprovação antes de desenvolver.',
-    label: 'Validar',
+      'Apresentamos como a solução vai funcionar e alinhamos com você o escopo e os critérios de sucesso.',
+    label: 'VALIDAR',
   },
   {
-    title: 'Desenvolvimento e testes',
+    title: 'Implementação e testes',
     description:
-      'Construímos a solução e testamos os principais fluxos em diferentes tamanhos de tela.',
-    label: 'Construir',
+      'Desenvolvemos, configuramos e conectamos o que o projeto exige. Testamos os fluxos antes de colocar a solução em uso.',
+    label: 'IMPLEMENTAR',
   },
   {
-    title: 'Publicação e continuidade',
+    title: 'Entrega e próximos passos',
     description:
-      'Preparamos a publicação e orientamos o uso da solução. As condições de suporte, manutenção e evolução são definidas na proposta.',
-    label: 'Entregar',
+      'Colocamos a solução em funcionamento e orientamos seu uso. Alinhamos o acompanhamento e os próximos ajustes conforme o serviço contratado.',
+    label: 'ACOMPANHAR',
   },
 ];
 function Illustration({ stage }) {
@@ -73,12 +73,6 @@ function Illustration({ stage }) {
                 <circle cx="190" cy="111" r="9" />
                 <circle cx="165" cy="35" r="6" />
               </g>
-              <text x="24" y="30">
-                {t('OBJETIVO')}
-              </text>
-              <text x="155" y="139">
-                {t('PRIORIDADES')}
-              </text>
             </>
           ),
         )}
@@ -95,10 +89,15 @@ function Illustration({ stage }) {
                   fill="#142440"
                   stroke={`url(#method-gradient-${stage})`}
                 />
-                <path d="m66 89 35-11 22 20-35 11Z" fill="#476bbe" />
-                <path d="m112 75 31-10 12 11-31 10Z" fill="#a0c1fc" />
                 <path
-                  d="m126 89 31-10m-21 19 20-6"
+                  d="m82 83 3 3 5-8m6 18 3 3 5-8"
+                  stroke="#bad7ff"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="m101 78 39-12m-25 25 39-12m-48 29 48-15"
                   stroke="#6588c2"
                   strokeWidth="3"
                   strokeLinecap="round"
@@ -106,16 +105,13 @@ function Illustration({ stage }) {
               </g>
               <circle cx="199" cy="40" r="12" fill="#1f3c5d" stroke="#719fea" />
               <path d="m194 40 4 4 7-8" stroke="#bad7ff" strokeWidth="2" />
-              <text x="23" y="144">
-                {t('VISUAL + EXPERIÊNCIA')}
-              </text>
             </>
           ),
         )}
         {t(
           stage === 2 && (
             <>
-              <path className="method-connector" d="M53 82h38m60 0h37M120 50V30m0 100v15" />
+              <path className="method-connector" d="M54 82h30m72 0h31M120 46V33m0 85v14" />
               <g className="method-float">
                 <rect
                   x="84"
@@ -126,64 +122,61 @@ function Illustration({ stage }) {
                   fill="#14233a"
                   stroke={`url(#method-gradient-${stage})`}
                 />
-                <path
-                  d="m108 68-12 14 12 14m24-28 12 14-12 14m-7-29-10 31"
-                  stroke="#9ec2ff"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
+                <path d="M109 82h22m-11 0v16" stroke="#719fea" strokeWidth="2" />
+                <rect x="97" y="64" width="15" height="22" rx="4" fill="#476bbe" />
+                <rect x="128" y="64" width="15" height="22" rx="4" fill="#6588c2" />
+                <rect x="112" y="96" width="16" height="12" rx="4" fill="#a0c1fc" />
               </g>
+              <rect x="24" y="66" width="30" height="30" rx="9" fill="#243e65" stroke="#719fea" />
               <g className="method-test">
-                <rect x="24" y="66" width="30" height="30" rx="9" />
-                <path d="m32 81 5 5 9-10" />
                 <rect x="187" y="66" width="30" height="30" rx="9" />
                 <path d="m195 81 5 5 9-10" />
               </g>
               <circle cx="120" cy="25" r="5" fill="#77aaff" />
               <circle cx="120" cy="143" r="4" fill="#466594" />
-              <text x="15" y="132">
-                {t('INTEGRAÇÕES')}
-              </text>
-              <text x="173" y="41">
-                {t('TESTES')}
-              </text>
             </>
           ),
         )}
         {t(
           stage === 3 && (
             <>
-              <ellipse className="method-orbits" cx="120" cy="120" rx="76" ry="22" />
-              <ellipse className="method-orbits" cx="120" cy="120" rx="48" ry="13" />
-              <path className="method-connector" d="M120 116V68m-53 54 27-12m79 12-27-12" />
+              <circle className="method-orbits" cx="120" cy="80" r="61" />
+              <path
+                className="method-connector"
+                d="M64 58a60 60 0 0 1 111-5M176 102a60 60 0 0 1-111 5"
+              />
+              <path
+                d="m164 50 11 3 3-11m-102 68-11-3-3 11"
+                stroke="#9ec2ff"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
               <g className="method-float">
-                <path
-                  d="M94 61a18 18 0 0 1 35-7 15 15 0 0 1 7 29H95a11 11 0 0 1-1-22Z"
-                  fill="#1a3050"
+                <rect
+                  x="84"
+                  y="47"
+                  width="72"
+                  height="66"
+                  rx="14"
+                  fill="#14233a"
                   stroke={`url(#method-gradient-${stage})`}
-                  strokeWidth="2"
                 />
                 <path
-                  d="M116 74V50m-9 9 9-9 9 9"
-                  stroke="#a9cbff"
-                  strokeWidth="2.5"
+                  d="M98 65h44m-44 15h44m-44 15h44"
+                  stroke="#466594"
+                  strokeWidth="3"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
                 />
+                <circle cx="115" cy="65" r="4" fill="#a0c1fc" />
+                <circle cx="132" cy="80" r="4" fill="#77aaff" />
+                <circle cx="106" cy="95" r="4" fill="#6588c2" />
               </g>
               <g className="method-nodes">
-                <circle cx="67" cy="122" r="5" />
-                <circle cx="173" cy="122" r="5" />
-                <circle cx="120" cy="116" r="7" />
+                <circle cx="120" cy="20" r="5" />
+                <circle cx="120" cy="140" r="5" />
               </g>
-              <circle className="method-beacon" cx="120" cy="116" r="13" stroke="#7caef3" />
-              <text x="158" y="58">
-                {t('NO AR')}
-              </text>
-              <text x="32" y="149">
-                {t('EVOLUÇÃO CONTÍNUA')}
-              </text>
+              <circle className="method-beacon" cx="120" cy="140" r="9" stroke="#7caef3" />
             </>
           ),
         )}
@@ -206,7 +199,7 @@ export default function Process() {
         </div>
         <p>
           {t(
-            'Entendemos seu objetivo, apresentamos a solução, validamos com você e colocamos o projeto em funcionamento.',
+            'Entendemos seu objetivo, definimos a solução com você e colocamos tudo em funcionamento, com clareza em cada etapa.',
           )}
         </p>
       </div>

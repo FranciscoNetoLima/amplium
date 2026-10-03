@@ -82,13 +82,6 @@
   max-width: 300px;
   overflow: visible;
 }
-.method-art text {
-  fill: #8397b6;
-  font-family: inherit;
-  font-size: 7px;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
 .method-orbits {
   stroke: #5075ae;
   stroke-opacity: 0.35;
@@ -265,4 +258,22 @@
   height: 30px;
   object-fit: contain;
   flex-shrink: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .process-section .method-connector,
+  .process-section .method-float,
+  .process-section .method-beacon,
+  .process-section .tech-track {
+    animation: none;
+  }
+  .process-section .process-card,
+  .process-section .process-illustration,
+  .process-section .method-layer,
+  .process-section .tech-pill {
+    transition: none;
+  }
+  .process-section .process-card:hover .process-illustration,
+  .process-section .process-card:hover .method-layer {
+    transform: none;
+  }
 }
