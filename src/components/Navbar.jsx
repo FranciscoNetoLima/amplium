@@ -110,10 +110,12 @@ export default function Navbar() {
               className="brand-logo"
               src="assets/amplium-logo.png"
               srcSet="assets/amplium-logo-360.webp 360w, assets/amplium-logo-720.webp 720w"
-              sizes="210px"
+              sizes="(max-width: 639px) 175px, 210px"
               alt={t('Amplium — Technology, Amplified.')}
               width="2170"
               height="725"
+              fetchPriority="high"
+              decoding="async"
             />
           </a>
           <div className="links" id="nav-links">

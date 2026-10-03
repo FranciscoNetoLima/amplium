@@ -8,10 +8,21 @@ export default function Hero() {
         <div className="wrap hero-grid">
           <div className="hero-copy">
             <h1 className="hero-benefits-title">
-              {t('Mais clientes,')}
-              <br />
-              <em>{t(' mais vendas e')}</em>
-              <br /> <span className="hero-condensed">{t(' menos trabalho manual.')}</span>
+              <span className="motion-line">
+                <span className="motion-line-inner" style={{ '--line-delay': '0s' }}>
+                  {t('Mais clientes,')}
+                </span>
+              </span>
+              <span className="motion-line">
+                <span className="motion-line-inner" style={{ '--line-delay': '0.16s' }}>
+                  <em>{t(' mais vendas e')}</em>
+                </span>
+              </span>
+              <span className="motion-line">
+                <span className="motion-line-inner" style={{ '--line-delay': '0.32s' }}>
+                  <span className="hero-condensed">{t(' menos trabalho manual.')}</span>
+                </span>
+              </span>
             </h1>
             <p>
               {t(

@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { initializeInteractions } from './interactions.js';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
@@ -10,7 +10,7 @@ import FAQ from './components/FAQ.jsx';
 import Footer from './components/Footer.jsx';
 
 export default function App() {
-  useLayoutEffect(() => initializeInteractions(), []);
+  useEffect(() => initializeInteractions(), []);
   return (
     <>
       <Navbar />

@@ -38,6 +38,7 @@ export function initializeInteractions() {
   };
   // Títulos separados por linha para a animação de entrada.
   document.querySelectorAll('.hero h1,.section h2,.closing h2').forEach((heading) => {
+    if (heading.querySelector(':scope > .motion-line')) return;
     const nodes = [...heading.childNodes];
     const original = nodes.map((node) => node.cloneNode(true));
     restores.push(() => heading.replaceChildren(...original));
@@ -533,13 +534,11 @@ export function initializeInteractions() {
         revealItems.delete(element);
       }
     }
-    document.querySelectorAll(revealSelector).forEach((element) => {
-      if (element.closest('.hero')) return;
-      if (revealItems.has(element)) {
-        element.classList.add('scroll-reveal');
-        return;
-      }
-      const originalOpacity = getComputedStyle(element).opacity;
+    // Read every initial opacity before adding classes that invalidate styles.
+    const additions = [...document.querySelectorAll(revealSelector)]
+      .filter((element) => !element.closest('.hero') && !revealItems.has(element))
+      .map((element) => ({ element, originalOpacity: getComputedStyle(element).opacity }));
+    additions.forEach(({ element, originalOpacity }) => {
       element.classList.add('scroll-reveal');
       revealResize.observe(element);
       revealItems.set(element, {
@@ -548,6 +547,7 @@ export function initializeInteractions() {
         baseOpacity: Number(originalOpacity) || 1,
         opacity: element.style.opacity,
         filter: element.style.filter,
+        painted: false,
       });
     });
   };
@@ -586,6 +586,7 @@ export function initializeInteractions() {
     // Separate layout reads from style writes and preserve hover transforms.
     measurements.forEach(({ element, state, value }) => {
       const difference = value - state.progress;
+      if (!difference && state.painted) return;
       if (Math.abs(difference) > 0.001) {
         state.progress += difference * (1 - Math.exp(-elapsed / 180));
         settling = true;
@@ -595,6 +596,7 @@ export function initializeInteractions() {
       element.style.setProperty('--element-shift', state.shift.toFixed(3) + 'px');
       element.style.opacity = String(state.progress * state.baseOpacity);
       element.style.filter = 'blur(' + ((1 - state.progress) * 8).toFixed(3) + 'px)';
+      state.painted = true;
     });
     if (settling) scheduleReveals();
   };

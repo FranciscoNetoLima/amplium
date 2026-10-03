@@ -96,4 +96,10 @@ export function useLanguage() {
     () => 'pt',
   );
 }
+export function prepareHydration() {
+  const preferred = language;
+  language = 'pt';
+  updateMetadata();
+  return () => setLanguage(preferred);
+}
 updateMetadata();

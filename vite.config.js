@@ -43,6 +43,14 @@ export default defineConfig(({ command, mode }) => {
       autoCommitPlugin(),
       {
         name: 'site-security',
+        configurePreviewServer(server) {
+          server.middlewares.use((request, _response, next) => {
+            if (request.url?.split('?')[0].startsWith('/demonstracoes/')) {
+              request.url = '/demo.html';
+            }
+            next();
+          });
+        },
         transformIndexHtml() {
           return [
             ...siteMetadata(env.VITE_SITE_URL),

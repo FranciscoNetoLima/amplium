@@ -1,6 +1,7 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
+import React, { useEffect } from 'react';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import App from './App.jsx';
+import { prepareHydration } from './i18n.js';
 import '../styles.css';
 import '../services.css';
 import '../navbar.css';
@@ -12,6 +13,11 @@ import '../solutions.css';
 import '../process.css';
 import '../faq.css';
 import '../hero-art.css';
+
+function HydratedApp({ restoreLanguage }) {
+  useEffect(restoreLanguage, [restoreLanguage]);
+  return <App />;
+}
 
 if (window.location.pathname.startsWith('/demonstracoes/site-servicos')) {
   import('./demo/DemoSite.jsx').then(({ default: DemoSite }) => {
@@ -38,5 +44,10 @@ if (window.location.pathname.startsWith('/demonstracoes/site-servicos')) {
     createRoot(document.getElementById('root')).render(<Demo />);
   });
 } else {
-  createRoot(document.getElementById('root')).render(<App />);
+  const root = document.getElementById('root');
+  if (root.dataset.prerendered === 'true') {
+    hydrateRoot(root, <HydratedApp restoreLanguage={prepareHydration()} />);
+  } else {
+    createRoot(root).render(<App />);
+  }
 }

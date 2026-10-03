@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "check": "node --check src/interactions.js && node --check vite.config.js && vite build",
-    "build": "vite build",
+    "check": "node --check src/interactions.js && node --check vite.config.js && node --check scripts/prerender.mjs && npm run build",
+    "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "check:languages": "node scripts/verify-language.mjs",
     "check:security": "node scripts/verify-security.mjs",

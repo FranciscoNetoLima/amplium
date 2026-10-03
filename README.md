@@ -18,6 +18,8 @@ Use `npm ci` e `npm run dev`. A prévia local fica em `http://127.0.0.1:4173`. D
 
 `src/components/` contém as seções. `src/interactions.js` controla movimentos, navegação e observadores; `src/i18n.js` controla o idioma; `src/contact-utils.js` normaliza texto e gera links de contato. `public/` contém assets, fontes e suas licenças. Os arquivos CSS são importados por `src/main.jsx` em ordem definida.
 
+O build pré-renderiza a página inicial em português e inclui os estilos no HTML para exibir o conteúdo antes do JavaScript. O React hidrata essa página e restaura a preferência de idioma salva. As demonstrações usam `dist/demo.html`, com o mesmo carregamento por rota anterior; as regras da Vercel e a prévia local direcionam essas rotas para essa entrada. `scripts/prerender.mjs` realiza essa etapa após o Vite.
+
 O questionário mantém os dados apenas em memória. Não há backend, analytics ou envio automático. Nome e contato são usados para preparar uma mensagem que o visitante revisa antes de abrir o WhatsApp. Apenas a preferência de idioma é salva em localStorage.
 
 ## Publicação e segurança
