@@ -7,7 +7,7 @@
 }
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 18px;
 }
 .service-card {
@@ -98,6 +98,21 @@
   outline-offset: 5px;
   border-radius: 2px;
 }
+.service-demo-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 24px;
+  position: relative;
+  z-index: 3;
+}
+.service-demo-links .service-demo-link {
+  min-height: 44px;
+}
+.service-anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .service-card:not(.service-card--sites) {
   padding-block: 26px;
 }
@@ -111,7 +126,7 @@
   margin-top: 9px;
 }
 .service-card--sites {
-  grid-column: span 2;
+  grid-column: span 7;
   grid-row: span 2;
   min-height: 598px;
   padding: 38px;
@@ -122,20 +137,17 @@
 .service-card--sites p {
   max-width: 400px;
 }
-.service-card--landing {
-  grid-column: span 2;
-  min-height: 270px;
-}
-.service-card--landing p {
-  max-width: 340px;
-}
 .service-card--commerce,
 .service-card--crm {
+  grid-column: span 5;
   min-height: 310px;
 }
-.service-card--automation,
+.service-card--automation {
+  grid-column: span 5;
+  min-height: 280px;
+}
 .service-card--ads {
-  grid-column: span 2;
+  grid-column: span 7;
   min-height: 280px;
 }
 .service-card--automation p,
@@ -399,6 +411,9 @@
   height: 94%;
 }
 @media (max-width: 1000px) {
+  .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .service-card {
     padding: 26px;
   }
@@ -406,18 +421,15 @@
     padding: 32px;
   }
   .service-card--commerce,
-  .service-card--crm {
-    grid-column: span 2;
+  .service-card--crm,
+  .service-card--automation,
+  .service-card--ads {
+    grid-column: auto;
   }
   .service-card--sites {
+    grid-column: 1 / -1;
     grid-row: auto;
     min-height: 410px;
-  }
-  .service-card--landing {
-    min-height: 410px;
-  }
-  .service-card--landing p {
-    max-width: 100%;
   }
   .landing-preview {
     bottom: 40px;
@@ -444,7 +456,6 @@
   }
   .service-card,
   .service-card--sites,
-  .service-card--landing,
   .service-card--commerce,
   .service-card--crm,
   .service-card--automation,
@@ -483,16 +494,17 @@
   }
 }
 
-.service-card[id] {
+.service-card[id],
+.service-anchor {
   scroll-margin-top: 116px;
 }
-.service-card--landing p,
 .service-card--automation p,
 .service-card--ads p {
   max-width: 460px;
 }
 @media (max-width: 980px) {
-  .service-card[id] {
+  .service-card[id],
+  .service-anchor {
     scroll-margin-top: 100px;
   }
 }

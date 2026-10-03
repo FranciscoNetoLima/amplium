@@ -19,11 +19,12 @@ export default function Services() {
         </div>
         <div className="services-grid">
           <article id="servico-sites" className="service-card service-card--sites reveal">
+            <span id="servico-landing-pages" className="service-anchor" aria-hidden="true" />
             <span className="service-number">01 //</span>
-            <h3>{t('Sites')}</h3>
+            <h3>{t('Sites e landing pages')}</h3>
             <p>
               {t(
-                'Apresente seus diferenciais, responda às dúvidas do cliente e facilite o contato de quem procura o que sua empresa oferece.',
+                'Apresente sua empresa com um site que gera confiança ou destaque uma oferta com uma landing page focada em contatos e vendas.',
               )}
             </p>
             <div className="service-visual website-preview" aria-hidden="true">
@@ -55,46 +56,30 @@ export default function Services() {
                 </div>
               </div>
             </div>
-            <span className="service-caption">
-              {t('Informações claras para escolher com confiança')}
-            </span>
-            <a
-              className="service-demo-link"
-              href="/demonstracoes/site-servicos"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t('Ver site de exemplo (abre em nova aba)')}
-            >
-              {t('Ver site de exemplo')} <span aria-hidden="true">↗</span>
-            </a>
-          </article>
-          <article id="servico-landing-pages" className="service-card service-card--landing reveal">
-            <span className="service-number">02 //</span>
-            <h3>{t('Landing pages')}</h3>
-            <p>
-              {t(
-                'Seus anúncios despertam interesse. Uma página focada na oferta ajuda a transformar esse interesse em orçamentos e compras.',
-              )}
-            </p>
-            <div className="service-visual landing-preview" aria-hidden="true">
-              <div className="landing-line"></div>
-              <div className="landing-line"></div>
-              <div className="landing-cta">{t('Vamos conversar ↗')}</div>
-              <div className="landing-orbit"></div>
+            <span className="service-caption">{t('Presença que gera oportunidades')}</span>
+            <div className="service-demo-links">
+              <a
+                className="service-demo-link"
+                href="/demonstracoes/site-servicos"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('Ver site de exemplo (abre em nova aba)')}
+              >
+                {t('Ver site de exemplo')} <span aria-hidden="true">↗</span>
+              </a>
+              <a
+                className="service-demo-link"
+                href="/demonstracoes/landing-page"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('Ver landing page de exemplo (abre em nova aba)')}
+              >
+                {t('Ver landing page de exemplo')} <span aria-hidden="true">↗</span>
+              </a>
             </div>
-            <span className="service-caption">{t('Dê um próximo passo ao interesse')}</span>
-            <a
-              className="service-demo-link"
-              href="/demonstracoes/landing-page"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t('Ver landing page de exemplo (abre em nova aba)')}
-            >
-              {t('Ver landing page de exemplo')} <span aria-hidden="true">↗</span>
-            </a>
           </article>
           <article id="servico-e-commerce" className="service-card service-card--commerce reveal">
-            <span className="service-number">03 //</span>
+            <span className="service-number">02 //</span>
             <h3>{t('E-commerce')}</h3>
             <p>
               {t(
@@ -130,7 +115,7 @@ export default function Services() {
             </a>
           </article>
           <article id="servico-aplicacoes-crm" className="service-card service-card--crm reveal">
-            <span className="service-number">04 //</span>
+            <span className="service-number">03 //</span>
             <h3>{t('Aplicações e CRM')}</h3>
             <p>
               {t(
@@ -169,7 +154,7 @@ export default function Services() {
             id="servico-automacoes-ia"
             className="service-card service-card--automation reveal"
           >
-            <span className="service-number">05 //</span>
+            <span className="service-number">04 //</span>
             <h3>{t('Automações e IA')}</h3>
             <p>
               {t(
@@ -195,7 +180,7 @@ export default function Services() {
             </a>
           </article>
           <article id="servico-trafego-pago" className="service-card service-card--ads reveal">
-            <span className="service-number">06 //</span>
+            <span className="service-number">05 //</span>
             <h3>{t('Tráfego pago')}</h3>
             <p>
               {t(
@@ -224,7 +209,7 @@ export default function Services() {
         </div>
         <article id="captacao" className="capture-card reveal" aria-labelledby="capture-heading">
           <div className="capture-copy">
-            <span className="service-number">07 //</span>
+            <span className="service-number">06 //</span>
             <span className="capture-label">{t('Para ampliar sua divulgação')}</span>
             <h3 id="capture-heading">{t('Da divulgação à negociação.')}</h3>
             <p className="capture-description">
