@@ -73,7 +73,7 @@ export default function Services() {
             <h3>{t('Landing pages')}</h3>
             <p>
               {t(
-                'Dê aos seus anúncios um destino claro: uma página que apresenta sua oferta e conduz o visitante ao pedido de orçamento ou à compra.',
+                'Seus anúncios despertam interesse. Uma página focada na oferta ajuda a transformar esse interesse em orçamentos e compras.',
               )}
             </p>
             <div className="service-visual landing-preview" aria-hidden="true">
@@ -82,7 +82,7 @@ export default function Services() {
               <div className="landing-cta">{t('Vamos conversar ↗')}</div>
               <div className="landing-orbit"></div>
             </div>
-            <span className="service-caption">{t('Uma oferta, um próximo passo')}</span>
+            <span className="service-caption">{t('Dê um próximo passo ao interesse')}</span>
             <a
               className="service-demo-link"
               href="/demonstracoes/landing-page"
@@ -98,7 +98,7 @@ export default function Services() {
             <h3>{t('E-commerce')}</h3>
             <p>
               {t(
-                'Permita que seus clientes escolham produtos, paguem e façam pedidos sem depender de uma troca de mensagens a cada compra.',
+                'Seu cliente quer comprar, sem esperar respostas. Facilite a venda com produtos, pagamentos e pedidos na sua loja.',
               )}
             </p>
             <div className="service-visual commerce-preview" aria-hidden="true">
@@ -118,9 +118,7 @@ export default function Services() {
                 <b></b>
               </div>
             </div>
-            <span className="service-caption">
-              {t('Produtos, pagamentos e pedidos conectados')}
-            </span>
+            <span className="service-caption">{t('Menos espera para comprar')}</span>
             <a
               className="service-demo-link"
               href="/demonstracoes/e-commerce"
@@ -136,7 +134,7 @@ export default function Services() {
             <h3>{t('Aplicações e CRM')}</h3>
             <p>
               {t(
-                'Centralize contatos, propostas e rotinas em aplicações sob medida e CRM. Dê continuidade a cada oportunidade e simplifique a operação.',
+                'Contatos dispersos e retornos esquecidos custam oportunidades. Centralize negociações e rotinas com sistemas e CRM sob medida.',
               )}
             </p>
             <div className="service-visual crm-preview" aria-hidden="true">
@@ -156,9 +154,7 @@ export default function Services() {
                 <span></span>
               </div>
             </div>
-            <span className="service-caption">
-              {t('Histórico e próximas ações em um só lugar')}
-            </span>
+            <span className="service-caption">{t('Mais controle para vender')}</span>
             <a
               className="service-demo-link"
               href="/demonstracoes/aplicacoes-crm"
@@ -177,7 +173,7 @@ export default function Services() {
             <h3>{t('Automações e IA')}</h3>
             <p>
               {t(
-                'Reduza tarefas repetitivas e agilize respostas, para sua equipe dedicar mais atenção aos clientes e às atividades que fazem o negócio avançar.',
+                'Tarefas repetitivas tiram tempo do atendimento. Automatize rotinas e respostas para sua equipe atender melhor.',
               )}
             </p>
             <div className="service-visual automation-preview" aria-hidden="true">
@@ -187,9 +183,7 @@ export default function Services() {
               <i></i>
               <span>{t('Ação')}</span>
             </div>
-            <span className="service-caption">
-              {t('Mais tempo para o que precisa da sua equipe')}
-            </span>
+            <span className="service-caption">{t('Libere tempo para crescer')}</span>
             <a
               className="service-demo-link"
               href="/demonstracoes/automacoes-ia"
@@ -205,7 +199,7 @@ export default function Services() {
             <h3>{t('Tráfego pago')}</h3>
             <p>
               {t(
-                'Leve sua oferta a potenciais clientes e acompanhe os contatos gerados para orientar as próximas decisões da campanha.',
+                'Quem precisa da sua solução precisa encontrar você. Direcione anúncios a potenciais clientes e acompanhe os contatos gerados.',
               )}
             </p>
             <div className="service-visual ads-preview" aria-hidden="true">
@@ -216,9 +210,7 @@ export default function Services() {
               <span></span>
               <span></span>
             </div>
-            <span className="service-caption">
-              {t('Campanhas orientadas pelos contatos gerados')}
-            </span>
+            <span className="service-caption">{t('Sua oferta para quem importa')}</span>
             <a
               className="service-demo-link"
               href="/demonstracoes/trafego-pago"
