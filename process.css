@@ -316,30 +316,3 @@
   object-fit: contain;
   flex-shrink: 0;
 }
-@media (prefers-reduced-motion: reduce) {
-  .process-section .method-connector,
-  .process-section .method-float,
-  .process-section .method-beacon,
-  .process-section .method-orbits,
-  .process-section .method-layer,
-  .process-section .method-nodes circle,
-  .process-section .method-indicators circle,
-  .process-section .tech-track {
-    animation: none;
-  }
-  .process-section .process-card,
-  .process-section .process-illustration,
-  .process-section .method-layer,
-  .process-section .method-art,
-  .process-section .method-glow,
-  .process-section .tech-pill {
-    transition: none;
-  }
-  .process-section .process-card:hover .process-illustration,
-  .process-section .process-card:hover .method-layer {
-    transform: none;
-  }
-  .process-section .method-art {
-    transform: none;
-  }
-}

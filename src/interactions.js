@@ -338,9 +338,6 @@ export function initializeInteractions() {
     listen(window, 'pagehide', resetPointer);
   });
 
-  const methodPointer = window.matchMedia(
-    '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
-  );
   document.querySelectorAll('#metodo .process-card').forEach((card) => {
     let pointerFrame = 0;
     let pointerX = 0;
@@ -356,7 +353,7 @@ export function initializeInteractions() {
       card.style.setProperty('--method-tilt-y', `${x * 8}deg`);
     };
     const followPointer = (event) => {
-      if (event.pointerType !== 'mouse' || !methodPointer.matches) return;
+      if (event.pointerType !== 'mouse') return;
       pointerX = event.clientX;
       pointerY = event.clientY;
       if (!pointerFrame) pointerFrame = requestAnimationFrame(paintPointer);
@@ -372,7 +369,6 @@ export function initializeInteractions() {
     listen(card, 'pointermove', followPointer, { passive: true });
     listen(card, 'pointerleave', resetPointer);
     listen(card, 'pointercancel', resetPointer);
-    listen(methodPointer, 'change', resetPointer);
     listen(window, 'blur', resetPointer);
     restores.push(resetPointer);
   });
