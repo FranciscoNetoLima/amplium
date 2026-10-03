@@ -338,6 +338,45 @@ export function initializeInteractions() {
     listen(window, 'pagehide', resetPointer);
   });
 
+  const methodPointer = window.matchMedia(
+    '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
+  );
+  document.querySelectorAll('#metodo .process-card').forEach((card) => {
+    let pointerFrame = 0;
+    let pointerX = 0;
+    let pointerY = 0;
+    const paintPointer = () => {
+      pointerFrame = 0;
+      const bounds = card.getBoundingClientRect();
+      const x = Math.max(-0.5, Math.min(0.5, (pointerX - bounds.left) / bounds.width - 0.5));
+      const y = Math.max(-0.5, Math.min(0.5, (pointerY - bounds.top) / bounds.height - 0.5));
+      card.style.setProperty('--method-mouse-x', `${x * 16}px`);
+      card.style.setProperty('--method-mouse-y', `${y * 12}px`);
+      card.style.setProperty('--method-tilt-x', `${-y * 6}deg`);
+      card.style.setProperty('--method-tilt-y', `${x * 8}deg`);
+    };
+    const followPointer = (event) => {
+      if (event.pointerType !== 'mouse' || !methodPointer.matches) return;
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      if (!pointerFrame) pointerFrame = requestAnimationFrame(paintPointer);
+    };
+    const resetPointer = () => {
+      cancelAnimationFrame(pointerFrame);
+      pointerFrame = 0;
+      ['--method-mouse-x', '--method-mouse-y', '--method-tilt-x', '--method-tilt-y'].forEach(
+        (name) => card.style.removeProperty(name),
+      );
+    };
+    listen(card, 'pointerenter', followPointer);
+    listen(card, 'pointermove', followPointer, { passive: true });
+    listen(card, 'pointerleave', resetPointer);
+    listen(card, 'pointercancel', resetPointer);
+    listen(methodPointer, 'change', resetPointer);
+    listen(window, 'blur', resetPointer);
+    restores.push(resetPointer);
+  });
+
   const capture = document.querySelector('#captacao');
   const stages = [...capture.querySelectorAll('.flow-stage')];
   const stageNote = capture.querySelector('#capture-stage-note');

@@ -81,6 +81,21 @@
   height: 100%;
   max-width: 300px;
   overflow: visible;
+  transform: perspective(600px)
+    translate3d(var(--method-mouse-x, 0px), var(--method-mouse-y, 0px), 0)
+    rotateX(var(--method-tilt-x, 0deg)) rotateY(var(--method-tilt-y, 0deg));
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.method-glow {
+  opacity: 0.65;
+  transition: opacity 0.6s;
+}
+.process-card:hover .method-glow {
+  opacity: 1;
+}
+.process-illustration-0 .method-orbits {
+  transform-origin: 120px 80px;
+  animation: method-orbit 16s ease-in-out infinite;
 }
 .method-orbits {
   stroke: #5075ae;
@@ -102,7 +117,29 @@
   animation: method-float 8s ease-in-out infinite;
 }
 .method-layer {
+  animation: method-layer-drift 8s ease-in-out infinite;
   transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.method-layer-back {
+  animation-delay: -4s;
+}
+.method-nodes circle {
+  animation: method-node-pulse 6s ease-in-out infinite;
+}
+.method-nodes circle:nth-child(2) {
+  animation-delay: -2s;
+}
+.method-nodes circle:nth-child(3) {
+  animation-delay: -4s;
+}
+.method-indicators circle {
+  animation: method-adjust 7s ease-in-out infinite;
+}
+.method-indicators circle:nth-child(2) {
+  animation-delay: -2s;
+}
+.method-indicators circle:nth-child(3) {
+  animation-delay: -4s;
 }
 .process-card:hover .method-layer-front {
   transform: translateY(5px);
@@ -128,6 +165,26 @@
 @keyframes method-float {
   50% {
     transform: translateY(-5px);
+  }
+}
+@keyframes method-orbit {
+  50% {
+    transform: rotate(18deg);
+  }
+}
+@keyframes method-layer-drift {
+  50% {
+    translate: 0 -4px;
+  }
+}
+@keyframes method-node-pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+@keyframes method-adjust {
+  50% {
+    transform: translateX(5px);
   }
 }
 @keyframes method-signal {
@@ -263,17 +320,26 @@
   .process-section .method-connector,
   .process-section .method-float,
   .process-section .method-beacon,
+  .process-section .method-orbits,
+  .process-section .method-layer,
+  .process-section .method-nodes circle,
+  .process-section .method-indicators circle,
   .process-section .tech-track {
     animation: none;
   }
   .process-section .process-card,
   .process-section .process-illustration,
   .process-section .method-layer,
+  .process-section .method-art,
+  .process-section .method-glow,
   .process-section .tech-pill {
     transition: none;
   }
   .process-section .process-card:hover .process-illustration,
   .process-section .process-card:hover .method-layer {
+    transform: none;
+  }
+  .process-section .method-art {
     transform: none;
   }
 }

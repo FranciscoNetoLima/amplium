@@ -47,7 +47,14 @@ function Illustration({ stage }) {
             <stop offset="1" stopColor="#427bc9" stopOpacity="0" />
           </radialGradient>
         </defs>
-        <ellipse cx="120" cy="85" rx="105" ry="70" fill={`url(#method-glow-${stage})`} />
+        <ellipse
+          className="method-glow"
+          cx="120"
+          cy="85"
+          rx="105"
+          ry="70"
+          fill={`url(#method-glow-${stage})`}
+        />
         {t(
           stage === 0 && (
             <>
@@ -168,9 +175,11 @@ function Illustration({ stage }) {
                   strokeWidth="3"
                   strokeLinecap="round"
                 />
-                <circle cx="115" cy="65" r="4" fill="#a0c1fc" />
-                <circle cx="132" cy="80" r="4" fill="#77aaff" />
-                <circle cx="106" cy="95" r="4" fill="#6588c2" />
+                <g className="method-indicators">
+                  <circle cx="115" cy="65" r="4" fill="#a0c1fc" />
+                  <circle cx="132" cy="80" r="4" fill="#77aaff" />
+                  <circle cx="106" cy="95" r="4" fill="#6588c2" />
+                </g>
               </g>
               <g className="method-nodes">
                 <circle cx="120" cy="20" r="5" />
