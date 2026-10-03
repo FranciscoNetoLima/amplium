@@ -58,13 +58,13 @@ export default function Footer() {
                   <a href="#servicos">{t('Soluções')}</a>
                 </li>
                 <li>
-                  <a href="#solucoes">{t('Objetivos do seu negócio')}</a>
+                  <a href="#solucoes">{t('Escolha a solução pelo seu objetivo')}</a>
                 </li>
                 <li>
                   <a href="#metodo">{t('Como trabalhamos')}</a>
                 </li>
                 <li>
-                  <a href="#faq">{t('FAQ')}</a>
+                  <a href="#faq">{t('Dúvidas')}</a>
                 </li>
               </ul>
             </nav>
@@ -72,22 +72,22 @@ export default function Footer() {
               <h4>{t('Soluções')}</h4>
               <ul>
                 <li>
-                  <a href="#servicos">{t('Sites')}</a>
+                  <a href="#servico-sites">{t('Sites')}</a>
                 </li>
                 <li>
-                  <a href="#servicos">{t('Landing pages')}</a>
+                  <a href="#servico-landing-pages">{t('Landing pages')}</a>
                 </li>
                 <li>
-                  <a href="#servicos">{t('E-commerce')}</a>
+                  <a href="#servico-e-commerce">{t('E-commerce')}</a>
                 </li>
                 <li>
-                  <a href="#servicos">{t('Sistemas e CRM')}</a>
+                  <a href="#servico-aplicacoes-crm">{t('Aplicações e CRM')}</a>
                 </li>
                 <li>
-                  <a href="#servicos">{t('Automações e IA')}</a>
+                  <a href="#servico-automacoes-ia">{t('Automações e IA')}</a>
                 </li>
                 <li>
-                  <a href="#servicos">{t('Tráfego pago')}</a>
+                  <a href="#servico-trafego-pago">{t('Tráfego pago')}</a>
                 </li>
               </ul>
             </nav>
@@ -96,11 +96,13 @@ export default function Footer() {
               <ul>
                 <li>
                   <a
-                    href={localizedWhatsApp('https://wa.me/5588992431477')}
+                    href={localizedWhatsApp(
+                      'https://wa.me/5588992431477?text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20um%20projeto%20para%20minha%20empresa.',
+                    )}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {t('WhatsApp')}
+                    {t('Conversar no WhatsApp')}
                   </a>
                 </li>
                 <li>
