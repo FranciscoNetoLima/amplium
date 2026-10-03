@@ -102,7 +102,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {t('Conversar no WhatsApp')}
+                    {t('Whatsapp')}
                   </a>
                 </li>
                 <li>
