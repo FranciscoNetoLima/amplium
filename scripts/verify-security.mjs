@@ -117,7 +117,11 @@ try {
       assert(ids.has(href.slice(1)), 'Broken anchor ' + href);
     }
     if (href?.startsWith('http'))
-      assert(/^https:\/\/(?:wa\.me\/5588992431477|instagram\.com\/amplium\.co)/.test(href));
+      assert(
+        /^https:\/\/(?:wa\.me\/5588992431477(?:[/?#]|$)|www\.instagram\.com\/amplium\.pro\/?$)/.test(
+          href,
+        ),
+      );
   }
   assert(html.includes('method="post"'));
   assert(!/action="https?:/u.test(html));

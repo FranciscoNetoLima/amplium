@@ -25,7 +25,7 @@ export default function Footer() {
               </p>
               <div className="footer-socials">
                 <a
-                  href="https://instagram.com/amplium.co"
+                  href="https://www.instagram.com/amplium.pro/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t('Instagram da Amplium')}
@@ -107,7 +107,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://instagram.com/amplium.co"
+                    href="https://www.instagram.com/amplium.pro/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
