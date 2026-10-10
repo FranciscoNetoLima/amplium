@@ -77,6 +77,9 @@ export default function Services() {
                 {t('Ver landing page de exemplo')} <span aria-hidden="true">↗</span>
               </a>
             </div>
+            <a className="service-demo-link" href="#portfolio">
+              {t('Conhecer projeto de portfólio')} <span aria-hidden="true">↓</span>
+            </a>
           </article>
           <article id="servico-e-commerce" className="service-card service-card--commerce reveal">
             <span className="service-number">02 //</span>

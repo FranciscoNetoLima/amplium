@@ -118,7 +118,7 @@ try {
     }
     if (href?.startsWith('http'))
       assert(
-        /^https:\/\/(?:wa\.me\/5588992431477(?:[/?#]|$)|www\.instagram\.com\/amplium\.pro\/?$)/.test(
+        /^https:\/\/(?:wa\.me\/5588992431477(?:[/?#]|$)|www\.instagram\.com\/amplium\.pro\/?$|petshowcariri\.vercel\.app\/#inicio$)/.test(
           href,
         ),
       );

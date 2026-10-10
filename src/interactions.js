@@ -497,6 +497,8 @@ export function initializeInteractions() {
     '.solution-art',
     '.solution-copy > *',
     '.solutions-bottom',
+    '.portfolio-preview',
+    '.portfolio-copy > *',
     '.process-card > *',
     '.tech-caption',
     '.tech-strip',
