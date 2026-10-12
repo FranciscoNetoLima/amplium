@@ -499,6 +499,7 @@ export function initializeInteractions() {
     '.solutions-bottom',
     '.portfolio-preview',
     '.portfolio-copy > *',
+    '.portfolio-invitation > *',
     '.process-card > *',
     '.tech-caption',
     '.tech-strip',

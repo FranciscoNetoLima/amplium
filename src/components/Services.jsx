@@ -78,7 +78,7 @@ export default function Services() {
               </a>
             </div>
             <a className="service-demo-link" href="#portfolio">
-              {t('Conhecer projeto de portfólio')} <span aria-hidden="true">↓</span>
+              {t('Conhecer portfólio')} <span aria-hidden="true">↓</span>
             </a>
           </article>
           <article id="servico-e-commerce" className="service-card service-card--commerce reveal">
