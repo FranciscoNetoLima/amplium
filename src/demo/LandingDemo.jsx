@@ -189,11 +189,12 @@ export default function LandingDemo() {
       lead={c.lead}
       cardId="servico-landing-pages"
       onReset={reset}
+      showIntro={false}
     >
       <section className="showcase-wrap landing-hero">
         <div>
           <span className="showcase-eyebrow">{c.tag}</span>
-          <h2>{c.hero}</h2>
+          <h1>{c.hero}</h1>
           <p>{c.heroText}</p>
           <div className="showcase-actions">
             <a className="showcase-button" href="#formulario">
@@ -205,11 +206,15 @@ export default function LandingDemo() {
           </div>
         </div>
         <div className="landing-art" aria-hidden="true">
+          <img
+            src="/assets/demos/brisa.webp"
+            width="1200"
+            height="800"
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+          />
           <span className="landing-art-tag">{c.artTag}</span>
-          <span className="landing-art-sun" />
-          <span className="landing-art-unit" />
-          <span className="landing-art-line landing-art-line-one" />
-          <span className="landing-art-line landing-art-line-two" />
           <b>{c.visual}</b>
         </div>
       </section>

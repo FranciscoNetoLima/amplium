@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useLanguage } from '../i18n.js';
+import { DemoIcon } from './DemoIcon.jsx';
 import './showcase.css';
+import './premium.css';
 
 const common = {
   pt: {
@@ -30,7 +32,17 @@ export function useDemoCopy(copy) {
   return copy[language] ?? copy.pt;
 }
 
-export function ShowcaseShell({ variant, brand, title, lead, cardId, children, onReset }) {
+export function ShowcaseShell({
+  variant,
+  brand,
+  title,
+  lead,
+  cardId,
+  children,
+  onReset,
+  showIntro = true,
+  introVisual,
+}) {
   const language = useLanguage();
   const c = common[language] ?? common.pt;
   useEffect(() => {
@@ -50,23 +62,48 @@ export function ShowcaseShell({ variant, brand, title, lead, cardId, children, o
       <header className="showcase-header">
         <div className="showcase-wrap showcase-header-inner">
           <span className="showcase-brand" aria-label={brand}>
-            <i aria-hidden="true">✳</i>
+            <i aria-hidden="true">
+              <DemoIcon
+                name={
+                  {
+                    landing: 'climate',
+                    shop: 'leaf',
+                    crm: 'grid',
+                    automation: 'flow',
+                    traffic: 'chart',
+                  }[variant]
+                }
+              />
+            </i>
             {brand}
           </span>
-          <span className="showcase-header-note">{c.simulation}</span>
+          <div className="showcase-header-actions">
+            <span className="showcase-header-note">{c.simulation}</span>
+            {onReset && (
+              <button
+                type="button"
+                className="showcase-quiet-button showcase-reset"
+                onClick={onReset}
+              >
+                {c.reset} ↺
+              </button>
+            )}
+          </div>
         </div>
       </header>
       <main id="showcase-main">
-        <div className="showcase-wrap showcase-intro">
-          <span className="showcase-eyebrow">{c.demoLabel}</span>
-          <h1>{title}</h1>
-          <p>{lead}</p>
-          {onReset && (
-            <button type="button" className="showcase-quiet-button" onClick={onReset}>
-              {c.reset} ↺
-            </button>
-          )}
-        </div>
+        {showIntro && (
+          <div
+            className={`showcase-wrap showcase-intro${introVisual ? ' showcase-intro--editorial' : ''}`}
+          >
+            <div className="showcase-intro-copy">
+              <span className="showcase-eyebrow">{c.demoLabel}</span>
+              <h1>{title}</h1>
+              <p>{lead}</p>
+            </div>
+            {introVisual}
+          </div>
+        )}
         {children}
       </main>
       <footer className="showcase-footer">

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { t, useLanguage } from '../i18n.js';
+import { DemoIcon } from './DemoIcon.jsx';
 import './demo-site.css';
+import './premium.css';
 
 const root = '/demonstracoes/site-servicos';
 const routes = [
@@ -14,28 +16,28 @@ const services = [
     'Instalação de ar-condicionado',
     'Planejamos o ponto ideal, instalamos com cuidado e orientamos o uso do equipamento.',
     'Para um aparelho novo ou um ambiente que ainda não tem climatização.',
-    '↗',
+    'climate',
   ],
   [
     '02',
     'Manutenção preventiva',
     'Fazemos limpeza, inspeção e ajustes periódicos para manter o ambiente agradável.',
     'Para cuidar dos equipamentos em uso e identificar sinais de desgaste.',
-    '✳',
+    'check',
   ],
   [
     '03',
     'Diagnóstico e reparo',
     'Avaliamos falhas, explicamos o serviço necessário e só iniciamos o reparo após sua aprovação.',
     'Para ruído, vazamento, baixa refrigeração ou funcionamento irregular.',
-    '⌁',
+    'tools',
   ],
   [
     '04',
     'Projetos para empresas',
     'Organizamos a climatização de salas, lojas e escritórios conforme o uso de cada espaço.',
     'Para negócios com vários ambientes ou uma rotina de manutenção.',
-    '▦',
+    'grid',
   ],
 ];
 
@@ -73,17 +75,14 @@ function Home() {
           </div>
         </div>
         <div className="demo-hero-art" aria-hidden="true">
-          <div className="demo-art-sun" />
-          <div className="demo-art-ring demo-art-ring-one" />
-          <div className="demo-art-ring demo-art-ring-two" />
-          <div className="demo-art-unit">
-            <span />
-            <i />
-            <b />
-          </div>
-          <div className="demo-art-air demo-art-air-one" />
-          <div className="demo-art-air demo-art-air-two" />
-          <div className="demo-art-air demo-art-air-three" />
+          <img
+            src="/assets/demos/brisa.webp"
+            width="1200"
+            height="800"
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+          />
           <span className="demo-art-label">{t('O ambiente certo muda o dia.')}</span>
         </div>
       </section>
@@ -138,14 +137,24 @@ function Home() {
 function ServicesPage() {
   return (
     <>
-      <div className="demo-page-head demo-container">
-        <span className="demo-kicker">{t('SERVIÇOS / CLIMATIZAÇÃO')}</span>
-        <h1>{t('O cuidado certo para cada ambiente.')}</h1>
-        <p>
-          {t(
-            'Da escolha do equipamento à manutenção, veja como podemos ajudar e quando cada serviço faz sentido.',
-          )}
-        </p>
+      <div className="demo-page-head demo-page-head--visual demo-container">
+        <div>
+          <span className="demo-kicker">{t('SERVIÇOS / CLIMATIZAÇÃO')}</span>
+          <h1>{t('O cuidado certo para cada ambiente.')}</h1>
+          <p>
+            {t(
+              'Da escolha do equipamento à manutenção, veja como podemos ajudar e quando cada serviço faz sentido.',
+            )}
+          </p>
+        </div>
+        <img
+          className="demo-page-photo"
+          src="/assets/demos/brisa.webp"
+          width="1200"
+          height="800"
+          alt=""
+          decoding="async"
+        />
       </div>
       <section
         className="demo-services-grid demo-container"
@@ -156,7 +165,7 @@ function ServicesPage() {
             <div className="demo-service-top">
               <span>{number} / 04</span>
               <span className="demo-service-icon" aria-hidden="true">
-                {icon}
+                <DemoIcon name={icon} />
               </span>
             </div>
             <h2>{t(title)}</h2>

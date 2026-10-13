@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ShowcaseShell, useDemoCopy } from './ShowcaseShell.jsx';
+import { DemoIcon } from './DemoIcon.jsx';
 
 const stages = ['novo', 'conversa', 'proposta', 'concluido'];
 const initial = [
@@ -372,8 +373,9 @@ export default function CrmDemo() {
           {metrics.map((metric, index) => (
             <article
               className={`crm-metric${index === 2 ? ' crm-metric--value' : ''}`}
-              key={metric}
+              key={c.metrics[index]}
             >
+              <DemoIcon name={['target', 'message', 'chart', 'check'][index]} />
               <span>{c.metrics[index]}</span>
               <strong>{index === 2 ? money(metric) : metric}</strong>
               {index === 2 && <small>{c.openValue}</small>}
@@ -490,7 +492,11 @@ export default function CrmDemo() {
         )}
         <div className="crm-board">
           {stages.map((stage, index) => (
-            <section className="crm-column" key={stage} aria-label={c.stages[index]}>
+            <section
+              className={`crm-column crm-column--${stage}`}
+              key={stage}
+              aria-label={c.stages[index]}
+            >
               <div className="crm-column-heading">
                 <h2>{c.stages[index]}</h2>
                 <span>{visible.filter((item) => item.stage === stage).length}</span>
@@ -506,6 +512,9 @@ export default function CrmDemo() {
                           {c.stages[stages.indexOf(item.stage)]}
                         </span>
                       </div>
+                      <span className="crm-card-avatar" aria-hidden="true">
+                        {clientOf(item).slice(0, 2).toLocaleUpperCase()}
+                      </span>
                       <h3>{clientOf(item)}</h3>
                       <small>{contactOf(item)}</small>
                       <p>{subjectOf(item)}</p>

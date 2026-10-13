@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ShowcaseShell, useDemoCopy } from './ShowcaseShell.jsx';
+import { DemoIcon } from './DemoIcon.jsx';
 
 const copy = {
   pt: {
@@ -27,6 +28,7 @@ const copy = {
     copied: 'Resposta copiada para a área de transferência.',
     copyUnavailable: 'Não foi possível copiar. Selecione e copie o texto da resposta.',
     waitingStage: 'A próxima etapa aparece aqui durante a execução.',
+    pendingLabel: 'Aguardando',
     active: 'Em andamento',
     done: 'Concluída',
     progress: (current) => `${current} de 5 etapas concluídas`,
@@ -93,6 +95,7 @@ const copy = {
     copied: 'Reply copied to the clipboard.',
     copyUnavailable: 'Could not copy. Select and copy the reply text.',
     waitingStage: 'The next stage will appear here as the flow runs.',
+    pendingLabel: 'Waiting',
     active: 'In progress',
     done: 'Complete',
     progress: (current) => `${current} of 5 steps complete`,
@@ -202,12 +205,14 @@ export default function AutomationDemo() {
                   setCopyStatus('');
                 }}
               >
+                <DemoIcon name={['message', 'home', 'document'][index]} />
                 {item.name}
                 <span aria-hidden="true">↗</span>
               </button>
             ))}
           </div>
           <div className="automation-message">
+            <DemoIcon name="message" />
             <span>{c.inbox}</span>
             <p>“{scenario.message}”</p>
           </div>
@@ -259,9 +264,10 @@ export default function AutomationDemo() {
                   aria-label={`${stage}: ${done ? c.done : active ? c.active : c.waitingStage}`}
                 >
                   <div className="automation-result-heading">
+                    <DemoIcon name={['message', 'target', 'grid', 'document', 'send'][index]} />
                     <span className="showcase-eyebrow">{stage}</span>
                     <span className="automation-result-state">
-                      {done ? c.done : active ? c.active : c.waitingStage}
+                      {done ? c.done : active ? c.active : c.pendingLabel}
                     </span>
                   </div>
                   {done ? (

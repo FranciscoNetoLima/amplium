@@ -217,8 +217,13 @@ export default function TrafficDemo() {
                 <span className="traffic-ad-status">{c.campaignStatus}</span>
                 <small className="traffic-ad-context">{c.sponsored}</small>
                 <div className="traffic-ad-art" aria-hidden="true">
-                  <i />
-                  <b />
+                  <img
+                    src="/assets/demos/brisa.webp"
+                    width="1200"
+                    height="800"
+                    alt=""
+                    decoding="async"
+                  />
                 </div>
                 <strong>BRISA CLIMA</strong>
                 <h3>{c.adTitle}</h3>
@@ -261,6 +266,15 @@ export default function TrafficDemo() {
                   <span />
                 </div>
                 <span className="showcase-eyebrow">BRISA CLIMA</span>
+                <img
+                  className="traffic-browser-photo"
+                  src="/assets/demos/brisa.webp"
+                  width="1200"
+                  height="800"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
                 <h3>{c.adTitle}</h3>
                 <strong className="traffic-offer-name">{c.offerName}</strong>
                 <p>{c.landingText}</p>
