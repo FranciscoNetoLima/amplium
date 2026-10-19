@@ -353,17 +353,6 @@ section {
   max-width: 580px;
   margin: 0 auto 30px;
 }
-.reveal {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity 0.7s ease,
-    transform 0.7s ease;
-}
-.reveal.reveal-pending {
-  opacity: 0;
-  transform: translateY(24px);
-}
 @keyframes marquee {
   to {
     transform: translateX(-50%);

@@ -345,9 +345,3 @@
     font-size: 0.8125rem;
   }
 }
-
-.capture-flow,
-.capture-card:hover .capture-flow,
-.capture-card:focus-within .capture-flow {
-  transform: none;
-}

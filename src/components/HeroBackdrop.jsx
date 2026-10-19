@@ -5,7 +5,6 @@ export default function HeroBackdrop() {
   const canvasRef = useRef(null);
   useEffect(() => {
     const canvas = canvasRef.current;
-    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const lowPower = matchMedia('(max-width: 800px)').matches;
     const useWorker =
       typeof Worker !== 'undefined' && typeof canvas.transferControlToOffscreen === 'function';
@@ -31,7 +30,7 @@ export default function HeroBackdrop() {
       else {
         canvas.width = size;
         canvas.height = size;
-        if (reducedMotion && active) schedule();
+        if (active) schedule();
       }
     };
     const observer = new ResizeObserver(resize);
@@ -43,15 +42,12 @@ export default function HeroBackdrop() {
           type: 'module',
         });
         const offscreen = canvas.transferControlToOffscreen();
-        worker.postMessage({ type: 'init', canvas: offscreen, reducedMotion, lowPower }, [
-          offscreen,
-        ]);
+        worker.postMessage({ type: 'init', canvas: offscreen, lowPower }, [offscreen]);
       } else ctx = canvas.getContext('2d');
       initialized = true;
       resize();
     };
     const move = (event) => {
-      if (reducedMotion) return;
       if (event.pointerType === 'mouse') {
         const bounds = art.getBoundingClientRect();
         const x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
@@ -110,13 +106,12 @@ export default function HeroBackdrop() {
       backdrop.style.setProperty('--ribbon-y', `${pointer.y * 12}px`);
       if (!worker && ctx) drawRibbons(ctx, canvas, now, pointer, lowPower ? 44 : 64);
       if (
-        !reducedMotion &&
-        (!worker ||
-          Math.abs(symbolPointer.x - symbolPointer.tx) > 0.001 ||
-          Math.abs(symbolPointer.y - symbolPointer.ty) > 0.001 ||
-          Math.abs(symbolPointer.energy - symbolPointer.targetEnergy) > 0.001 ||
-          Math.abs(pointer.x - pointer.tx) > 0.001 ||
-          Math.abs(pointer.y - pointer.ty) > 0.001)
+        !worker ||
+        Math.abs(symbolPointer.x - symbolPointer.tx) > 0.001 ||
+        Math.abs(symbolPointer.y - symbolPointer.ty) > 0.001 ||
+        Math.abs(symbolPointer.energy - symbolPointer.targetEnergy) > 0.001 ||
+        Math.abs(pointer.x - pointer.tx) > 0.001 ||
+        Math.abs(pointer.y - pointer.ty) > 0.001
       )
         frame = requestAnimationFrame(render);
     };

@@ -46,11 +46,6 @@ export function initializeInteractions() {
       else inner.append(node);
     });
   });
-  document.querySelectorAll('.services-grid,.process,.footer-grid').forEach((group) => {
-    [...group.children].forEach((item, index) =>
-      item.style.setProperty('--reveal-delay', `${(index % 3) * 0.14}s`),
-    );
-  });
   const progress = document.createElement('aside');
   progress.className = 'scroll-indicator';
   progress.setAttribute('aria-hidden', 'true');
@@ -297,15 +292,33 @@ export function initializeInteractions() {
     'O CRM acompanha oportunidades, vendas e métricas das campanhas.',
   ];
   let stageIndex = 0;
+  let stageTimer = 0;
+  let captureVisible = false;
+  let flowPointerFrame = 0;
   const selectStage = (index) => {
     stageIndex = (index + stages.length) % stages.length;
     stages.forEach((button, i) => button.setAttribute('aria-pressed', String(i === stageIndex)));
     stageNote.textContent = t(notes[stageIndex]);
   };
+  const cycleStages = () => {
+    clearInterval(stageTimer);
+    stageTimer = 0;
+    if (!captureVisible || document.hidden) return;
+    stageTimer = setInterval(() => {
+      if (
+        matchMedia('(hover: hover)').matches &&
+        (capture.matches(':hover') || capture.matches(':focus-within'))
+      )
+        return;
+      stageNote.setAttribute('aria-live', 'off');
+      selectStage(stageIndex + 1);
+    }, 3800);
+  };
   stages.forEach((button, index) => {
     listen(button, 'click', () => {
       stageNote.setAttribute('aria-live', 'polite');
       selectStage(index);
+      cycleStages();
     });
     listen(button, 'keydown', (event) => {
       if (!['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp'].includes(event.key)) return;
@@ -317,36 +330,43 @@ export function initializeInteractions() {
       stages[next].click();
     });
   });
-
-  // Uma entrada breve para blocos grandes; os conteúdos internos ficam nítidos.
-  document.querySelectorAll('.reveal').forEach((element) => {
-    element.classList.remove('reveal', 'reveal-pending');
-  });
-  if (matchMedia('(min-width: 801px) and (prefers-reduced-motion: no-preference)').matches) {
-    const revealTargets = document.querySelectorAll(
-      '.section-head, .services-grid > .service-card, .capture-card, .portfolio-project, .process-card, .closing-inner, .faq-item',
-    );
-    const revealObserver = observeIntersection(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        });
-      },
-      { rootMargin: '0px 0px 80px 0px', threshold: 0.01 },
-    );
-    revealTargets.forEach((element) => {
-      element.classList.add('enter-reveal');
-      revealObserver.observe(element);
+  listen(capture, 'pointermove', (event) => {
+    if (event.pointerType !== 'mouse' || flowPointerFrame) return;
+    const x = event.clientX;
+    const y = event.clientY;
+    flowPointerFrame = requestAnimationFrame(() => {
+      flowPointerFrame = 0;
+      const rect = capture.getBoundingClientRect();
+      capture.style.setProperty(
+        '--flow-x',
+        `${((x - rect.left - rect.width / 2) / rect.width) * 8}px`,
+      );
+      capture.style.setProperty(
+        '--flow-y',
+        `${((y - rect.top - rect.height / 2) / rect.height) * 8}px`,
+      );
     });
-  }
+  });
+  listen(capture, 'pointerleave', () => {
+    capture.style.removeProperty('--flow-x');
+    capture.style.removeProperty('--flow-y');
+  });
+  listen(document, 'visibilitychange', cycleStages);
+  const captureObserver = observeIntersection(
+    ([entry]) => {
+      captureVisible = entry.isIntersecting;
+      if (!captureVisible) selectStage(0);
+      cycleStages();
+    },
+    { threshold: 0.2 },
+  );
+  captureObserver.observe(capture);
+  restores.push(() => clearInterval(stageTimer));
 
   // Roda do mouse suave sem interferir na inércia nativa do toque ou em áreas roláveis.
   let scrollFrame = 0;
   let scrollTarget = scrollY;
   let previousTime = 0;
-  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
   const clampScroll = (value) =>
     Math.max(0, Math.min(value, document.documentElement.scrollHeight - innerHeight));
@@ -376,11 +396,6 @@ export function initializeInteractions() {
     scrollFrame = requestAnimationFrame(stepScroll);
   };
   const smoothTo = (value) => {
-    if (reduceMotion.matches) {
-      stopScroll();
-      window.scrollTo({ top: value, behavior: 'instant' });
-      return;
-    }
     scrollTarget = clampScroll(value);
     if (!scrollFrame) scrollFrame = requestAnimationFrame(stepScroll);
   };
@@ -400,7 +415,6 @@ export function initializeInteractions() {
     (event) => {
       if (
         !finePointer.matches ||
-        reduceMotion.matches ||
         lockedScrollY !== null ||
         event.ctrlKey ||
         event.metaKey ||
@@ -419,7 +433,6 @@ export function initializeInteractions() {
   listen(document, 'keydown', (event) => {
     if (
       !finePointer.matches ||
-      reduceMotion.matches ||
       lockedScrollY !== null ||
       event.defaultPrevented ||
       event.ctrlKey ||
