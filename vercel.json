@@ -1,14 +1,4 @@
 {
-  "rewrites": [
-    { "source": "/demonstracoes/site-servicos", "destination": "/demo.html" },
-    { "source": "/demonstracoes/site-servicos/servicos", "destination": "/demo.html" },
-    { "source": "/demonstracoes/site-servicos/contato", "destination": "/demo.html" },
-    { "source": "/demonstracoes/landing-page", "destination": "/demo.html" },
-    { "source": "/demonstracoes/e-commerce", "destination": "/demo.html" },
-    { "source": "/demonstracoes/aplicacoes-crm", "destination": "/demo.html" },
-    { "source": "/demonstracoes/automacoes-ia", "destination": "/demo.html" },
-    { "source": "/demonstracoes/trafego-pago", "destination": "/demo.html" }
-  ],
   "headers": [
     {
       "source": "/(.*)",

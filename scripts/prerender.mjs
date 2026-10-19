@@ -12,8 +12,6 @@ try {
   const markup = renderToString(React.createElement(App));
   const file = new URL('../dist/index.html', import.meta.url);
   let html = await fs.readFile(file, 'utf8');
-  // Demonstrations retain their own client-rendered entry instead of briefly showing the homepage.
-  await fs.writeFile(new URL('../dist/demo.html', import.meta.url), html);
   // Inline the small shared styles so the first paint needs no stylesheet round trip.
   const stylesheet = html.match(
     /<link\b[^>]*rel="stylesheet"[^>]*href="(\/assets\/[^"]+\.css)"[^>]*>/,
