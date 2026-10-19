@@ -11,7 +11,6 @@ import '../motion.css';
 import '../footer.css';
 import '../solutions.css';
 import '../process.css';
-import '../faq.css';
 import '../hero-art.css';
 
 function HydratedApp({ restoreLanguage }) {

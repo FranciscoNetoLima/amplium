@@ -159,9 +159,6 @@ export default function Navbar() {
             <a href="#metodo" data-nav-section="metodo">
               {t('Como trabalhamos')}
             </a>
-            <a href="#faq" data-nav-section="faq">
-              {t('Dúvidas')}
-            </a>
             <a
               className="nav-mobile-contact"
               href={localizedWhatsApp(

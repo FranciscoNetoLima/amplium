@@ -398,7 +398,12 @@
     padding: 26px;
   }
   .service-card--sites {
-    min-height: 380px;
+    min-height: 470px;
+  }
+  .service-card--commerce,
+  .service-card--crm,
+  .service-card--ads {
+    min-height: 335px;
   }
   .service-card h3,
   .service-card--sites h3 {
@@ -408,11 +413,19 @@
     font-size: 1rem;
   }
   .service-visual {
-    opacity: 0.2;
+    opacity: 0.36;
   }
   .website-preview {
-    opacity: 0.3;
-    bottom: 25px;
+    width: 82%;
+    height: 190px;
+    opacity: 0.45;
+    bottom: 18px;
+  }
+  .preview-page {
+    padding: 10px 16px;
+  }
+  .preview-headline {
+    font-size: 1.4rem;
   }
   .service-card:hover {
     transform: none;
@@ -431,239 +444,5 @@
   .service-card[id],
   .service-anchor {
     scroll-margin-top: 100px;
-  }
-}
-
-/* A ilustração ocupa uma faixa própria, preservando a composição assimétrica. */
-.services-grid {
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 16px;
-}
-.service-card,
-.service-card--sites,
-.service-card--commerce,
-.service-card--crm,
-.service-card--automation,
-.service-card--ads {
-  min-height: 0;
-  padding: 0 0 25px;
-}
-.service-card--sites {
-  grid-column: span 7;
-  grid-row: span 2;
-}
-.service-card--commerce,
-.service-card--crm,
-.service-card--automation {
-  grid-column: span 5;
-}
-.service-card--ads {
-  grid-column: span 7;
-}
-.service-card:not(.service-card--sites) {
-  padding: 0 0 25px;
-}
-.service-card::before {
-  display: none;
-}
-.service-card:hover {
-  transform: none;
-  background: #0f121b;
-}
-.service-card .service-visual {
-  order: -1;
-  position: relative;
-  z-index: 0;
-  inset: auto;
-  flex: none;
-  align-self: stretch;
-  width: auto;
-  height: 154px;
-  margin: 0 0 22px;
-  overflow: hidden;
-  border: 0;
-  border-bottom: 1px solid #ffffff12;
-  border-radius: 0;
-  background: radial-gradient(ellipse at 50% 80%, #51407930, transparent 70%), #111420;
-  box-shadow: none;
-  opacity: 1;
-  transform: none;
-  transition: none;
-}
-.service-card--sites .service-visual {
-  height: 352px;
-}
-.service-card:hover .service-visual,
-.service-card:hover .website-preview {
-  opacity: 1;
-  transform: none;
-}
-.service-card .service-number,
-.service-card h3,
-.service-card p,
-.service-card > .service-portfolio-link {
-  margin-left: 26px;
-  margin-right: 26px;
-}
-.service-card h3,
-.service-card--sites h3,
-.service-card:not(.service-card--sites) h3 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: clamp(1.35rem, 2vw, 1.72rem);
-}
-.service-card p {
-  max-width: 48ch;
-  line-height: 1.5;
-}
-.service-card > .service-portfolio-link {
-  margin-top: 15px;
-}
-.service-card .website-preview {
-  width: min(78%, 430px);
-  height: 260px;
-  margin: 42px auto 0;
-  border: 1px solid #9276c870;
-  border-radius: 10px;
-  background: #171522;
-}
-.service-card .website-preview .preview-topbar {
-  height: 28px;
-}
-.service-card .website-preview .preview-page {
-  padding: 14px 20px;
-}
-.service-card .website-preview .preview-nav {
-  margin-bottom: 16px;
-}
-.service-card .website-preview .preview-headline {
-  font-size: 1.6rem;
-}
-.service-card .website-preview .preview-copy {
-  margin-top: 8px;
-}
-.service-card .website-preview .preview-button {
-  height: 12px;
-  margin-top: 9px;
-}
-.service-card .website-preview .preview-tiles {
-  margin-top: 16px;
-}
-.service-card .website-preview .preview-tiles span {
-  height: 30px;
-}
-.service-card .commerce-preview,
-.service-card .crm-preview,
-.service-card .automation-preview,
-.service-card .ads-preview {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-}
-.service-card .ads-preview {
-  align-items: flex-end;
-}
-.service-card .ads-preview span {
-  width: 30px;
-}
-.service-card .automation-preview span {
-  padding: 12px 10px;
-}
-@media (min-width: 1001px) {
-  .service-card--sites .website-preview {
-    height: 420px;
-    margin-top: 20px;
-  }
-  .service-card--sites .preview-page {
-    display: flex;
-    flex-direction: column;
-    height: calc(100% - 28px);
-  }
-  .service-card--sites .website-preview .preview-tiles {
-    margin-top: auto;
-  }
-  .service-card--sites .website-preview .preview-tiles span {
-    height: 85px;
-  }
-}
-@media (max-width: 1000px) {
-  .services-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .service-card--sites,
-  .service-card--ads {
-    grid-column: 1 / -1;
-    grid-row: auto;
-  }
-  .service-card--commerce,
-  .service-card--crm,
-  .service-card--automation {
-    grid-column: auto;
-  }
-  .service-card--sites .service-visual {
-    height: 240px;
-  }
-  .service-card .website-preview {
-    width: min(70%, 350px);
-    height: 190px;
-    margin-top: 24px;
-  }
-}
-@media (max-width: 700px) {
-  .services-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 14px;
-  }
-  .service-card,
-  .service-card--sites,
-  .service-card--commerce,
-  .service-card--crm,
-  .service-card--automation,
-  .service-card--ads {
-    grid-column: auto;
-    grid-row: auto;
-    padding: 0 0 22px;
-  }
-  .service-card .service-visual {
-    height: 142px;
-    margin-bottom: 18px;
-  }
-  .service-card--sites .service-visual {
-    height: 202px;
-  }
-  .service-card .website-preview {
-    width: min(78%, 310px);
-    height: 158px;
-    margin-top: 20px;
-  }
-  .service-card .website-preview .preview-page {
-    padding: 7px 16px;
-  }
-  .service-card .website-preview .preview-nav {
-    margin-bottom: 7px;
-  }
-  .service-card .website-preview .preview-headline {
-    font-size: 1.15rem;
-  }
-  .service-card .website-preview .preview-tiles {
-    display: none;
-  }
-  .service-card .automation-preview {
-    gap: 8px;
-  }
-  .service-card .automation-preview i {
-    width: 16px;
-  }
-  .service-card .automation-preview span {
-    padding: 10px 8px;
-    font-size: 0.65rem;
-  }
-  .service-card .service-number,
-  .service-card h3,
-  .service-card p,
-  .service-card > .service-portfolio-link {
-    margin-left: 22px;
-    margin-right: 22px;
   }
 }

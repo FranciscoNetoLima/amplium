@@ -32,7 +32,7 @@ try {
   assert(en.includes('Solutions to move your business forward.'));
   assert(en.includes('We turn your digital presence into business opportunities.'));
   assert(en.includes('Serving Brazil and international clients'));
-  assert(en.includes('I already have Instagram. Why invest in a website?'));
+  assert(!en.includes('id="faq"'));
   assert(en.includes('What would you like to improve?'));
   assert(!en.includes('Soluções para seu negócio avançar.'));
   assert(!en.includes('Captação de oportunidades'));

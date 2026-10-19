@@ -63,9 +63,6 @@ export default function Footer() {
                 <li>
                   <a href="#metodo">{t('Como trabalhamos')}</a>
                 </li>
-                <li>
-                  <a href="#faq">{t('Dúvidas')}</a>
-                </li>
               </ul>
             </nav>
             <nav className="footer-column reveal" aria-label={t('Soluções da Amplium')}>

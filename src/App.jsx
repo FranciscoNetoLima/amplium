@@ -7,7 +7,6 @@ import Solutions from './components/Solutions.jsx';
 import Portfolio from './components/Portfolio.jsx';
 import Process from './components/Process.jsx';
 import Contact from './components/Contact.jsx';
-import FAQ from './components/FAQ.jsx';
 import Footer from './components/Footer.jsx';
 
 export default function App() {
@@ -22,7 +21,6 @@ export default function App() {
         <Portfolio />
         <Process />
         <Contact />
-        <FAQ />
       </main>
       <Footer />
     </>

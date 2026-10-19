@@ -1,6 +1,6 @@
 # Amplium
 
-Landing page institucional com React e Vite, em português e inglês. Inclui navegação responsiva, animações por rolagem, faixas contínuas, soluções guiadas pela rolagem, FAQ e questionário para preparar uma conversa no WhatsApp.
+Landing page institucional com React e Vite, em português e inglês. Inclui navegação responsiva, faixas contínuas, soluções guiadas pela rolagem e questionário para preparar uma conversa no WhatsApp.
 
 ## Desenvolvimento
 
