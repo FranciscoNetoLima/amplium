@@ -5,9 +5,8 @@ export default function HeroBackdrop() {
   const canvasRef = useRef(null);
   useEffect(() => {
     const canvas = canvasRef.current;
-    const staticBackdrop = matchMedia(
-      '(max-width: 800px), (prefers-reduced-motion: reduce)',
-    ).matches;
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const lowPower = matchMedia('(max-width: 800px)').matches;
     const useWorker =
       typeof Worker !== 'undefined' && typeof canvas.transferControlToOffscreen === 'function';
     let worker = null;
@@ -21,18 +20,18 @@ export default function HeroBackdrop() {
     let frame = 0;
     let previous = 0;
     let active = false;
-    const frameInterval = useWorker ? 0 : 1000 / 30;
+    const frameInterval = useWorker ? 0 : 1000 / (lowPower ? 24 : 30);
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
     const resize = () => {
       if (!initialized) return;
       const size = Math.round(
-        canvas.clientWidth * Math.min(devicePixelRatio || 1, staticBackdrop ? 1.25 : 2),
+        canvas.clientWidth * Math.min(devicePixelRatio || 1, lowPower ? 1.25 : 2),
       );
       if (worker) worker.postMessage({ type: 'resize', size });
       else {
         canvas.width = size;
         canvas.height = size;
-        if (staticBackdrop && active) schedule();
+        if (reducedMotion && active) schedule();
       }
     };
     const observer = new ResizeObserver(resize);
@@ -44,13 +43,15 @@ export default function HeroBackdrop() {
           type: 'module',
         });
         const offscreen = canvas.transferControlToOffscreen();
-        worker.postMessage({ type: 'init', canvas: offscreen, staticBackdrop }, [offscreen]);
+        worker.postMessage({ type: 'init', canvas: offscreen, reducedMotion, lowPower }, [
+          offscreen,
+        ]);
       } else ctx = canvas.getContext('2d');
       initialized = true;
       resize();
     };
     const move = (event) => {
-      if (staticBackdrop) return;
+      if (reducedMotion) return;
       if (event.pointerType === 'mouse') {
         const bounds = art.getBoundingClientRect();
         const x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
@@ -107,9 +108,9 @@ export default function HeroBackdrop() {
       pointer.y += (pointer.ty - pointer.y) * ease;
       backdrop.style.setProperty('--ribbon-x', `${pointer.x * 16}px`);
       backdrop.style.setProperty('--ribbon-y', `${pointer.y * 12}px`);
-      if (!worker && ctx) drawRibbons(ctx, canvas, now, pointer);
+      if (!worker && ctx) drawRibbons(ctx, canvas, now, pointer, lowPower ? 44 : 64);
       if (
-        !staticBackdrop &&
+        !reducedMotion &&
         (!worker ||
           Math.abs(symbolPointer.x - symbolPointer.tx) > 0.001 ||
           Math.abs(symbolPointer.y - symbolPointer.ty) > 0.001 ||

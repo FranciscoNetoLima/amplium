@@ -104,7 +104,7 @@
   }
 }
 
-@media (max-width: 800px), (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
   .hero-aura,
   .hero-symbol-motion .hero-symbol {
     animation: none;

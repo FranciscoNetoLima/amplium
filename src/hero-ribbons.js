@@ -49,7 +49,7 @@ const curveSamples = curves.map((points) =>
   }),
 );
 
-export function drawRibbons(ctx, canvas, now, pointer) {
+export function drawRibbons(ctx, canvas, now, pointer, strandCount = 64) {
   ctx.setTransform(canvas.width / 640, 0, 0, canvas.height / 640, 0, 0);
   ctx.clearRect(0, 0, 640, 640);
   ctx.globalCompositeOperation = 'lighter';
@@ -69,8 +69,8 @@ export function drawRibbons(ctx, canvas, now, pointer) {
     gradient.addColorStop(0.85, index === 0 ? '#246bd9' : '#a078ff');
     gradient.addColorStop(1, '#8c5eff00');
     ctx.strokeStyle = gradient;
-    for (let strand = 0; strand < 64; strand++) {
-      const offset = (strand - 31.5) / 31.5;
+    for (let strand = 0; strand < strandCount; strand++) {
+      const offset = (strand - (strandCount - 1) / 2) / ((strandCount - 1) / 2);
       ctx.beginPath();
       for (let step = 0; step < samples.length; step++) {
         const sample = samples[step];

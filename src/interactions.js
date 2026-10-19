@@ -106,6 +106,7 @@ export function initializeInteractions() {
   };
   const setMenuOpen = (open) => {
     if (open && lockedScrollY === null && innerWidth <= 980) {
+      stopScroll();
       lockedScrollY = scrollY;
       previousBodyStyles = {
         position: document.body.style.position,
@@ -243,13 +244,11 @@ export function initializeInteractions() {
   };
   const revealSolution = (index) => {
     const start = scrollY + solutions.getBoundingClientRect().top;
-    window.scrollTo({
-      top:
-        start +
+    smoothTo(
+      start +
         (Math.max(0, Math.min(solutionCards.length - 1, index)) / (solutionCards.length - 1)) *
           solutionRange,
-      behavior: 'smooth',
-    });
+    );
   };
   listen(rail, 'keydown', (event) => {
     if (!['ArrowRight', 'ArrowLeft'].includes(event.key)) return;
@@ -343,7 +342,112 @@ export function initializeInteractions() {
     });
   }
 
-  // O navegador controla a rolagem; só os links internos recebem suavidade.
+  // Roda do mouse suave sem interferir na inércia nativa do toque ou em áreas roláveis.
+  let scrollFrame = 0;
+  let scrollTarget = scrollY;
+  let previousTime = 0;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+  const clampScroll = (value) =>
+    Math.max(0, Math.min(value, document.documentElement.scrollHeight - innerHeight));
+  const stopScroll = () => {
+    if (scrollFrame) {
+      window.cancelAnimationFrame(scrollFrame);
+      frames.delete(scrollFrame);
+    }
+    scrollFrame = 0;
+    previousTime = 0;
+    scrollTarget = scrollY;
+  };
+  const stepScroll = (time) => {
+    const elapsed = previousTime ? Math.min(time - previousTime, 64) : 16;
+    previousTime = time;
+    scrollTarget = clampScroll(scrollTarget);
+    const distance = scrollTarget - scrollY;
+    if (Math.abs(distance) < 0.75) {
+      window.scrollTo({ top: scrollTarget, behavior: 'instant' });
+      stopScroll();
+      return;
+    }
+    window.scrollTo({
+      top: scrollY + distance * (1 - Math.exp(-elapsed / 180)),
+      behavior: 'instant',
+    });
+    scrollFrame = requestAnimationFrame(stepScroll);
+  };
+  const smoothTo = (value) => {
+    if (reduceMotion.matches) {
+      stopScroll();
+      window.scrollTo({ top: value, behavior: 'instant' });
+      return;
+    }
+    scrollTarget = clampScroll(value);
+    if (!scrollFrame) scrollFrame = requestAnimationFrame(stepScroll);
+  };
+  const ownsVerticalScroll = (element) => {
+    for (let node = element; node && node !== document.body; node = node.parentElement) {
+      if (
+        node.scrollHeight > node.clientHeight + 1 &&
+        /auto|scroll/.test(getComputedStyle(node).overflowY)
+      )
+        return true;
+    }
+    return false;
+  };
+  listen(
+    window,
+    'wheel',
+    (event) => {
+      if (
+        !finePointer.matches ||
+        reduceMotion.matches ||
+        lockedScrollY !== null ||
+        event.ctrlKey ||
+        event.metaKey ||
+        event.shiftKey ||
+        Math.abs(event.deltaX) > Math.abs(event.deltaY) ||
+        ownsVerticalScroll(event.target)
+      )
+        return;
+      event.preventDefault();
+      const delta =
+        event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1);
+      smoothTo((scrollFrame ? scrollTarget : scrollY) + delta);
+    },
+    { passive: false },
+  );
+  listen(document, 'keydown', (event) => {
+    if (
+      !finePointer.matches ||
+      reduceMotion.matches ||
+      lockedScrollY !== null ||
+      event.defaultPrevented ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.altKey ||
+      event.target.closest('input,textarea,select,button,a,[contenteditable="true"]') ||
+      ownsVerticalScroll(event.target)
+    )
+      return;
+    const page = innerHeight * 0.85;
+    const delta = {
+      ArrowDown: 80,
+      ArrowUp: -80,
+      PageDown: page,
+      PageUp: -page,
+      ' ': event.shiftKey ? -page : page,
+    }[event.key];
+    if (delta !== undefined || event.key === 'Home' || event.key === 'End') {
+      event.preventDefault();
+      smoothTo(
+        event.key === 'Home'
+          ? 0
+          : event.key === 'End'
+            ? document.documentElement.scrollHeight
+            : (scrollFrame ? scrollTarget : scrollY) + delta,
+      );
+    }
+  });
   listen(document, 'click', (event) => {
     const anchor = event.target.closest('a[href^="#"]');
     if (
@@ -360,11 +464,9 @@ export function initializeInteractions() {
     event.preventDefault();
     history.pushState(null, '', anchor.hash);
     const margin = parseFloat(getComputedStyle(destination).scrollMarginTop) || 0;
-    window.scrollTo({
-      top:
-        anchor.hash === '#inicio' ? 0 : scrollY + destination.getBoundingClientRect().top - margin,
-      behavior: 'smooth',
-    });
+    smoothTo(
+      anchor.hash === '#inicio' ? 0 : scrollY + destination.getBoundingClientRect().top - margin,
+    );
     destination.setAttribute('tabindex', '-1');
     destination.focus({ preventScroll: true });
   });
@@ -379,6 +481,7 @@ export function initializeInteractions() {
   });
   return () => {
     disposed = true;
+    stopScroll();
     listeners.forEach((remove) => remove());
     observers.forEach((observer) => observer.disconnect());
     frames.forEach((id) => window.cancelAnimationFrame(id));
