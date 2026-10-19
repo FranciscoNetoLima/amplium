@@ -72,7 +72,7 @@ export default function Hero() {
             <b aria-hidden="true">✦</b>
           </span>
           <span className="marquee-item">
-            {t('AUTOMAÇÕES & IA ')}
+            {t('AGENTES DE IA ')}
             <b aria-hidden="true">✦</b>
           </span>
           <span className="marquee-item">

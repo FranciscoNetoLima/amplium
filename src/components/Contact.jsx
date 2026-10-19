@@ -72,9 +72,8 @@ const situations = {
   },
 };
 export default function Contact() {
-  const language = useLanguage();
+  useLanguage();
   const [step, setStep] = useState(1);
-  const [review, setReview] = useState(false);
   const [answers, setAnswers] = useState({
     goal: '',
     situation: '',
@@ -82,7 +81,6 @@ export default function Contact() {
     contact: '',
     description: '',
   });
-  const [message, setMessage] = useState('');
   const headingRef = useRef(null);
   const interacted = useRef(false);
   useEffect(() => {
@@ -90,7 +88,7 @@ export default function Contact() {
       headingRef.current?.focus({
         preventScroll: true,
       });
-  }, [step, review]);
+  }, [step]);
   const update = (key, value) =>
     setAnswers((previous) => ({
       ...previous,
@@ -98,10 +96,8 @@ export default function Contact() {
     }));
   const go = (next) => {
     interacted.current = true;
-    setReview(false);
     setStep(next);
   };
-  const generatedMessage = useRef('');
   const buildMessage = () =>
     [
       t('Olá! Quero conversar sobre um projeto com a Amplium.'),
@@ -116,13 +112,6 @@ export default function Contact() {
         ? [`${t('Minha necessidade')}: ${normalizeText(answers.description, 1200, true)}`]
         : []),
     ].join('\n');
-  useEffect(() => {
-    if (review && message === generatedMessage.current) {
-      const translated = buildMessage();
-      generatedMessage.current = translated;
-      setMessage(translated);
-    }
-  }, [language]);
   const submit = (event) => {
     event.preventDefault();
     if (step < 3) {
@@ -141,10 +130,7 @@ export default function Contact() {
       return;
     }
     const nextMessage = buildMessage();
-    generatedMessage.current = nextMessage;
-    setMessage(nextMessage);
-    interacted.current = true;
-    setReview(true);
+    window.open(buildWhatsAppUrl(nextMessage), '_blank', 'noopener,noreferrer');
   };
   const stepReady =
     step === 1
@@ -152,11 +138,9 @@ export default function Contact() {
       : step === 2
         ? Boolean(answers.situation)
         : Boolean(normalizeText(answers.name, 100)) && isValidContact(answers.contact);
-  const safeMessage = normalizeText(message, 2400, true);
   const situation = situations[answers.goal];
-  const title = review
-    ? 'Tudo pronto para começar a conversa.'
-    : step === 1
+  const title =
+    step === 1
       ? 'O que você quer melhorar?'
       : step === 2
         ? situation.question
@@ -173,8 +157,8 @@ export default function Contact() {
         </p>
         <form className="project-brief brief-wizard" method="post" onSubmit={submit}>
           <div className="brief-progress-head">
-            <span>{t(review ? 'Revise sua mensagem' : `Etapa ${step} de 3`)}</span>
-            <span>{t(review ? 'Você decide quando enviar' : 'Vamos entender seu projeto')}</span>
+            <span>{t(`Etapa ${step} de 3`)}</span>
+            <span>{t('Vamos entender seu projeto')}</span>
           </div>
           <div
             className="brief-progress"
@@ -190,7 +174,7 @@ export default function Contact() {
               }}
             />
           </div>
-          <div className="brief-step" key={`${step}-${review}`}>
+          <div className="brief-step" key={step}>
             <h3 ref={headingRef} tabIndex={-1}>
               {t(title)}
             </h3>
@@ -272,7 +256,7 @@ export default function Contact() {
               ),
             )}
             {t(
-              step === 3 && !review && (
+              step === 3 && (
                 <div className="brief-fields">
                   <label>
                     {t('Seu nome')}
@@ -319,78 +303,28 @@ export default function Contact() {
                 </div>
               ),
             )}
-            {t(
-              review && (
-                <div className="brief-review">
-                  <p className="brief-step-note">
-                    {t(
-                      'Confira ou ajuste o texto abaixo. A mensagem só será enviada quando você confirmar no WhatsApp.',
-                    )}
-                  </p>
-                  <label>
-                    {t('Mensagem para a Amplium')}
-                    <textarea
-                      value={message}
-                      onChange={(event) => setMessage(event.target.value)}
-                      rows={8}
-                      maxLength={2400}
-                    />
-                  </label>
-                  <div className="brief-edit-links">
-                    <button type="button" onClick={() => go(1)}>
-                      {t('Editar objetivo')}
-                    </button>
-                    <button type="button" onClick={() => go(2)}>
-                      {t('Editar situação')}
-                    </button>
-                    <button type="button" onClick={() => go(3)}>
-                      {t('Editar meus dados')}
-                    </button>
-                  </div>
-                </div>
-              ),
-            )}
           </div>
           <div className="brief-wizard-actions">
             {t(
               step > 1 && (
-                <button
-                  type="button"
-                  className="brief-back"
-                  onClick={() => (review ? go(3) : go(step - 1))}
-                >
+                <button type="button" className="brief-back" onClick={() => go(step - 1)}>
                   {t('← Voltar')}
                 </button>
               ),
             )}
-            {t(
-              review ? (
-                <a
-                  className={`primary${safeMessage ? ' is-ready' : ' is-disabled'}`}
-                  aria-disabled={!safeMessage}
-                  tabIndex={safeMessage ? 0 : -1}
-                  href={safeMessage ? buildWhatsAppUrl(safeMessage) : undefined}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t('Conversar sobre meu projeto ↗')}
-                </a>
-              ) : (
-                <button
-                  type="submit"
-                  className={`primary${stepReady ? ' is-ready' : ''}`}
-                  disabled={step === 1 && !answers.goal}
-                >
-                  {t(
-                    step === 3
-                      ? 'Revisar mensagem →'
-                      : step === 2 && !answers.situation
-                        ? 'Pular e continuar →'
-                        : 'Continuar →',
-                  )}
-                </button>
-              ),
-            )}
+            <button
+              type="submit"
+              className={`primary${stepReady ? ' is-ready' : ''}`}
+              disabled={step === 1 && !answers.goal}
+            >
+              {t(
+                step === 3
+                  ? 'Enviar mensagem pelo WhatsApp ↗'
+                  : step === 2 && !answers.situation
+                    ? 'Pular e continuar →'
+                    : 'Continuar →',
+              )}
+            </button>
           </div>
         </form>
         <a

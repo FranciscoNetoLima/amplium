@@ -7,7 +7,7 @@ const services = [
   ['servico-landing-pages', 'Landing pages', 'Transforme interesse em contatos.'],
   ['servico-e-commerce', 'E-commerce', 'Facilite suas vendas online.'],
   ['servico-aplicacoes-crm', 'Aplicações e CRM', 'Organize a operação e as vendas.'],
-  ['servico-automacoes-ia', 'Automações e IA', 'Agilize tarefas e atendimento.'],
+  ['servico-automacoes-ia', 'Agentes de IA', 'Agilize tarefas e atendimento.'],
   ['servico-trafego-pago', 'Tráfego pago', 'Alcance potenciais clientes.'],
 ];
 

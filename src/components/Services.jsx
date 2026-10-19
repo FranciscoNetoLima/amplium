@@ -109,7 +109,7 @@ export default function Services() {
             className="service-card service-card--automation reveal"
           >
             <span className="service-number">04 //</span>
-            <h3>{t('Automações e IA')}</h3>
+            <h3>{t('Agentes de IA')}</h3>
             <p>{t('Automatize tarefas repetitivas e ganhe tempo para atender melhor.')}</p>
             <div className="service-visual automation-preview" aria-hidden="true">
               <span>{t('Entrada')}</span>

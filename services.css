@@ -131,13 +131,13 @@
   position: absolute;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.62;
   transition:
     opacity 0.4s,
     transform 0.4s;
 }
 .service-card:hover .service-visual {
-  opacity: 0.5;
+  opacity: 0.72;
   transform: translateY(-6px);
 }
 .website-preview {
@@ -150,10 +150,10 @@
   border-radius: 14px;
   background: #171522;
   box-shadow: -25px 22px 70px #0009;
-  opacity: 0.52;
+  opacity: 0.68;
 }
 .service-card:hover .website-preview {
-  opacity: 0.65;
+  opacity: 0.78;
   transform: rotate(-6deg) translateY(-6px);
 }
 .preview-topbar {
@@ -413,12 +413,12 @@
     font-size: 1rem;
   }
   .service-visual {
-    opacity: 0.36;
+    opacity: 0.58;
   }
   .website-preview {
     width: 82%;
     height: 190px;
-    opacity: 0.45;
+    opacity: 0.66;
     bottom: 18px;
   }
   .preview-page {
