@@ -5,6 +5,9 @@ export default function HeroBackdrop() {
   const canvasRef = useRef(null);
   useEffect(() => {
     const canvas = canvasRef.current;
+    const staticBackdrop = matchMedia(
+      '(max-width: 800px), (prefers-reduced-motion: reduce)',
+    ).matches;
     const useWorker =
       typeof Worker !== 'undefined' && typeof canvas.transferControlToOffscreen === 'function';
     let worker = null;
@@ -22,11 +25,14 @@ export default function HeroBackdrop() {
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
     const resize = () => {
       if (!initialized) return;
-      const size = Math.round(canvas.clientWidth * Math.min(devicePixelRatio || 1, 2));
+      const size = Math.round(
+        canvas.clientWidth * Math.min(devicePixelRatio || 1, staticBackdrop ? 1.25 : 2),
+      );
       if (worker) worker.postMessage({ type: 'resize', size });
       else {
         canvas.width = size;
         canvas.height = size;
+        if (staticBackdrop && active) schedule();
       }
     };
     const observer = new ResizeObserver(resize);
@@ -38,12 +44,13 @@ export default function HeroBackdrop() {
           type: 'module',
         });
         const offscreen = canvas.transferControlToOffscreen();
-        worker.postMessage({ type: 'init', canvas: offscreen }, [offscreen]);
+        worker.postMessage({ type: 'init', canvas: offscreen, staticBackdrop }, [offscreen]);
       } else ctx = canvas.getContext('2d');
       initialized = true;
       resize();
     };
     const move = (event) => {
+      if (staticBackdrop) return;
       if (event.pointerType === 'mouse') {
         const bounds = art.getBoundingClientRect();
         const x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
@@ -102,12 +109,13 @@ export default function HeroBackdrop() {
       backdrop.style.setProperty('--ribbon-y', `${pointer.y * 12}px`);
       if (!worker && ctx) drawRibbons(ctx, canvas, now, pointer);
       if (
-        !worker ||
-        Math.abs(symbolPointer.x - symbolPointer.tx) > 0.001 ||
-        Math.abs(symbolPointer.y - symbolPointer.ty) > 0.001 ||
-        Math.abs(symbolPointer.energy - symbolPointer.targetEnergy) > 0.001 ||
-        Math.abs(pointer.x - pointer.tx) > 0.001 ||
-        Math.abs(pointer.y - pointer.ty) > 0.001
+        !staticBackdrop &&
+        (!worker ||
+          Math.abs(symbolPointer.x - symbolPointer.tx) > 0.001 ||
+          Math.abs(symbolPointer.y - symbolPointer.ty) > 0.001 ||
+          Math.abs(symbolPointer.energy - symbolPointer.targetEnergy) > 0.001 ||
+          Math.abs(pointer.x - pointer.tx) > 0.001 ||
+          Math.abs(pointer.y - pointer.ty) > 0.001)
       )
         frame = requestAnimationFrame(render);
     };

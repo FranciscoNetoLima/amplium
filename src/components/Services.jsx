@@ -22,11 +22,7 @@ export default function Services() {
             <span id="servico-landing-pages" className="service-anchor" aria-hidden="true" />
             <span className="service-number">01 //</span>
             <h3>{t('Sites e landing pages')}</h3>
-            <p>
-              {t(
-                'Apresente sua empresa com um site que gera confiança ou destaque uma oferta com uma landing page focada em contatos e vendas.',
-              )}
-            </p>
+            <p>{t('Apresente sua empresa com clareza e transforme o interesse em contato.')}</p>
             <div className="service-visual website-preview" aria-hidden="true">
               <div className="preview-topbar">
                 <span></span>
@@ -56,27 +52,6 @@ export default function Services() {
                 </div>
               </div>
             </div>
-            <span className="service-caption">{t('Presença que gera oportunidades')}</span>
-            <div className="service-demo-links">
-              <a
-                className="service-demo-link"
-                href="/demonstracoes/site-servicos"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={t('Ver site de exemplo (abre em nova aba)')}
-              >
-                {t('Ver site de exemplo')} <span aria-hidden="true">↗</span>
-              </a>
-              <a
-                className="service-demo-link"
-                href="/demonstracoes/landing-page"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={t('Ver landing page de exemplo (abre em nova aba)')}
-              >
-                {t('Ver landing page de exemplo')} <span aria-hidden="true">↗</span>
-              </a>
-            </div>
             <a className="service-demo-link" href="#portfolio">
               {t('Conhecer portfólio')} <span aria-hidden="true">↓</span>
             </a>
@@ -84,11 +59,7 @@ export default function Services() {
           <article id="servico-e-commerce" className="service-card service-card--commerce reveal">
             <span className="service-number">02 //</span>
             <h3>{t('E-commerce')}</h3>
-            <p>
-              {t(
-                'Seu cliente quer comprar, sem esperar respostas. Facilite a venda com produtos, pagamentos e pedidos na sua loja.',
-              )}
-            </p>
+            <p>{t('Venda online com produtos, pagamentos e pedidos em um só lugar.')}</p>
             <div className="service-visual commerce-preview" aria-hidden="true">
               <div>
                 <span></span>
@@ -106,23 +77,13 @@ export default function Services() {
                 <b></b>
               </div>
             </div>
-            <span className="service-caption">{t('Menos espera para comprar')}</span>
-            <a
-              className="service-demo-link"
-              href="/demonstracoes/e-commerce"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t('Explorar loja demonstrativa (abre em nova aba)')}
-            >
-              {t('Explorar loja demonstrativa')} <span aria-hidden="true">↗</span>
-            </a>
           </article>
           <article id="servico-aplicacoes-crm" className="service-card service-card--crm reveal">
             <span className="service-number">03 //</span>
             <h3>{t('Aplicações e CRM')}</h3>
             <p>
               {t(
-                'Contatos dispersos e retornos esquecidos custam oportunidades. Centralize negociações e rotinas com sistemas e CRM sob medida.',
+                'Organize contatos, negociações e tarefas em uma ferramenta feita para sua operação.',
               )}
             </p>
             <div className="service-visual crm-preview" aria-hidden="true">
@@ -142,16 +103,6 @@ export default function Services() {
                 <span></span>
               </div>
             </div>
-            <span className="service-caption">{t('Mais controle para vender')}</span>
-            <a
-              className="service-demo-link"
-              href="/demonstracoes/aplicacoes-crm"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t('Explorar CRM demonstrativo (abre em nova aba)')}
-            >
-              {t('Explorar CRM demonstrativo')} <span aria-hidden="true">↗</span>
-            </a>
           </article>
           <article
             id="servico-automacoes-ia"
@@ -159,11 +110,7 @@ export default function Services() {
           >
             <span className="service-number">04 //</span>
             <h3>{t('Automações e IA')}</h3>
-            <p>
-              {t(
-                'Tarefas repetitivas tiram tempo do atendimento. Automatize rotinas e respostas para sua equipe atender melhor.',
-              )}
-            </p>
+            <p>{t('Automatize tarefas repetitivas e ganhe tempo para atender melhor.')}</p>
             <div className="service-visual automation-preview" aria-hidden="true">
               <span>{t('Entrada')}</span>
               <i></i>
@@ -171,25 +118,11 @@ export default function Services() {
               <i></i>
               <span>{t('Ação')}</span>
             </div>
-            <span className="service-caption">{t('Libere tempo para crescer')}</span>
-            <a
-              className="service-demo-link"
-              href="/demonstracoes/automacoes-ia"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t('Experimentar automação e IA (abre em nova aba)')}
-            >
-              {t('Experimentar automação e IA')} <span aria-hidden="true">↗</span>
-            </a>
           </article>
           <article id="servico-trafego-pago" className="service-card service-card--ads reveal">
             <span className="service-number">05 //</span>
             <h3>{t('Tráfego pago')}</h3>
-            <p>
-              {t(
-                'Quem precisa da sua solução precisa encontrar você. Direcione anúncios a potenciais clientes e acompanhe os contatos gerados.',
-              )}
-            </p>
+            <p>{t('Mostre sua oferta às pessoas certas e acompanhe os contatos gerados.')}</p>
             <div className="service-visual ads-preview" aria-hidden="true">
               <span></span>
               <span></span>
@@ -198,16 +131,6 @@ export default function Services() {
               <span></span>
               <span></span>
             </div>
-            <span className="service-caption">{t('Sua oferta para quem importa')}</span>
-            <a
-              className="service-demo-link"
-              href="/demonstracoes/trafego-pago"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t('Explorar campanha de exemplo (abre em nova aba)')}
-            >
-              {t('Explorar campanha de exemplo')} <span aria-hidden="true">↗</span>
-            </a>
           </article>
         </div>
         <article id="captacao" className="capture-card reveal" aria-labelledby="capture-heading">
@@ -343,11 +266,6 @@ export default function Services() {
               {t('Anúncios apresentam sua oferta a potenciais clientes.')}
             </p>
           </div>
-          <ul className="capture-benefits">
-            <li>{t('Landing page focada na sua oferta.')}</li>
-            <li>{t('Anúncios para atrair potenciais clientes.')}</li>
-            <li>{t('Contatos, vendas e métricas acompanhados no CRM.')}</li>
-          </ul>
         </article>
       </section>
     </>

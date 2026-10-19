@@ -202,6 +202,17 @@
     opacity: 0;
   }
 }
+
+/* As quatro ilustrações permanecem estáticas para evitar animações simultâneas. */
+.method-orbits,
+.method-connector,
+.method-float,
+.method-layer,
+.method-nodes circle,
+.method-indicators circle,
+.method-beacon {
+  animation: none !important;
+}
 .process-card:hover .process-illustration {
   transform: translateY(-3px);
   border-color: #5988c666;

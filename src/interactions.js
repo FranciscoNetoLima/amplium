@@ -4,8 +4,7 @@ export function initializeInteractions() {
   const listeners = [],
     observers = [],
     restores = [];
-  const frames = new Set(),
-    timers = new Set();
+  const frames = new Set();
   const listen = (target, type, callback, options) => {
     target.addEventListener(type, callback, options);
     listeners.push(() => target.removeEventListener(type, callback, options));
@@ -16,19 +15,6 @@ export function initializeInteractions() {
       if (!disposed) callback(time);
     });
     frames.add(id);
-    return id;
-  };
-  const cancelAnimationFrame = (id) => {
-    window.cancelAnimationFrame(id);
-    frames.delete(id);
-  };
-  const clearInterval = (id) => {
-    window.clearInterval(id);
-    timers.delete(id);
-  };
-  const setInterval = (callback, delay) => {
-    const id = window.setInterval(callback, delay);
-    timers.add(id);
     return id;
   };
   const observeIntersection = (...args) => {
@@ -120,7 +106,6 @@ export function initializeInteractions() {
   };
   const setMenuOpen = (open) => {
     if (open && lockedScrollY === null && innerWidth <= 980) {
-      stopScroll();
       lockedScrollY = scrollY;
       previousBodyStyles = {
         position: document.body.style.position,
@@ -258,11 +243,13 @@ export function initializeInteractions() {
   };
   const revealSolution = (index) => {
     const start = scrollY + solutions.getBoundingClientRect().top;
-    smoothTo(
-      start +
+    window.scrollTo({
+      top:
+        start +
         (Math.max(0, Math.min(solutionCards.length - 1, index)) / (solutionCards.length - 1)) *
           solutionRange,
-    );
+      behavior: 'smooth',
+    });
   };
   listen(rail, 'keydown', (event) => {
     if (!['ArrowRight', 'ArrowLeft'].includes(event.key)) return;
@@ -301,79 +288,6 @@ export function initializeInteractions() {
   });
   measureSolutions();
 
-  solutionCards.forEach((card) => {
-    let pointerFrame = 0;
-    let pointerX = 0;
-    let pointerY = 0;
-    const paintPointer = () => {
-      pointerFrame = 0;
-      const bounds = card.getBoundingClientRect();
-      const x = Math.max(0, Math.min(1, (pointerX - bounds.left) / bounds.width));
-      const y = Math.max(0, Math.min(1, (pointerY - bounds.top) / bounds.height));
-      card.style.setProperty('--pointer-x', `${x * 100}%`);
-      card.style.setProperty('--pointer-y', `${y * 100}%`);
-      card.style.setProperty('--mouse-x', `${(x - 0.5) * 10}px`);
-      card.style.setProperty('--mouse-y', `${(y - 0.5) * 8}px`);
-      card.style.setProperty('--tilt-x', `${(0.5 - y) * 2.5}deg`);
-      card.style.setProperty('--tilt-y', `${(x - 0.5) * 3}deg`);
-    };
-    const followPointer = (event) => {
-      if (event.pointerType !== 'mouse') return;
-      card.classList.add('pointer-active');
-      pointerX = event.clientX;
-      pointerY = event.clientY;
-      if (!pointerFrame) pointerFrame = requestAnimationFrame(paintPointer);
-    };
-    const resetPointer = () => {
-      cancelAnimationFrame(pointerFrame);
-      pointerFrame = 0;
-      card.classList.remove('pointer-active');
-      ['--pointer-x', '--pointer-y', '--mouse-x', '--mouse-y', '--tilt-x', '--tilt-y'].forEach(
-        (name) => card.style.removeProperty(name),
-      );
-    };
-    listen(card, 'pointerenter', followPointer);
-    listen(card, 'pointermove', followPointer);
-    listen(card, 'pointerleave', resetPointer);
-    listen(card, 'pointercancel', resetPointer);
-    listen(window, 'pagehide', resetPointer);
-  });
-
-  document.querySelectorAll('#metodo .process-card').forEach((card) => {
-    let pointerFrame = 0;
-    let pointerX = 0;
-    let pointerY = 0;
-    const paintPointer = () => {
-      pointerFrame = 0;
-      const bounds = card.getBoundingClientRect();
-      const x = Math.max(-0.5, Math.min(0.5, (pointerX - bounds.left) / bounds.width - 0.5));
-      const y = Math.max(-0.5, Math.min(0.5, (pointerY - bounds.top) / bounds.height - 0.5));
-      card.style.setProperty('--method-mouse-x', `${x * 16}px`);
-      card.style.setProperty('--method-mouse-y', `${y * 12}px`);
-      card.style.setProperty('--method-tilt-x', `${-y * 6}deg`);
-      card.style.setProperty('--method-tilt-y', `${x * 8}deg`);
-    };
-    const followPointer = (event) => {
-      if (event.pointerType !== 'mouse') return;
-      pointerX = event.clientX;
-      pointerY = event.clientY;
-      if (!pointerFrame) pointerFrame = requestAnimationFrame(paintPointer);
-    };
-    const resetPointer = () => {
-      cancelAnimationFrame(pointerFrame);
-      pointerFrame = 0;
-      ['--method-mouse-x', '--method-mouse-y', '--method-tilt-x', '--method-tilt-y'].forEach(
-        (name) => card.style.removeProperty(name),
-      );
-    };
-    listen(card, 'pointerenter', followPointer);
-    listen(card, 'pointermove', followPointer, { passive: true });
-    listen(card, 'pointerleave', resetPointer);
-    listen(card, 'pointercancel', resetPointer);
-    listen(window, 'blur', resetPointer);
-    restores.push(resetPointer);
-  });
-
   const capture = document.querySelector('#captacao');
   const stages = [...capture.querySelectorAll('.flow-stage')];
   const stageNote = capture.querySelector('#capture-stage-note');
@@ -384,28 +298,15 @@ export function initializeInteractions() {
     'O CRM acompanha oportunidades, vendas e métricas das campanhas.',
   ];
   let stageIndex = 0;
-  let stageTimer = 0;
-  let captureVisible = false;
-  let interacting = false;
-  let manuallySelected = false;
   const selectStage = (index) => {
     stageIndex = (index + stages.length) % stages.length;
     stages.forEach((button, i) => button.setAttribute('aria-pressed', String(i === stageIndex)));
     stageNote.textContent = t(notes[stageIndex]);
   };
-  const cycleStages = () => {
-    clearInterval(stageTimer);
-    stageTimer = 0;
-    if (captureVisible && !interacting && !manuallySelected && !document.hidden) {
-      stageTimer = setInterval(() => selectStage(stageIndex + 1), 4200);
-    }
-  };
   stages.forEach((button, index) => {
     listen(button, 'click', () => {
-      manuallySelected = true;
       stageNote.setAttribute('aria-live', 'polite');
       selectStage(index);
-      cycleStages();
     });
     listen(button, 'keydown', (event) => {
       if (!['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp'].includes(event.key)) return;
@@ -417,320 +318,32 @@ export function initializeInteractions() {
       stages[next].click();
     });
   });
-  listen(capture, 'pointerenter', () => {
-    interacting = true;
-    cycleStages();
-  });
-  listen(capture, 'pointerleave', () => {
-    interacting = capture.contains(document.activeElement);
-    capture.style.removeProperty('--flow-x');
-    capture.style.removeProperty('--flow-y');
-    cycleStages();
-  });
-  listen(capture, 'pointermove', (event) => {
-    if (event.pointerType !== 'mouse') return;
-    const rect = capture.getBoundingClientRect();
-    capture.style.setProperty(
-      '--flow-x',
-      `${((event.clientX - rect.left - rect.width / 2) / rect.width) * 8}px`,
-    );
-    capture.style.setProperty(
-      '--flow-y',
-      `${((event.clientY - rect.top - rect.height / 2) / rect.height) * 8}px`,
-    );
-  });
-  listen(capture, 'focusin', () => {
-    interacting = true;
-    cycleStages();
-  });
-  listen(capture, 'focusout', (event) => {
-    if (!capture.contains(event.relatedTarget)) {
-      interacting = capture.matches(':hover');
-      cycleStages();
-    }
-  });
-  listen(document, 'visibilitychange', cycleStages);
-  if ('IntersectionObserver' in window) {
-    const captureObserver = observeIntersection(
-      (entries) => {
-        captureVisible = entries[0].isIntersecting;
-        if (!captureVisible && !manuallySelected) selectStage(0);
-        cycleStages();
-      },
-      { threshold: 0.2 },
-    );
-    captureObserver.observe(capture);
-  } else {
-    captureVisible = true;
-    cycleStages();
-  }
-  listen(window, 'pagehide', () => clearInterval(stageTimer));
 
-  // Each meaningful element reveals according to its own viewport position.
-  // No timed entrance continues after scrolling stops; parent sections stay opaque.
+  // Uma entrada breve para blocos grandes; os conteúdos internos ficam nítidos.
   document.querySelectorAll('.reveal').forEach((element) => {
-    const wasPending = element.classList.contains('reveal-pending');
     element.classList.remove('reveal', 'reveal-pending');
-    restores.push(() => {
-      element.classList.add('reveal');
-      if (wasPending) element.classList.add('reveal-pending');
-    });
   });
-  const revealSelector = [
-    '.section-head .eyebrow',
-    '.section-head h2',
-    '.section-head > p',
-    '.service-card > .service-number',
-    '.service-card > h3',
-    '.service-card > p',
-    '.service-card > .service-visual',
-    '.service-card > .service-caption',
-    '.capture-copy > *',
-    '.capture-flow-label',
-    '.capture-step',
-    '.capture-stage-note',
-    '.capture-benefits > li',
-    '.solutions-header .eyebrow',
-    '.solutions-header h2',
-    '.solutions-header p',
-    '.solutions-counter',
-    '.solution-art',
-    '.solution-copy > *',
-    '.solutions-bottom',
-    '.portfolio-preview',
-    '.portfolio-copy > *',
-    '.portfolio-invitation > *',
-    '.process-card > *',
-    '.tech-caption',
-    '.tech-strip',
-    '.closing-inner > .eyebrow',
-    '.closing-inner > h2',
-    '.closing-inner > p',
-    '.brief-progress-head',
-    '.brief-progress',
-    '.brief-step h3',
-    '.brief-step-note',
-    '.brief-choice',
-    '.brief-fields > label',
-    '.brief-review > label',
-    '.brief-edit-links > button',
-    '.brief-wizard-actions > *',
-    '.brief-direct',
-    '.faq-item',
-    '.footer-intro > *',
-    '.footer-column > h4',
-    '.footer-column li',
-    '.footer-bottom > *',
-    '.footer-wordmark',
-  ].join(',');
-  const revealItems = new Map();
-  let revealFrame = 0;
-  const revealResize = new ResizeObserver(() => {
-    registerReveals();
-    scheduleReveals();
-  });
-  observers.push(revealResize);
-  const registerReveals = () => {
-    for (const [element] of revealItems) {
-      if (!element.isConnected) {
-        revealResize.unobserve(element);
-        revealItems.delete(element);
-      }
-    }
-    // Read every initial opacity before adding classes that invalidate styles.
-    const additions = [...document.querySelectorAll(revealSelector)]
-      .filter((element) => !element.closest('.hero') && !revealItems.has(element))
-      .map((element) => ({ element, originalOpacity: getComputedStyle(element).opacity }));
-    additions.forEach(({ element, originalOpacity }) => {
-      element.classList.add('scroll-reveal');
-      revealResize.observe(element);
-      revealItems.set(element, {
-        shift: 0,
-        progress: 0,
-        baseOpacity: Number(originalOpacity) || 1,
-        opacity: element.style.opacity,
-        filter: element.style.filter,
-        painted: false,
-      });
-    });
-  };
-  let revealTime = 0;
-  const renderReveals = (time) => {
-    revealFrame = 0;
-    const elapsed = Math.min(
-      64,
-      Math.max(16, (time || performance.now()) - (revealTime || time || performance.now())),
+  if (matchMedia('(min-width: 801px) and (prefers-reduced-motion: no-preference)').matches) {
+    const revealTargets = document.querySelectorAll(
+      '.section-head, .services-grid > .service-card, .capture-card, .portfolio-project, .process-card, .closing-inner, .faq-item',
     );
-    revealTime = time || performance.now();
-    let settling = false;
-    const viewport = innerHeight;
-    const measurements = [];
-    revealItems.forEach((state, element) => {
-      if (!element.isConnected) return;
-      const bounds = element.getBoundingClientRect();
-      const top = bounds.top - state.shift;
-      const height = bounds.height;
-      // Reveal over the visible screen area, completing at the viewport edge.
-      // A pinned section needs no extra document scroll to become sharp.
-      const visibleVertical = Math.min(height, Math.max(0, viewport - top));
-      let value = Math.max(0, Math.min(1, visibleVertical / Math.min(height || 1, viewport)));
-      if (element.closest('.solution-card')) {
-        const screen = element.closest('.solutions-viewport').getBoundingClientRect();
-        const right = Math.min(innerWidth, screen.right);
-        const width = Math.min(bounds.width, right - Math.max(0, screen.left));
-        const visibleHorizontal = Math.min(bounds.width, Math.max(0, right - bounds.left));
-        const horizontal = Math.max(0, Math.min(1, visibleHorizontal / Math.max(1, width)));
-        value = Math.min(value, horizontal);
-      }
-      if (element.matches(':focus-within')) value = 1;
-      if (!height || getComputedStyle(element).display === 'none') return;
-      measurements.push({ element, state, value });
+    const revealObserver = observeIntersection(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: '0px 0px 80px 0px', threshold: 0.01 },
+    );
+    revealTargets.forEach((element) => {
+      element.classList.add('enter-reveal');
+      revealObserver.observe(element);
     });
-    // Separate layout reads from style writes and preserve hover transforms.
-    measurements.forEach(({ element, state, value }) => {
-      const difference = value - state.progress;
-      if (!difference && state.painted) return;
-      if (Math.abs(difference) > 0.001) {
-        state.progress += difference * (1 - Math.exp(-elapsed / 180));
-        settling = true;
-      } else state.progress = value;
-      state.shift = (1 - state.progress) * 48;
-      element.style.setProperty('--element-reveal', state.progress.toFixed(4));
-      element.style.setProperty('--element-shift', state.shift.toFixed(3) + 'px');
-      element.style.opacity = String(state.progress * state.baseOpacity);
-      element.style.filter = 'blur(' + ((1 - state.progress) * 8).toFixed(3) + 'px)';
-      state.painted = true;
-    });
-    if (settling) scheduleReveals();
-  };
-  const scheduleReveals = () => {
-    if (!revealFrame) revealFrame = requestAnimationFrame(renderReveals);
-  };
-  registerReveals();
-  renderReveals();
-  listen(window, 'scroll', scheduleReveals, { passive: true });
-  listen(window, 'resize', scheduleReveals);
-  listen(document, 'focusin', scheduleReveals);
-  listen(document, 'focusout', scheduleReveals);
-  // React replaces questionnaire steps and expands FAQ answers after mount.
-  const revealChanges = new MutationObserver(() => {
-    registerReveals();
-    scheduleReveals();
-  });
-  document
-    .querySelectorAll('#contato, #faq')
-    .forEach((root) => revealChanges.observe(root, { childList: true, subtree: true }));
-  observers.push(revealChanges);
-  document.fonts.ready.then(() => {
-    if (!disposed) scheduleReveals();
-  });
-  restores.push(() =>
-    revealItems.forEach((state, element) => {
-      element.classList.remove('scroll-reveal');
-      element.style.removeProperty('--element-reveal');
-      element.style.removeProperty('--element-shift');
-      element.style.opacity = state.opacity;
-      element.style.filter = state.filter;
-    }),
-  );
+  }
 
-  // One frame-driven vertical scroll handles wheels, keyboard and anchors.
-  // Native touch inertia and direct scrollbar dragging stay under browser control.
-  let scrollFrame = 0;
-  let scrollTarget = scrollY;
-  let previousTime = 0;
-  const clampScroll = (value) =>
-    Math.max(0, Math.min(value, document.documentElement.scrollHeight - innerHeight));
-  const stopScroll = () => {
-    cancelAnimationFrame(scrollFrame);
-    scrollFrame = 0;
-    previousTime = 0;
-    scrollTarget = scrollY;
-  };
-  const stepScroll = (time) => {
-    const elapsed = previousTime ? Math.min(time - previousTime, 64) : 16;
-    previousTime = time;
-    scrollTarget = clampScroll(scrollTarget);
-    const distance = scrollTarget - scrollY;
-    if (Math.abs(distance) < 0.75) {
-      window.scrollTo({ top: scrollTarget, behavior: 'instant' });
-      stopScroll();
-      return;
-    }
-    window.scrollTo({
-      top: scrollY + distance * (1 - Math.exp(-elapsed / 180)),
-      behavior: 'instant',
-    });
-    scrollFrame = requestAnimationFrame(stepScroll);
-  };
-  const smoothTo = (value) => {
-    scrollTarget = clampScroll(value);
-    if (!scrollFrame) scrollFrame = requestAnimationFrame(stepScroll);
-  };
-  const ownsVerticalScroll = (element) => {
-    for (let node = element; node && node !== document.body; node = node.parentElement) {
-      if (
-        node.scrollHeight > node.clientHeight + 1 &&
-        /auto|scroll/.test(getComputedStyle(node).overflowY)
-      )
-        return true;
-    }
-    return false;
-  };
-  listen(
-    window,
-    'wheel',
-    (event) => {
-      if (lockedScrollY !== null) {
-        if (links.contains(event.target) && ownsVerticalScroll(event.target)) return;
-        event.preventDefault();
-        return;
-      }
-      if (
-        event.ctrlKey ||
-        event.metaKey ||
-        event.shiftKey ||
-        Math.abs(event.deltaX) > Math.abs(event.deltaY) ||
-        ownsVerticalScroll(event.target)
-      )
-        return;
-      event.preventDefault();
-      const delta =
-        event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1);
-      smoothTo((scrollFrame ? scrollTarget : scrollY) + delta);
-    },
-    { passive: false },
-  );
-  listen(document, 'keydown', (event) => {
-    if (lockedScrollY !== null) return;
-    if (
-      event.defaultPrevented ||
-      event.ctrlKey ||
-      event.metaKey ||
-      event.altKey ||
-      event.target.closest('input,textarea,select,button,a,[contenteditable="true"]') ||
-      ownsVerticalScroll(event.target)
-    )
-      return;
-    const page = innerHeight * 0.85;
-    const delta = {
-      ArrowDown: 80,
-      ArrowUp: -80,
-      PageDown: page,
-      PageUp: -page,
-      ' ': event.shiftKey ? -page : page,
-    }[event.key];
-    if (delta !== undefined || event.key === 'Home' || event.key === 'End') {
-      event.preventDefault();
-      smoothTo(
-        event.key === 'Home'
-          ? 0
-          : event.key === 'End'
-            ? document.documentElement.scrollHeight
-            : (scrollFrame ? scrollTarget : scrollY) + delta,
-      );
-    }
-  });
+  // O navegador controla a rolagem; só os links internos recebem suavidade.
   listen(document, 'click', (event) => {
     const anchor = event.target.closest('a[href^="#"]');
     if (
@@ -747,21 +360,17 @@ export function initializeInteractions() {
     event.preventDefault();
     history.pushState(null, '', anchor.hash);
     const margin = parseFloat(getComputedStyle(destination).scrollMarginTop) || 0;
-    smoothTo(
-      anchor.hash === '#inicio' ? 0 : scrollY + destination.getBoundingClientRect().top - margin,
-    );
+    window.scrollTo({
+      top:
+        anchor.hash === '#inicio' ? 0 : scrollY + destination.getBoundingClientRect().top - margin,
+      behavior: 'smooth',
+    });
     destination.setAttribute('tabindex', '-1');
     destination.focus({ preventScroll: true });
   });
-  listen(window, 'pointerdown', stopScroll, { passive: true });
-  listen(window, 'touchstart', stopScroll, { passive: true });
-  listen(window, 'popstate', stopScroll);
-  listen(window, 'pagehide', stopScroll);
   listen(window, 'languagechange', () => {
     fitLoops();
     measureSolutions();
-    registerReveals();
-    scheduleReveals();
     selectStage(stageIndex);
     menu.setAttribute(
       'aria-label',
@@ -773,7 +382,6 @@ export function initializeInteractions() {
     listeners.forEach((remove) => remove());
     observers.forEach((observer) => observer.disconnect());
     frames.forEach((id) => window.cancelAnimationFrame(id));
-    timers.forEach((id) => window.clearInterval(id));
     progress.remove();
     restores.forEach((restore) => restore());
   };

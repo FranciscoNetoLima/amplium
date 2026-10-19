@@ -103,3 +103,13 @@
     width: 270px;
   }
 }
+
+@media (max-width: 800px), (prefers-reduced-motion: reduce) {
+  .hero-aura,
+  .hero-symbol-motion .hero-symbol {
+    animation: none;
+  }
+  .hero-symbol-motion {
+    will-change: auto;
+  }
+}

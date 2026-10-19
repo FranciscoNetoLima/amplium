@@ -94,6 +94,11 @@
 .hero-symbol {
   animation: float 12s ease-in-out infinite;
 }
+@media (max-width: 800px), (prefers-reduced-motion: reduce) {
+  .hero-symbol {
+    animation: none;
+  }
+}
 .hero-art:before {
   translate: 0 var(--hero-parallax, 0px);
 }
@@ -203,64 +208,16 @@ body::-webkit-scrollbar {
     transform: none;
   }
 }
-.scroll-reveal {
-  opacity: var(--element-reveal, 1);
-  filter: blur(calc((1 - var(--element-reveal, 1)) * 5px));
-  translate: 0 var(--element-shift, 0px);
-}
-.scroll-reveal .motion-line-inner {
-  transform: translateY(calc((1 - var(--element-reveal, 1)) * 105%));
-  transition: none;
-  animation: none;
-}
-.solution-meta.scroll-reveal,
-.solution-copy p.scroll-reveal {
-  translate: calc(var(--mouse-x, 0px) * 0.25)
-    calc(var(--mouse-y, 0px) * 0.25 + var(--element-shift, 0px));
-}
-.solution-copy h3.scroll-reveal {
-  translate: var(--mouse-x, 0px) calc(var(--mouse-y, 0px) + var(--element-shift, 0px));
-}
-.solution-copy ul.scroll-reveal,
-.solution-link.scroll-reveal {
-  translate: calc(var(--mouse-x, 0px) * 0.4)
-    calc(var(--mouse-y, 0px) * 0.4 + var(--element-shift, 0px));
-}
-.scroll-reveal {
-  transition-property: transform, scale, box-shadow, border-color, background, color;
-  transition-delay: 0s;
-}
-@media (max-width: 800px) {
-  .solution-copy > .scroll-reveal {
-    translate: 0 var(--element-shift, 0px);
+@media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+  .enter-reveal {
+    opacity: 0;
+    translate: 0 12px;
+    transition:
+      opacity 0.5s ease-out,
+      translate 0.5s ease-out;
   }
-}
-.scroll-reveal.scroll-reveal {
-  transition-property: transform, scale, box-shadow, border-color, background, color;
-  transition-delay: 0s;
-}
-.service-card .service-visual.scroll-reveal {
-  opacity: calc(var(--element-reveal, 1) * var(--visual-opacity, 0.35));
-}
-.website-preview.scroll-reveal {
-  --visual-opacity: 0.52;
-}
-.service-card:hover .service-visual.scroll-reveal {
-  --visual-opacity: 0.5;
-}
-.service-card:hover .website-preview.scroll-reveal {
-  --visual-opacity: 0.65;
-}
-@media (max-width: 1000px) {
-  .website-preview.scroll-reveal {
-    --visual-opacity: 0.28;
-  }
-}
-@media (max-width: 600px) {
-  .service-visual.scroll-reveal {
-    --visual-opacity: 0.2;
-  }
-  .website-preview.scroll-reveal {
-    --visual-opacity: 0.3;
+  .enter-reveal.is-visible {
+    opacity: 1;
+    translate: 0 0;
   }
 }
