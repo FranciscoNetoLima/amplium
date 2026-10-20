@@ -22,7 +22,11 @@ export default function Services() {
             <span id="servico-landing-pages" className="service-anchor" aria-hidden="true" />
             <span className="service-number">01 //</span>
             <h3>{t('Sites e landing pages')}</h3>
-            <p>{t('Apresente sua empresa com clareza e transforme o interesse em contato.')}</p>
+            <p>
+              {t(
+                'Sites e landing pages sob medida para apresentar sua empresa e transformar visitas em contatos.',
+              )}
+            </p>
             <div className="service-visual website-preview" aria-hidden="true">
               <div className="preview-topbar">
                 <span></span>
@@ -59,7 +63,11 @@ export default function Services() {
           <article id="servico-trafego-pago" className="service-card service-card--ads reveal">
             <span className="service-number">02 //</span>
             <h3>{t('Tráfego pago')}</h3>
-            <p>{t('Mostre sua oferta às pessoas certas e acompanhe os contatos gerados.')}</p>
+            <p>
+              {t(
+                'Campanhas alinhadas ao seu público para atrair potenciais clientes e orientar os próximos ajustes.',
+              )}
+            </p>
             <div className="service-visual ads-preview" aria-hidden="true">
               <span></span>
               <span></span>
@@ -75,7 +83,9 @@ export default function Services() {
           >
             <span className="service-number">03 //</span>
             <h3>{t('Agentes de IA')}</h3>
-            <p>{t('Automatize tarefas repetitivas e ganhe tempo para atender melhor.')}</p>
+            <p>
+              {t('Agentes de IA configurados para suas demandas e para a rotina da sua equipe.')}
+            </p>
             <div className="service-visual automation-preview" aria-hidden="true">
               <span>{t('Entrada')}</span>
               <i></i>
@@ -89,7 +99,7 @@ export default function Services() {
             <h3>{t('Aplicações e CRM')}</h3>
             <p>
               {t(
-                'Organize contatos, negociações e tarefas em uma ferramenta feita para sua operação.',
+                'Aplicações sob medida e CRM ajustado à sua operação para organizar contatos, negociações e processos.',
               )}
             </p>
             <div className="service-visual crm-preview" aria-hidden="true">
@@ -118,7 +128,7 @@ export default function Services() {
             <h3 id="capture-heading">{t('Da divulgação à negociação.')}</h3>
             <p className="capture-description">
               {t(
-                'Anúncios, landing page e CRM conectados ajudam a acompanhar o caminho entre divulgação, contato e negociação. Sua equipe recebe o histórico para dar continuidade a cada oportunidade.',
+                'Conecte anúncios, landing page e CRM em um fluxo sob medida, do primeiro contato ao acompanhamento de cada oportunidade.',
               )}
             </p>
             <a

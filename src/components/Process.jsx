@@ -208,7 +208,7 @@ export default function Process() {
         </div>
         <p>
           {t(
-            'Entendemos seu objetivo, definimos a solução com você e colocamos tudo em funcionamento, com clareza em cada etapa.',
+            'Entendemos sua necessidade, definimos o escopo e desenvolvemos a solução com você, etapa por etapa.',
           )}
         </p>
       </div>

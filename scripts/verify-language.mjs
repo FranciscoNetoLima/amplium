@@ -21,7 +21,7 @@ try {
   const pt = renderToStaticMarkup(React.createElement(App));
   assert(
     pt.includes(
-      'Transformamos sua presença digital em oportunidades de negócio. Criamos sites, campanhas e automações que ajudam você a atrair os clientes certos, vender mais e simplificar a gestão da sua empresa.',
+      'Sites, sistemas e automações sob medida para atrair clientes, apoiar suas vendas e simplificar sua operação.',
     ),
   );
   const footer = pt.slice(pt.indexOf('<footer'), pt.indexOf('</footer>'));
@@ -34,7 +34,7 @@ try {
   locale.setLanguage('en');
   const en = renderToStaticMarkup(React.createElement(App));
   assert(en.includes('Solutions to move your business forward.'));
-  assert(en.includes('We turn your digital presence into business opportunities.'));
+  assert(en.includes('Custom websites, systems, and automations to attract customers'));
   assert(!en.includes('id="faq"'));
   assert(en.includes('What would you like to improve?'));
   assert(en.includes('All rights reserved. Technology, Amplified.'));
