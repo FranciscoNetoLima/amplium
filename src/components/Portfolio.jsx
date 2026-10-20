@@ -5,21 +5,17 @@ const projects = [
   {
     id: 'petshow',
     name: 'Pet Show Cariri',
-    label: 'Projeto independente',
-    description: 'Site institucional para apresentar serviços e facilitar o contato.',
-    features: ['Design responsivo', 'Navegação clara', 'Contato facilitado'],
+    description:
+      'Proposta independente, não contratada pela empresa, para apresentar serviços e facilitar o contato.',
     url: 'https://petshowcariri.vercel.app/#inicio',
     desktopAlt: 'Página inicial do projeto Pet Show Cariri em uma tela de computador.',
     mobileAlt: 'Versão mobile do projeto Pet Show Cariri.',
     linkLabel: 'Explorar o site Pet Show Cariri (abre em nova aba)',
-    disclaimer: 'Projeto de portfólio — proposta independente, não contratada pela empresa.',
   },
   {
     id: 'ana-victoria',
     name: 'Dra. Ana Victória Lima',
-    label: 'Site institucional',
     description: 'Presença digital para apresentar a atuação e orientar o próximo contato.',
-    features: ['Design responsivo', 'Conteúdo organizado', 'Contato facilitado'],
     url: 'https://advanavictoria.vercel.app/#inicio',
     desktopAlt: 'Página inicial do projeto Dra. Ana Victória Lima em uma tela de computador.',
     mobileAlt: 'Versão mobile do projeto Dra. Ana Victória Lima.',
@@ -77,9 +73,6 @@ export default function Portfolio() {
             onPointerLeave={endHover}
             onPointerCancel={endHover}
           >
-            <div className="portfolio-project-meta">
-              <span className="portfolio-label">{t(project.label)}</span>
-            </div>
             <div className="portfolio-preview">
               <span className="portfolio-art-orbit" aria-hidden="true" />
               <div className="portfolio-desktop">
@@ -116,11 +109,6 @@ export default function Portfolio() {
             <div className="portfolio-copy">
               <h3 id={`portfolio-${project.id}-title`}>{project.name}</h3>
               <p>{t(project.description)}</p>
-              <ul className="portfolio-features" aria-label={t('Recursos do projeto')}>
-                {project.features.map((feature) => (
-                  <li key={feature}>{t(feature)}</li>
-                ))}
-              </ul>
               <div className="portfolio-actions">
                 <a
                   className="portfolio-open"
@@ -136,19 +124,8 @@ export default function Portfolio() {
                 </a>
               </div>
             </div>
-            <div className="portfolio-note">
-              {project.disclaimer && (
-                <p className="portfolio-disclaimer">{t(project.disclaimer)}</p>
-              )}
-            </div>
           </article>
         ))}
-      </div>
-      <div className="portfolio-invitation">
-        <p>{t('Seu negócio também pode ter um site assim.')}</p>
-        <a className="portfolio-contact" href="#contato">
-          {t('Conte seu projeto')} <span aria-hidden="true">→</span>
-        </a>
       </div>
     </section>
   );
