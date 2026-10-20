@@ -43,12 +43,22 @@ export default function Portfolio() {
         <p>{t('Conheça alguns projetos desenvolvidos pela Amplium.')}</p>
       </div>
       <div className="portfolio-grid">
-        {projects.map((project) => (
+        {projects.map((project, index) => (
           <article
             key={project.id}
             className="portfolio-project"
             aria-labelledby={`portfolio-${project.id}-title`}
           >
+            <div className="portfolio-project-meta" aria-hidden="true">
+              <span>
+                {t('PORTFÓLIO')} / 0{index + 1}
+              </span>
+              <span className="portfolio-meta-mark">
+                <i />
+                <i />
+                <i />
+              </span>
+            </div>
             <div className="portfolio-preview">
               <div className="portfolio-desktop">
                 <div className="portfolio-browser-bar" aria-hidden="true">
