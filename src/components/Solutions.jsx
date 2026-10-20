@@ -34,7 +34,7 @@ export default function Solutions() {
             </div>
             <div className="solutions-counter" aria-hidden="true">
               <span id="solution-current">01</span>
-              <span> / 07</span>
+              <span> / 06</span>
             </div>
           </div>
           <div className="solutions-viewport">
@@ -49,7 +49,7 @@ export default function Solutions() {
               <article
                 className="solution-card solution-web"
                 role="group"
-                aria-label={t('1 de 7: Conquistar confiança')}
+                aria-label={t('1 de 6: Conquistar confiança')}
               >
                 <div className="solution-art" aria-hidden="true">
                   <div className="solution-orbit"></div>
@@ -127,7 +127,7 @@ export default function Solutions() {
               <article
                 className="solution-card solution-landing"
                 role="group"
-                aria-label={t('2 de 7: Gerar oportunidades')}
+                aria-label={t('2 de 6: Gerar oportunidades')}
               >
                 <div className="solution-art" aria-hidden="true">
                   <div className="solution-orbit"></div>
@@ -203,87 +203,9 @@ export default function Solutions() {
                 </div>
               </article>
               <article
-                className="solution-card solution-commerce"
-                role="group"
-                aria-label={t('3 de 7: Facilitar a compra')}
-              >
-                <div className="solution-art" aria-hidden="true">
-                  <div className="solution-orbit"></div>
-                  <div className="solution-window">
-                    <div className="solution-chrome">
-                      <i></i>
-                      <i></i>
-                      <i></i>
-                      <span>{t('Sua loja')}</span>
-                    </div>
-                    <div className="solution-interface">
-                      <div className="solution-sidebar">
-                        <b>{t('A')}</b>
-                        <i></i>
-                        <i></i>
-                        <i></i>
-                      </div>
-                      <div className="solution-screen">
-                        <span className="solution-ui-label">{t('Jornada do cliente')}</span>
-                        <div className="solution-ui-content">
-                          <div className="solution-ui-tile">
-                            <i></i>
-                            <b>{t('Escolher e comprar')}</b>
-                            <span></span>
-                          </div>
-                          <div className="solution-ui-tile">
-                            <i></i>
-                            <b>{t('Acompanhar o pedido')}</b>
-                            <span></span>
-                          </div>
-                          <div className="solution-ui-chart">
-                            <i></i>
-                            <i></i>
-                            <i></i>
-                            <i></i>
-                            <i></i>
-                            <i></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <span className="solution-art-caption">{t('Facilitar a compra')}</span>
-                </div>
-                <div className="solution-copy">
-                  <div className="solution-meta">
-                    <span>{t('03 / Facilitar a compra')}</span>
-                    <span>{t('E-commerce')}</span>
-                  </div>
-                  <h3>{t('Loja virtual para vender online.')}</h3>
-                  <p className="solution-description">
-                    <strong>{t('Vender depende de trocar muitas mensagens?')}</strong>
-                    {t(
-                      ' Essa espera pode dificultar a compra. Reúna produtos, pagamento e pedidos para o cliente escolher e comprar com mais facilidade.',
-                    )}
-                  </p>
-                  <p className="solution-mobile-summary">
-                    {t('E-commerce com catálogo, pagamentos e pedidos em um só lugar.')}
-                  </p>
-                  <button type="button" className="solution-details" onClick={showDetail}>
-                    {t('Ver detalhes ')}
-                    <span aria-hidden="true">+</span>
-                  </button>
-                  <ul>
-                    <li>{t('Loja + pagamentos')}</li>
-                    <li>{t('Pedidos organizados')}</li>
-                    <li>{t('Atendimento conectado')}</li>
-                  </ul>
-                  <a href="#contato" className="solution-link">
-                    {t('Quero facilitar minhas vendas ')}
-                    <span aria-hidden="true">↗</span>
-                  </a>
-                </div>
-              </article>
-              <article
                 className="solution-card solution-crm"
                 role="group"
-                aria-label={t('4 de 7: Acompanhar negociações')}
+                aria-label={t('3 de 6: Acompanhar negociações')}
               >
                 <div className="solution-art" aria-hidden="true">
                   <div className="solution-orbit"></div>
@@ -330,7 +252,7 @@ export default function Solutions() {
                 </div>
                 <div className="solution-copy">
                   <div className="solution-meta">
-                    <span>{t('04 / Acompanhar negociações')}</span>
+                    <span>{t('03 / Acompanhar negociações')}</span>
                     <span>{t('CRM')}</span>
                   </div>
                   <h3>{t('CRM para organizar suas negociações.')}</h3>
@@ -363,7 +285,7 @@ export default function Solutions() {
               <article
                 className="solution-card solution-automation"
                 role="group"
-                aria-label={t('5 de 7: Agilizar o atendimento')}
+                aria-label={t('4 de 6: Agilizar o atendimento')}
               >
                 <div className="solution-art" aria-hidden="true">
                   <div className="solution-orbit"></div>
@@ -410,7 +332,7 @@ export default function Solutions() {
                 </div>
                 <div className="solution-copy">
                   <div className="solution-meta">
-                    <span>{t('05 / Agilizar o atendimento')}</span>
+                    <span>{t('04 / Agilizar o atendimento')}</span>
                     <span>{t('Agentes de IA')}</span>
                   </div>
                   <h3>{t('Agentes de IA para atendimento.')}</h3>
@@ -441,7 +363,7 @@ export default function Solutions() {
               <article
                 className="solution-card solution-ads"
                 role="group"
-                aria-label={t('6 de 7: Simplificar a operação')}
+                aria-label={t('5 de 6: Simplificar a operação')}
               >
                 <div className="solution-art" aria-hidden="true">
                   <div className="solution-orbit"></div>
@@ -488,7 +410,7 @@ export default function Solutions() {
                 </div>
                 <div className="solution-copy">
                   <div className="solution-meta">
-                    <span>{t('06 / Simplificar a operação')}</span>
+                    <span>{t('05 / Simplificar a operação')}</span>
                     <span>{t('Aplicações sob medida')}</span>
                   </div>
                   <h3>{t('Sistemas e automações sob medida.')}</h3>
@@ -523,7 +445,7 @@ export default function Solutions() {
               <article
                 className="solution-card solution-capture"
                 role="group"
-                aria-label={t('7 de 7: Decidir com clareza')}
+                aria-label={t('6 de 6: Decidir com clareza')}
               >
                 <div className="solution-art" aria-hidden="true">
                   <div className="solution-orbit"></div>
@@ -570,7 +492,7 @@ export default function Solutions() {
                 </div>
                 <div className="solution-copy">
                   <div className="solution-meta">
-                    <span>{t('07 / Decidir com clareza')}</span>
+                    <span>{t('06 / Decidir com clareza')}</span>
                     <span>{t('Dashboard')}</span>
                   </div>
                   <h3>{t('Painel de resultados do seu negócio.')}</h3>

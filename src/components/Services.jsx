@@ -56,30 +56,36 @@ export default function Services() {
               {t('Conhecer portfólio')} <span aria-hidden="true">↓</span>
             </a>
           </article>
-          <article id="servico-e-commerce" className="service-card service-card--commerce reveal">
+          <article id="servico-trafego-pago" className="service-card service-card--ads reveal">
             <span className="service-number">02 //</span>
-            <h3>{t('E-commerce')}</h3>
-            <p>{t('Venda online com produtos, pagamentos e pedidos em um só lugar.')}</p>
-            <div className="service-visual commerce-preview" aria-hidden="true">
-              <div>
-                <span></span>
-                <i></i>
-                <b></b>
-              </div>
-              <div>
-                <span></span>
-                <i></i>
-                <b></b>
-              </div>
-              <div>
-                <span></span>
-                <i></i>
-                <b></b>
-              </div>
+            <h3>{t('Tráfego pago')}</h3>
+            <p>{t('Mostre sua oferta às pessoas certas e acompanhe os contatos gerados.')}</p>
+            <div className="service-visual ads-preview" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </article>
+          <article
+            id="servico-automacoes-ia"
+            className="service-card service-card--automation reveal"
+          >
+            <span className="service-number">03 //</span>
+            <h3>{t('Agentes de IA')}</h3>
+            <p>{t('Automatize tarefas repetitivas e ganhe tempo para atender melhor.')}</p>
+            <div className="service-visual automation-preview" aria-hidden="true">
+              <span>{t('Entrada')}</span>
+              <i></i>
+              <span>{t('Automação')}</span>
+              <i></i>
+              <span>{t('Ação')}</span>
             </div>
           </article>
           <article id="servico-aplicacoes-crm" className="service-card service-card--crm reveal">
-            <span className="service-number">03 //</span>
+            <span className="service-number">04 //</span>
             <h3>{t('Aplicações e CRM')}</h3>
             <p>
               {t(
@@ -104,38 +110,10 @@ export default function Services() {
               </div>
             </div>
           </article>
-          <article
-            id="servico-automacoes-ia"
-            className="service-card service-card--automation reveal"
-          >
-            <span className="service-number">04 //</span>
-            <h3>{t('Agentes de IA')}</h3>
-            <p>{t('Automatize tarefas repetitivas e ganhe tempo para atender melhor.')}</p>
-            <div className="service-visual automation-preview" aria-hidden="true">
-              <span>{t('Entrada')}</span>
-              <i></i>
-              <span>{t('Automação')}</span>
-              <i></i>
-              <span>{t('Ação')}</span>
-            </div>
-          </article>
-          <article id="servico-trafego-pago" className="service-card service-card--ads reveal">
-            <span className="service-number">05 //</span>
-            <h3>{t('Tráfego pago')}</h3>
-            <p>{t('Mostre sua oferta às pessoas certas e acompanhe os contatos gerados.')}</p>
-            <div className="service-visual ads-preview" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </article>
         </div>
         <article id="captacao" className="capture-card reveal" aria-labelledby="capture-heading">
           <div className="capture-copy">
-            <span className="service-number">06 //</span>
+            <span className="service-number">05 //</span>
             <span className="capture-label">{t('Para ampliar sua divulgação')}</span>
             <h3 id="capture-heading">{t('Da divulgação à negociação.')}</h3>
             <p className="capture-description">

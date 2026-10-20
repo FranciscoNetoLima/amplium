@@ -79,10 +79,6 @@ export default function Hero() {
             {t('TRÁFEGO PAGO ')}
             <b aria-hidden="true">✦</b>
           </span>
-          <span className="marquee-item">
-            {t('E-COMMERCE ')}
-            <b aria-hidden="true">✦</b>
-          </span>
         </div>
       </div>
     </>

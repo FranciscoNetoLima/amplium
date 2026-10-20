@@ -35,8 +35,8 @@ export function t(value) {
       : value.replace(reversePhrases, (key) => reverse[key]);
   if (english[text]) return value.replace(text, english[text]);
   if (/^Etapa \d de 3$/.test(text)) return text.replace('Etapa', 'Step').replace(' de ', ' of ');
-  if (/^\d de 7: /.test(text))
-    return text.replace(' de 7:', ' of 7:').replace(phrases, (key) => english[key]);
+  if (/^\d de 6: /.test(text))
+    return text.replace(' de 6:', ' of 6:').replace(phrases, (key) => english[key]);
   return value.replace(phrases, (key) => english[key]);
 }
 
@@ -67,8 +67,8 @@ function updateMetadata() {
       : 'Amplium — Tecnologia que amplia negócios';
   const description =
     language === 'en'
-      ? 'Websites, landing pages, e-commerce, systems and automation to expand your business possibilities.'
-      : 'Sites, landing pages, e-commerce, sistemas e automações para ampliar as possibilidades do seu negócio.';
+      ? 'Websites, landing pages, CRM, AI agents, and paid advertising to expand your business possibilities.'
+      : 'Sites, landing pages, CRM, agentes de IA e tráfego pago para ampliar as possibilidades do seu negócio.';
   document.querySelector('meta[name="description"]')?.setAttribute('content', description);
   document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
   document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);

@@ -110,17 +110,18 @@
 .service-card--sites p {
   max-width: 400px;
 }
-.service-card--commerce,
-.service-card--crm {
+.service-card--ads,
+.service-card--automation {
   grid-column: span 5;
+}
+.service-card--ads {
   min-height: 310px;
 }
 .service-card--automation {
-  grid-column: span 5;
   min-height: 280px;
 }
-.service-card--ads {
-  grid-column: span 7;
+.service-card--crm {
+  grid-column: 1 / -1;
   min-height: 280px;
 }
 .service-card--automation p,
@@ -233,39 +234,6 @@
   border-radius: 5px;
   background: #75658c10;
 }
-.commerce-preview {
-  display: flex;
-  gap: 10px;
-  right: -20px;
-  bottom: 22px;
-  transform: rotate(-12deg);
-}
-.commerce-preview > div {
-  width: 76px;
-  height: 110px;
-  padding: 8px;
-  border: 1px solid #9380bf66;
-  border-radius: 8px;
-  background: #232032;
-}
-.commerce-preview span {
-  display: block;
-  height: 59px;
-  border-radius: 5px;
-  background: #69568c;
-}
-.commerce-preview i,
-.commerce-preview b {
-  display: block;
-  width: 40px;
-  height: 4px;
-  margin-top: 9px;
-  background: #a493c7;
-}
-.commerce-preview b {
-  width: 24px;
-  background: #766292;
-}
 .crm-preview {
   display: flex;
   gap: 9px;
@@ -358,11 +326,12 @@
   .service-card--sites {
     padding: 32px;
   }
-  .service-card--commerce,
-  .service-card--crm,
   .service-card--automation,
   .service-card--ads {
     grid-column: auto;
+  }
+  .service-card--crm {
+    grid-column: 1 / -1;
   }
   .service-card--sites {
     grid-column: 1 / -1;
@@ -388,7 +357,6 @@
   }
   .service-card,
   .service-card--sites,
-  .service-card--commerce,
   .service-card--crm,
   .service-card--automation,
   .service-card--ads {
@@ -400,7 +368,6 @@
   .service-card--sites {
     min-height: 470px;
   }
-  .service-card--commerce,
   .service-card--crm,
   .service-card--ads {
     min-height: 335px;

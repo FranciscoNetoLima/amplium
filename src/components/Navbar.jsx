@@ -3,12 +3,11 @@ import { t, useLanguage, localizedWhatsApp } from '../i18n.js';
 import LanguageSwitch from './LanguageSwitch.jsx';
 
 const services = [
-  ['servico-sites', 'Sites', 'Apresente melhor sua empresa.'],
-  ['servico-landing-pages', 'Landing pages', 'Transforme interesse em contatos.'],
-  ['servico-e-commerce', 'E-commerce', 'Facilite suas vendas online.'],
-  ['servico-aplicacoes-crm', 'Aplicações e CRM', 'Organize a operação e as vendas.'],
-  ['servico-automacoes-ia', 'Agentes de IA', 'Agilize tarefas e atendimento.'],
-  ['servico-trafego-pago', 'Tráfego pago', 'Alcance potenciais clientes.'],
+  ['servico-sites', 'Sites', 'Apresente melhor sua empresa.', 0],
+  ['servico-landing-pages', 'Landing pages', 'Transforme interesse em contatos.', 1],
+  ['servico-trafego-pago', 'Tráfego pago', 'Alcance potenciais clientes.', 5],
+  ['servico-automacoes-ia', 'Agentes de IA', 'Agilize tarefas e atendimento.', 4],
+  ['servico-aplicacoes-crm', 'Aplicações e CRM', 'Organize a operação e as vendas.', 3],
 ];
 
 function ServiceIcon({ index }) {
@@ -134,10 +133,10 @@ export default function Navbar() {
               </button>
               <div className="nav-solutions-panel" id="nav-solutions-panel" hidden={!solutionsOpen}>
                 <ul>
-                  {services.map(([id, name, benefit], index) => (
+                  {services.map(([id, name, benefit, icon]) => (
                     <li key={id}>
                       <a href={'#' + id} onClick={() => setSolutionsOpen(false)}>
-                        <ServiceIcon index={index} />
+                        <ServiceIcon index={icon} />
                         <span className="nav-service-copy">
                           <strong>{t(name)}</strong>
                           <span>{t(benefit)}</span>
