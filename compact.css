@@ -42,23 +42,26 @@
 }
 .simple-contact-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(32px, 6vw, 88px);
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
   align-items: start;
 }
+.simple-contact-copy {
+  text-align: center;
+}
 .simple-contact-copy h2 {
-  margin-inline: 0;
-  max-width: 12ch;
+  margin-inline: auto;
+  max-width: 22ch;
   font-size: clamp(2rem, 4vw, 3.5rem);
 }
 .simple-contact-copy > p {
-  margin-inline: 0;
-  max-width: 40ch;
+  margin-inline: auto;
+  max-width: 48ch;
 }
 .simple-brief.project-brief {
   width: 100%;
-  max-width: none;
-  margin: 0;
+  max-width: 720px;
+  margin: 0 auto;
   padding: 28px;
   text-align: left;
 }
