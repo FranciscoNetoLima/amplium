@@ -29,12 +29,9 @@ const projects = [
 
 const hoverBounds = new WeakMap();
 function beginHover(event) {
-  if (
-    event.pointerType !== 'mouse' ||
-    !matchMedia('(any-hover: hover) and (any-pointer: fine)').matches ||
-    matchMedia('(prefers-reduced-motion: reduce)').matches
-  )
-    return;
+  if (event.pointerType === 'touch') return;
+  event.currentTarget.setAttribute('data-pointer-hover', '');
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   hoverBounds.set(event.currentTarget, event.currentTarget.getBoundingClientRect());
 }
 function moveHover(event) {
@@ -43,14 +40,13 @@ function moveHover(event) {
   if (!bounds) return;
   const x = Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width) * 2 - 1));
   const y = Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height) * 2 - 1));
-  card.style.setProperty('--portfolio-rx', `${(-y * 1.8).toFixed(2)}deg`);
-  card.style.setProperty('--portfolio-ry', `${(x * 2).toFixed(2)}deg`);
-  card.style.setProperty('--portfolio-x', `${(x * 9).toFixed(2)}px`);
-  card.style.setProperty('--portfolio-y', `${(y * 6).toFixed(2)}px`);
+  card.style.setProperty('--portfolio-x', `${Math.round(x * 12)}px`);
+  card.style.setProperty('--portfolio-y', `${Math.round(y * 8)}px`);
 }
 function endHover(event) {
   hoverBounds.delete(event.currentTarget);
-  for (const name of ['rx', 'ry', 'x', 'y']) {
+  event.currentTarget.removeAttribute('data-pointer-hover');
+  for (const name of ['x', 'y']) {
     event.currentTarget.style.removeProperty(`--portfolio-${name}`);
   }
 }
@@ -94,11 +90,11 @@ export default function Portfolio() {
                   <span>{project.name}</span>
                 </div>
                 <img
-                  src={`assets/portfolio/${project.id}-desktop-1200.webp`}
-                  srcSet={`assets/portfolio/${project.id}-desktop-720.webp 720w, assets/portfolio/${project.id}-desktop-1200.webp 1200w`}
+                  src={`assets/portfolio/${project.id}-desktop-1440.webp`}
+                  srcSet={`assets/portfolio/${project.id}-desktop-1440.webp 1440w, assets/portfolio/${project.id}-desktop-2880.webp 2880w`}
                   sizes="(max-width: 760px) 80vw, (max-width: 1100px) 40vw, 510px"
-                  width="1200"
-                  height="683"
+                  width="1440"
+                  height="820"
                   loading="lazy"
                   decoding="async"
                   alt={t(project.desktopAlt)}
@@ -108,6 +104,7 @@ export default function Portfolio() {
                 <span className="portfolio-phone-camera" aria-hidden="true" />
                 <img
                   src={`assets/portfolio/${project.id}-mobile.webp`}
+                  srcSet={`assets/portfolio/${project.id}-mobile.webp 1x, assets/portfolio/${project.id}-mobile-780.webp 2x`}
                   width="390"
                   height="844"
                   loading="lazy"

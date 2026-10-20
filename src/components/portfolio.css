@@ -125,7 +125,7 @@
   box-shadow:
     10px 30px 35px #03081388,
     inset 0 1px #ffffff25;
-  transform: perspective(1100px) rotateY(9deg) rotateX(5deg) rotateZ(-4deg);
+  transform: none;
   transform-origin: center;
   transition:
     transform 900ms var(--portfolio-ease),
@@ -183,7 +183,7 @@
   box-shadow:
     -12px 20px 28px #03081399,
     inset 0 0 0 1px #ffffff19;
-  transform: rotate(6deg) translateY(4px);
+  transform: none;
   transition:
     transform 1000ms var(--portfolio-ease),
     border-color 600ms ease;
@@ -330,39 +330,29 @@
 .portfolio-project:focus-within {
   border-color: #9fbef2;
 }
-@media (any-hover: hover) and (any-pointer: fine) {
-  .portfolio-project:hover {
-    transform: perspective(1400px) translateY(-9px) rotateX(var(--portfolio-rx, 0deg))
-      rotateY(var(--portfolio-ry, 0deg));
-    border-color: #91b4e48c;
-    box-shadow:
-      0 30px 60px #0005,
-      inset 0 1px #ffffff16;
-  }
-  .portfolio-project:hover .portfolio-desktop {
-    transform: perspective(1100px)
-      translate(var(--portfolio-x, 0px), calc(-9px + var(--portfolio-y, 0px))) rotateY(3deg)
-      rotateX(2deg) rotateZ(-1deg) scale(1.04);
-    border-color: var(--portfolio-accent);
-  }
-  .portfolio-project:hover .portfolio-phone {
-    transform: translate(
-        calc(-4px - var(--portfolio-x, 0px)),
-        calc(-14px - var(--portfolio-y, 0px))
-      )
-      rotate(1deg);
-    border-color: var(--portfolio-accent);
-  }
-  .portfolio-project:hover .portfolio-open-arrow {
-    transform: rotate(45deg);
-    background: #dce9fc;
-    color: #101e32;
-    border-color: #dce9fc;
-  }
-  .portfolio-open:hover .portfolio-open-text {
-    transform: translateX(5px);
-    color: var(--portfolio-accent);
-  }
+.portfolio-project[data-pointer-hover] {
+  transform: translateY(-10px);
+  border-color: #b2cbed;
+  box-shadow:
+    0 30px 60px #0006,
+    inset 0 1px #ffffff20;
+}
+.portfolio-project[data-pointer-hover] .portfolio-desktop {
+  transform: translate(var(--portfolio-x, 0px), calc(-12px + var(--portfolio-y, 0px)));
+  border-color: var(--portfolio-accent);
+}
+.portfolio-project[data-pointer-hover] .portfolio-phone {
+  transform: translate(calc(-5px - var(--portfolio-x, 0px)), calc(-18px - var(--portfolio-y, 0px)));
+  border-color: var(--portfolio-accent);
+}
+.portfolio-project[data-pointer-hover] .portfolio-open-arrow {
+  transform: rotate(45deg);
+  background: #dce9fc;
+  color: #101e32;
+  border-color: #dce9fc;
+}
+.portfolio-open:hover .portfolio-open-text {
+  color: var(--portfolio-accent);
 }
 @media (max-width: 1100px) {
   .portfolio-grid {
@@ -481,17 +471,21 @@
   .portfolio-open-text,
   .portfolio-open-arrow,
   .portfolio-contact {
-    transition: none;
+    transition:
+      transform 250ms ease,
+      border-color 250ms ease,
+      background-color 250ms ease;
   }
-  .portfolio-project:hover,
-  .portfolio-open:hover .portfolio-open-text,
-  .portfolio-project:hover .portfolio-open-arrow {
+  .portfolio-project[data-pointer-hover] {
+    transform: translateY(-3px);
+  }
+  .portfolio-project[data-pointer-hover] .portfolio-desktop {
+    transform: translateY(-4px);
+  }
+  .portfolio-project[data-pointer-hover] .portfolio-phone {
+    transform: translateY(-6px);
+  }
+  .portfolio-project[data-pointer-hover] .portfolio-open-arrow {
     transform: none;
-  }
-  .portfolio-project:hover .portfolio-desktop {
-    transform: perspective(1100px) rotateY(9deg) rotateX(5deg) rotateZ(-4deg);
-  }
-  .portfolio-project:hover .portfolio-phone {
-    transform: rotate(6deg) translateY(4px);
   }
 }
