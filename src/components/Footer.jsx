@@ -5,94 +5,59 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="wrap">
-        <div className="footer-grid">
-          <div className="footer-intro reveal">
-            <a className="footer-brand" href="#inicio" aria-label={t('Amplium — início')}>
-              <img
-                src="assets/amplium-logo.png"
-                srcSet="assets/amplium-logo-360.webp 360w, assets/amplium-logo-720.webp 720w"
-                sizes="210px"
-                alt={t('Amplium — Technology, Amplified.')}
-                width="2170"
-                height="725"
-                loading="lazy"
-              />
+        <div className="footer-main">
+          <div className="footer-brand">
+            <img
+              src="assets/amplium-logo.png"
+              srcSet="assets/amplium-logo-360.webp 360w, assets/amplium-logo-720.webp 720w"
+              sizes="210px"
+              alt={t('Amplium — Technology, Amplified.')}
+              width="2170"
+              height="725"
+              loading="lazy"
+            />
+          </div>
+          <div className="footer-socials" aria-label={t('Canais de contato')}>
+            <a
+              className="footer-contact-card footer-contact-whatsapp"
+              href={localizedWhatsApp('https://wa.me/5588992431477')}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t('WhatsApp da Amplium')}
+            >
+              <span className="footer-contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5Z" />
+                </svg>
+              </span>
+              <span className="footer-contact-copy">
+                <b>{t('Whatsapp')}</b>
+                <small>{t('Conversar agora')} ↗</small>
+              </span>
             </a>
-            <div className="footer-socials">
-              <a
-                href="https://www.instagram.com/amplium.pro/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={t('Instagram da Amplium')}
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
+            <a
+              className="footer-contact-card footer-contact-instagram"
+              href="https://www.instagram.com/amplium.pro/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t('Instagram da Amplium')}
+            >
+              <span className="footer-contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
                   <rect x="3" y="3" width="18" height="18" rx="5" />
                   <circle cx="12" cy="12" r="4" />
                   <path d="M17.5 6.5h.01" />
                 </svg>
-              </a>
-              <a
-                href={localizedWhatsApp('https://wa.me/5588992431477')}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={t('WhatsApp da Amplium')}
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5Z" />
-                </svg>
-              </a>
-            </div>
-          </div>
-          <nav className="footer-column reveal" aria-label={t('Navegação no rodapé')}>
-            <h4>{t('Navegação')}</h4>
-            <ul>
-              <li>
-                <a href="#inicio">{t('Início')}</a>
-              </li>
-              <li>
-                <a href="#servicos">{t('Soluções')}</a>
-              </li>
-              <li>
-                <a href="#solucoes">{t('Objetivos do seu negócio')}</a>
-              </li>
-              <li>
-                <a href="#metodo">{t('Como trabalhamos')}</a>
-              </li>
-            </ul>
-          </nav>
-          <div className="footer-column reveal">
-            <h4>{t('Contato')}</h4>
-            <ul>
-              <li>
-                <a
-                  href={localizedWhatsApp(
-                    'https://wa.me/5588992431477?text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20um%20projeto%20para%20minha%20empresa.',
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t('Whatsapp')}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.instagram.com/amplium.pro/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t('Instagram')}
-                </a>
-              </li>
-              <li>{t('Atendimento nacional e internacional')}</li>
-            </ul>
+              </span>
+              <span className="footer-contact-copy">
+                <b>{t('Instagram')}</b>
+                <small>@amplium.pro ↗</small>
+              </span>
+            </a>
           </div>
         </div>
         <div className="footer-bottom">
           <span>{t('© 2026 Amplium. Todos os direitos reservados. Technology, Amplified.')}</span>
-          <a href="#inicio">
-            {t('Voltar ao topo ')}
-            <span aria-hidden="true">↑</span>
-          </a>
         </div>
       </div>
       <div className="footer-wordmark" aria-hidden="true">

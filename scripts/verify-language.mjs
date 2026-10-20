@@ -19,7 +19,6 @@ try {
   const { default: App } = await server.ssrLoadModule('/src/App.jsx');
   const locale = await server.ssrLoadModule('/src/i18n.js');
   const pt = renderToStaticMarkup(React.createElement(App));
-  assert(pt.includes('Atendimento nacional e internacional'));
   assert(
     pt.includes(
       'Transformamos sua presença digital em oportunidades de negócio. Criamos sites, campanhas e automações que ajudam você a atrair os clientes certos, vender mais e simplificar a gestão da sua empresa.',
@@ -27,13 +26,18 @@ try {
   );
   const footer = pt.slice(pt.indexOf('<footer'), pt.indexOf('</footer>'));
   assert(!footer.includes('href="#captacao"'));
+  assert(!footer.includes('href="#servicos"'));
+  assert(!footer.includes('href="#inicio"'));
+  assert(footer.includes('href="https://www.instagram.com/amplium.pro/"'));
+  assert(footer.includes('href="https://wa.me/5588992431477"'));
+  assert(footer.includes('Todos os direitos reservados. Tecnologia, Amplified.'));
   locale.setLanguage('en');
   const en = renderToStaticMarkup(React.createElement(App));
   assert(en.includes('Solutions to move your business forward.'));
   assert(en.includes('We turn your digital presence into business opportunities.'));
-  assert(en.includes('Serving Brazil and international clients'));
   assert(!en.includes('id="faq"'));
   assert(en.includes('What would you like to improve?'));
+  assert(en.includes('All rights reserved. Technology, Amplified.'));
   assert(!en.includes('Soluções para seu negócio avançar.'));
   assert(!en.includes('Captação de oportunidades'));
   assert(en.includes('Step 1 of 3'));
