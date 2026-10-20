@@ -46,20 +46,20 @@ export default function Portfolio() {
         {projects.map((project, index) => (
           <article
             key={project.id}
-            className="portfolio-project"
+            className={`portfolio-project portfolio-project--${project.id}`}
             aria-labelledby={`portfolio-${project.id}-title`}
           >
-            <div className="portfolio-project-meta" aria-hidden="true">
-              <span>
-                {t('PORTFÓLIO')} / 0{index + 1}
-              </span>
-              <span className="portfolio-meta-mark">
-                <i />
-                <i />
-                <i />
+            <div className="portfolio-project-meta">
+              <span className="portfolio-label">{t(project.label)}</span>
+              <span className="portfolio-index" aria-hidden="true">
+                0{index + 1} / 02
               </span>
             </div>
             <div className="portfolio-preview">
+              <span className="portfolio-art-number" aria-hidden="true">
+                0{index + 1}
+              </span>
+              <span className="portfolio-art-orbit" aria-hidden="true" />
               <div className="portfolio-desktop">
                 <div className="portfolio-browser-bar" aria-hidden="true">
                   <i />
@@ -91,7 +91,6 @@ export default function Portfolio() {
               </div>
             </div>
             <div className="portfolio-copy">
-              <span className="portfolio-label">{t(project.label)}</span>
               <h3 id={`portfolio-${project.id}-title`}>{project.name}</h3>
               <p>{t(project.description)}</p>
               <ul className="portfolio-features" aria-label={t('Recursos do projeto')}>
@@ -101,18 +100,23 @@ export default function Portfolio() {
               </ul>
               <div className="portfolio-actions">
                 <a
-                  className="primary portfolio-open"
+                  className="portfolio-open"
                   href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t(project.linkLabel)}
                 >
-                  {t('Explorar o site')} <span aria-hidden="true">↗</span>
+                  <span className="portfolio-open-text">{t('Explorar o site')}</span>
+                  <span className="portfolio-open-arrow" aria-hidden="true">
+                    ↗
+                  </span>
                 </a>
-                {project.disclaimer && (
-                  <p className="portfolio-disclaimer">{t(project.disclaimer)}</p>
-                )}
               </div>
+            </div>
+            <div className="portfolio-note">
+              {project.disclaimer && (
+                <p className="portfolio-disclaimer">{t(project.disclaimer)}</p>
+              )}
             </div>
           </article>
         ))}
