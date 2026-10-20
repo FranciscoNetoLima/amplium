@@ -77,12 +77,6 @@
   border-radius: 50%;
   background: var(--portfolio-accent);
 }
-.portfolio-index {
-  color: #7e91aa;
-  font-size: 0.7rem;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.12em;
-}
 .portfolio-preview {
   position: relative;
   aspect-ratio: 1.4;
@@ -107,18 +101,6 @@
   left: 7%;
   bottom: 8%;
   background: linear-gradient(90deg, transparent, #c3d7ee40, transparent);
-}
-.portfolio-art-number {
-  position: absolute;
-  top: -12%;
-  right: 3%;
-  color: transparent;
-  -webkit-text-stroke: 1px #d6e6ff16;
-  font-size: clamp(8rem, 17vw, 17rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.09em;
-  user-select: none;
 }
 .portfolio-art-orbit {
   position: absolute;
@@ -348,21 +330,27 @@
 .portfolio-project:focus-within {
   border-color: #9fbef2;
 }
-@media (hover: hover) and (pointer: fine) {
+@media (any-hover: hover) and (any-pointer: fine) {
   .portfolio-project:hover {
-    transform: translateY(-8px);
+    transform: perspective(1400px) translateY(-9px) rotateX(var(--portfolio-rx, 0deg))
+      rotateY(var(--portfolio-ry, 0deg));
     border-color: #91b4e48c;
     box-shadow:
       0 30px 60px #0005,
       inset 0 1px #ffffff16;
   }
   .portfolio-project:hover .portfolio-desktop {
-    transform: perspective(1100px) translateY(-5px) rotateY(3deg) rotateX(2deg) rotateZ(-1deg)
-      scale(1.025);
+    transform: perspective(1100px)
+      translate(var(--portfolio-x, 0px), calc(-9px + var(--portfolio-y, 0px))) rotateY(3deg)
+      rotateX(2deg) rotateZ(-1deg) scale(1.04);
     border-color: var(--portfolio-accent);
   }
   .portfolio-project:hover .portfolio-phone {
-    transform: rotate(2deg) translate(-3px, -10px);
+    transform: translate(
+        calc(-4px - var(--portfolio-x, 0px)),
+        calc(-14px - var(--portfolio-y, 0px))
+      )
+      rotate(1deg);
     border-color: var(--portfolio-accent);
   }
   .portfolio-project:hover .portfolio-open-arrow {
@@ -409,9 +397,6 @@
   .portfolio-preview {
     aspect-ratio: 1.45;
   }
-  .portfolio-art-number {
-    font-size: 40vw;
-  }
   .portfolio-project {
     border-radius: 20px;
   }
@@ -441,9 +426,6 @@
   .portfolio-label {
     font-size: 0.58rem;
     letter-spacing: 0.09em;
-  }
-  .portfolio-index {
-    font-size: 0.6rem;
   }
   .portfolio-copy {
     padding: 24px 20px 0;

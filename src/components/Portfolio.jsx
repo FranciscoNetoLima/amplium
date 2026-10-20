@@ -27,6 +27,34 @@ const projects = [
   },
 ];
 
+const hoverBounds = new WeakMap();
+function beginHover(event) {
+  if (
+    event.pointerType !== 'mouse' ||
+    !matchMedia('(any-hover: hover) and (any-pointer: fine)').matches ||
+    matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
+    return;
+  hoverBounds.set(event.currentTarget, event.currentTarget.getBoundingClientRect());
+}
+function moveHover(event) {
+  const card = event.currentTarget;
+  const bounds = hoverBounds.get(card);
+  if (!bounds) return;
+  const x = Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width) * 2 - 1));
+  const y = Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height) * 2 - 1));
+  card.style.setProperty('--portfolio-rx', `${(-y * 1.8).toFixed(2)}deg`);
+  card.style.setProperty('--portfolio-ry', `${(x * 2).toFixed(2)}deg`);
+  card.style.setProperty('--portfolio-x', `${(x * 9).toFixed(2)}px`);
+  card.style.setProperty('--portfolio-y', `${(y * 6).toFixed(2)}px`);
+}
+function endHover(event) {
+  hoverBounds.delete(event.currentTarget);
+  for (const name of ['rx', 'ry', 'x', 'y']) {
+    event.currentTarget.style.removeProperty(`--portfolio-${name}`);
+  }
+}
+
 export default function Portfolio() {
   useLanguage();
   return (
@@ -43,22 +71,20 @@ export default function Portfolio() {
         <p>{t('Conheça alguns projetos desenvolvidos pela Amplium.')}</p>
       </div>
       <div className="portfolio-grid">
-        {projects.map((project, index) => (
+        {projects.map((project) => (
           <article
             key={project.id}
             className={`portfolio-project portfolio-project--${project.id}`}
             aria-labelledby={`portfolio-${project.id}-title`}
+            onPointerEnter={beginHover}
+            onPointerMove={moveHover}
+            onPointerLeave={endHover}
+            onPointerCancel={endHover}
           >
             <div className="portfolio-project-meta">
               <span className="portfolio-label">{t(project.label)}</span>
-              <span className="portfolio-index" aria-hidden="true">
-                0{index + 1} / 02
-              </span>
             </div>
             <div className="portfolio-preview">
-              <span className="portfolio-art-number" aria-hidden="true">
-                0{index + 1}
-              </span>
               <span className="portfolio-art-orbit" aria-hidden="true" />
               <div className="portfolio-desktop">
                 <div className="portfolio-browser-bar" aria-hidden="true">
