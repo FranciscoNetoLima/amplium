@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { t, useLanguage, localizedWhatsApp } from '../i18n.js';
-import LanguageSwitch from './LanguageSwitch.jsx';
 
 const services = [
   ['servico-sites', 'Sites', 'Apresente melhor sua empresa.', 0],
@@ -162,7 +161,6 @@ export default function Navbar() {
             </a>
           </div>
           <div className="nav-actions">
-            <LanguageSwitch />
             <a
               className="nav-cta"
               href={localizedWhatsApp(

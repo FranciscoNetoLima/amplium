@@ -3,9 +3,6 @@ import translations from './translations.json';
 import { WHATSAPP_URL, normalizeText, buildWhatsAppUrl } from './contact-utils.js';
 
 let language = 'pt';
-try {
-  if (localStorage.getItem('amplium-language') === 'en') language = 'en';
-} catch {}
 const subscribers = new Set();
 const english = Object.assign(Object.create(null), translations);
 const reverse = Object.assign(
