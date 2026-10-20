@@ -2,7 +2,6 @@ import { t } from './i18n.js';
 export function initializeInteractions() {
   let disposed = false;
   const listeners = [],
-    observers = [],
     restores = [];
   const frames = new Set();
   const listen = (target, type, callback, options) => {
@@ -16,11 +15,6 @@ export function initializeInteractions() {
     });
     frames.add(id);
     return id;
-  };
-  const observeIntersection = (...args) => {
-    const observer = new window.IntersectionObserver(...args);
-    observers.push(observer);
-    return observer;
   };
   // Títulos separados por linha para a animação de entrada.
   document.querySelectorAll('.hero h1,.section h2,.closing h2').forEach((heading) => {
@@ -141,133 +135,8 @@ export function initializeInteractions() {
     }
   });
 
-  // Equal-sized groups include their trailing gap, so -50% is exactly one lap.
-  const loopSources = [];
-  for (const track of document.querySelectorAll('.marquee, .tech-track')) {
-    const items = [...track.children].filter((item) => item.getAttribute('aria-hidden') !== 'true');
-    const original = items.map((item) => item.cloneNode(true));
-    restores.push(() => track.replaceChildren(...original));
-    const group = document.createElement('div');
-    group.className = 'loop-group';
-    group.append(...items);
-    loopSources.push({ track, template: group.cloneNode(true) });
-  }
-  const fitLoops = () =>
-    loopSources.forEach(({ track, template }) => {
-      const group = template.cloneNode(true);
-      const localize = (root) => {
-        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-        while (walker.nextNode())
-          walker.currentNode.textContent = t(walker.currentNode.textContent);
-        root
-          .querySelectorAll('[aria-label]')
-          .forEach((element) =>
-            element.setAttribute('aria-label', t(element.getAttribute('aria-label'))),
-          );
-      };
-      localize(group);
-      track.replaceChildren(group);
-      // A lap must cover the viewport even on ultrawide displays.
-      for (
-        let copies = 0;
-        group.getBoundingClientRect().width < track.parentElement.clientWidth && copies < 12;
-        copies++
-      ) {
-        for (const item of template.children) {
-          const copy = item.cloneNode(true);
-          localize(copy);
-          copy.setAttribute('aria-hidden', 'true');
-          group.append(copy);
-        }
-      }
-      const duplicate = group.cloneNode(true);
-      duplicate.setAttribute('aria-hidden', 'true');
-      track.append(duplicate);
-      // Match distance per second across viewport widths and translated labels.
-      const pixelsPerSecond = track.classList.contains('tech-track') ? 75 : 60;
-      track.style.animationDuration = `${group.getBoundingClientRect().width / pixelsPerSecond}s`;
-    });
-  fitLoops();
-  listen(window, 'resize', fitLoops);
-
-  const solutions = document.querySelector('#solucoes');
-  const rail = document.querySelector('#rail');
-  const solutionCards = [...rail.children];
-  const currentSolution = document.querySelector('#solution-current');
-  let solutionTravel = 0;
-  let solutionRange = 1;
-  let solutionFrame = 0;
-  const renderSolutions = () => {
-    solutionFrame = 0;
-    const distance = -solutions.getBoundingClientRect().top;
-    const ratio = Math.max(0, Math.min(1, distance / solutionRange));
-    rail.style.transform = 'translate3d(' + -ratio * solutionTravel + 'px,0,0)';
-    solutions.style.setProperty('--solution-progress', ratio);
-    const index = Math.min(
-      solutionCards.length - 1,
-      Math.round(ratio * (solutionCards.length - 1)),
-    );
-    currentSolution.textContent = String(index + 1).padStart(2, '0');
-    solutionCards.forEach((card, i) => card.classList.toggle('is-current', i === index));
-  };
-  const scheduleSolutions = () => {
-    if (!solutionFrame) solutionFrame = requestAnimationFrame(renderSolutions);
-  };
-  const measureSolutions = () => {
-    const sticky = solutions.querySelector('.solutions-sticky');
-    const header = solutions.querySelector('.solutions-header');
-    const bottom = solutions.querySelector('.solutions-bottom');
-    const stickyStyle = getComputedStyle(sticky);
-    const available =
-      sticky.clientHeight -
-      parseFloat(stickyStyle.paddingTop) -
-      parseFloat(stickyStyle.paddingBottom) -
-      header.offsetHeight -
-      parseFloat(getComputedStyle(header).marginBottom) -
-      bottom.offsetHeight -
-      parseFloat(getComputedStyle(bottom).marginTop);
-    const mobile = innerWidth <= 800;
-    const cardLimit = mobile ? (sticky.clientHeight <= 680 ? 340 : 400) : 600;
-    solutions.style.setProperty(
-      '--solution-card-height',
-      `${Math.max(mobile ? 160 : 260, Math.min(cardLimit, available))}px`,
-    );
-    solutionTravel = Math.max(0, rail.scrollWidth - rail.parentElement.clientWidth);
-    solutionRange = Math.max(solutionTravel, sticky.clientHeight * 1.5);
-    solutions.style.height = sticky.offsetHeight + solutionRange + 'px';
-    renderSolutions();
-  };
-  const revealSolution = (index) => {
-    const start = scrollY + solutions.getBoundingClientRect().top;
-    smoothTo(
-      start +
-        (Math.max(0, Math.min(solutionCards.length - 1, index)) / (solutionCards.length - 1)) *
-          solutionRange,
-    );
-  };
-  listen(rail, 'keydown', (event) => {
-    if (!['ArrowRight', 'ArrowLeft'].includes(event.key)) return;
-    event.preventDefault();
-    const index = solutionCards.findIndex((card) => card.classList.contains('is-current'));
-    revealSolution(index + (event.key === 'ArrowRight' ? 1 : -1));
-  });
-  listen(rail, 'focusin', (event) => {
-    const card = event.target.closest('.solution-card');
-    if (card) revealSolution(solutionCards.indexOf(card));
-  });
-  listen(window, 'scroll', scheduleSolutions, { passive: true });
-  let solutionViewportWidth = innerWidth;
-  listen(window, 'resize', () => {
-    if (innerWidth > 800 || innerWidth !== solutionViewportWidth) {
-      solutionViewportWidth = innerWidth;
-      measureSolutions();
-    } else scheduleSolutions();
-  });
   document.fonts.ready.then(() => {
     if (disposed) return;
-    fitLoops();
-    measureSolutions();
-    // React mounts after the browser's initial anchor lookup.
     const destination = document.getElementById(location.hash.slice(1));
     if (destination) {
       const margin = parseFloat(getComputedStyle(destination).scrollMarginTop) || 0;
@@ -280,88 +149,6 @@ export function initializeInteractions() {
       });
     }
   });
-  measureSolutions();
-
-  const capture = document.querySelector('#captacao');
-  const stages = [...capture.querySelectorAll('.flow-stage')];
-  const stageNote = capture.querySelector('#capture-stage-note');
-  const notes = [
-    'Anúncios apresentam sua oferta a potenciais clientes.',
-    'A landing page organiza a oferta e conduz ao próximo passo.',
-    'O contato transforma o interesse em uma oportunidade de conversa.',
-    'O CRM acompanha oportunidades, vendas e métricas das campanhas.',
-  ];
-  let stageIndex = 0;
-  let stageTimer = 0;
-  let captureVisible = false;
-  let flowPointerFrame = 0;
-  const selectStage = (index) => {
-    stageIndex = (index + stages.length) % stages.length;
-    stages.forEach((button, i) => button.setAttribute('aria-pressed', String(i === stageIndex)));
-    stageNote.textContent = t(notes[stageIndex]);
-  };
-  const cycleStages = () => {
-    clearInterval(stageTimer);
-    stageTimer = 0;
-    if (!captureVisible || document.hidden) return;
-    stageTimer = setInterval(() => {
-      if (
-        matchMedia('(hover: hover)').matches &&
-        (capture.matches(':hover') || capture.matches(':focus-within'))
-      )
-        return;
-      stageNote.setAttribute('aria-live', 'off');
-      selectStage(stageIndex + 1);
-    }, 3800);
-  };
-  stages.forEach((button, index) => {
-    listen(button, 'click', () => {
-      stageNote.setAttribute('aria-live', 'polite');
-      selectStage(index);
-      cycleStages();
-    });
-    listen(button, 'keydown', (event) => {
-      if (!['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp'].includes(event.key)) return;
-      event.preventDefault();
-      const next =
-        (index + (['ArrowRight', 'ArrowDown'].includes(event.key) ? 1 : -1) + stages.length) %
-        stages.length;
-      stages[next].focus();
-      stages[next].click();
-    });
-  });
-  listen(capture, 'pointermove', (event) => {
-    if (event.pointerType !== 'mouse' || flowPointerFrame) return;
-    const x = event.clientX;
-    const y = event.clientY;
-    flowPointerFrame = requestAnimationFrame(() => {
-      flowPointerFrame = 0;
-      const rect = capture.getBoundingClientRect();
-      capture.style.setProperty(
-        '--flow-x',
-        `${((x - rect.left - rect.width / 2) / rect.width) * 8}px`,
-      );
-      capture.style.setProperty(
-        '--flow-y',
-        `${((y - rect.top - rect.height / 2) / rect.height) * 8}px`,
-      );
-    });
-  });
-  listen(capture, 'pointerleave', () => {
-    capture.style.removeProperty('--flow-x');
-    capture.style.removeProperty('--flow-y');
-  });
-  listen(document, 'visibilitychange', cycleStages);
-  const captureObserver = observeIntersection(
-    ([entry]) => {
-      captureVisible = entry.isIntersecting;
-      if (!captureVisible) selectStage(0);
-      cycleStages();
-    },
-    { threshold: 0.2 },
-  );
-  captureObserver.observe(capture);
-  restores.push(() => clearInterval(stageTimer));
 
   // Roda do mouse suave sem interferir na inércia nativa do toque ou em áreas roláveis.
   let scrollFrame = 0;
@@ -484,9 +271,6 @@ export function initializeInteractions() {
     destination.focus({ preventScroll: true });
   });
   listen(window, 'languagechange', () => {
-    fitLoops();
-    measureSolutions();
-    selectStage(stageIndex);
     menu.setAttribute(
       'aria-label',
       t(menu.getAttribute('aria-expanded') === 'true' ? 'Fechar menu' : 'Abrir menu'),
@@ -496,7 +280,6 @@ export function initializeInteractions() {
     disposed = true;
     stopScroll();
     listeners.forEach((remove) => remove());
-    observers.forEach((observer) => observer.disconnect());
     frames.forEach((id) => window.cancelAnimationFrame(id));
     progress.remove();
     restores.forEach((restore) => restore());

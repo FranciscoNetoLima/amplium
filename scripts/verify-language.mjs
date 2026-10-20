@@ -36,11 +36,15 @@ try {
   assert(en.includes('Solutions to move your business forward.'));
   assert(en.includes('Custom websites, systems, and automations to attract customers'));
   assert(!en.includes('id="faq"'));
-  assert(en.includes('What would you like to improve?'));
+  assert(en.includes('About your project'));
   assert(en.includes('All rights reserved. Technology, Amplified.'));
   assert(!en.includes('Soluções para seu negócio avançar.'));
   assert(!en.includes('Captação de oportunidades'));
-  assert(en.includes('Step 1 of 3'));
+  assert(en.includes('We understand your needs'));
+  assert(!en.includes('solutions-scroll'));
+  assert(!en.includes('brief-wizard'));
+  assert(!en.includes('tech-strip'));
+  assert(!en.includes('class="band"'));
   assert.equal(document.documentElement.lang, 'en');
   assert.equal(storage.get('amplium-language'), 'en');
   const url = locale.localizedWhatsApp(
@@ -65,7 +69,7 @@ try {
   console.log(
     'PASS: PT/EN rendering, ' +
       Object.keys(dictionary).length +
-      ' translations, metadata, persistence, footer, questionnaire, WhatsApp and modal round trip.',
+      ' translations, metadata, persistence, footer, contact form, WhatsApp and translation round trip.',
   );
 } finally {
   await server.close();

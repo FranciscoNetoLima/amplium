@@ -1,4 +1,4 @@
-import { t, useLanguage, localizedWhatsApp } from '../i18n.js';
+import { t, useLanguage } from '../i18n.js';
 export default function Services() {
   useLanguage();
   return (
@@ -8,7 +8,8 @@ export default function Services() {
         id="servicos"
         aria-labelledby="services-heading"
       >
-        <div className="section-head reveal">
+        <span id="solucoes" className="service-anchor" aria-hidden="true" />
+        <div className="section-head">
           <div>
             <div className="eyebrow">{t('01 / Soluções')}</div>
             <h2 id="services-heading">{t('Soluções para seu negócio avançar.')}</h2>
@@ -121,140 +122,9 @@ export default function Services() {
             </div>
           </article>
         </div>
-        <article id="captacao" className="capture-card reveal" aria-labelledby="capture-heading">
-          <div className="capture-copy">
-            <span className="service-number">05 //</span>
-            <span className="capture-label">{t('Para ampliar sua divulgação')}</span>
-            <h3 id="capture-heading">{t('Da divulgação à negociação.')}</h3>
-            <p className="capture-description">
-              {t(
-                'Conecte anúncios, landing page e CRM em um fluxo sob medida, do primeiro contato ao acompanhamento de cada oportunidade.',
-              )}
-            </p>
-            <a
-              className="primary capture-cta"
-              href={localizedWhatsApp(
-                'https://wa.me/5588992431477?text=Ol%C3%A1%21%20Tenho%20interesse%20na%20solu%C3%A7%C3%A3o%20de%20capta%C3%A7%C3%A3o%20de%20oportunidades%20da%20Amplium.',
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {t('Quero captar oportunidades ')}
-              <span aria-hidden="true">→</span>
-            </a>
-          </div>
-          <div className="capture-flow" aria-label={t('Etapas da captação de oportunidades')}>
-            <p className="capture-flow-label">{t('Fluxo integrado de conversão')}</p>
-            <ol className="capture-steps">
-              <li className="capture-step">
-                <button
-                  type="button"
-                  className="flow-stage"
-                  data-stage="0"
-                  aria-pressed="true"
-                  aria-controls="capture-stage-note"
-                >
-                  <span className="flow-chrome" aria-hidden="true">
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <span></span>
-                  </span>
-                  <small>{t('Etapa 01')}</small>
-                  <strong>{t('Anúncio')}</strong>
-                  <div className="flow-illustration flow-ad" aria-hidden="true">
-                    <b></b>
-                    <span></span>
-                  </div>
-                </button>
-              </li>
-              <li className="capture-step">
-                <button
-                  type="button"
-                  className="flow-stage"
-                  data-stage="1"
-                  aria-pressed="false"
-                  aria-controls="capture-stage-note"
-                >
-                  <span className="flow-chrome" aria-hidden="true">
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <span></span>
-                  </span>
-                  <small>{t('Etapa 02')}</small>
-                  <strong>{t('Landing page')}</strong>
-                  <div className="flow-illustration flow-page" aria-hidden="true">
-                    <b></b>
-                    <span></span>
-                    <span></span>
-                    <i></i>
-                  </div>
-                </button>
-              </li>
-              <li className="capture-step">
-                <button
-                  type="button"
-                  className="flow-stage"
-                  data-stage="2"
-                  aria-pressed="false"
-                  aria-controls="capture-stage-note"
-                >
-                  <span className="flow-chrome" aria-hidden="true">
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <span></span>
-                  </span>
-                  <small>{t('Etapa 03')}</small>
-                  <strong>{t('Contato')}</strong>
-                  <div className="flow-illustration flow-chat" aria-hidden="true">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                </button>
-              </li>
-              <li className="capture-step">
-                <button
-                  type="button"
-                  className="flow-stage"
-                  data-stage="3"
-                  aria-pressed="false"
-                  aria-controls="capture-stage-note"
-                >
-                  <span className="flow-chrome" aria-hidden="true">
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <span></span>
-                  </span>
-                  <small>{t('Etapa 04')}</small>
-                  <strong>{t('CRM & vendas')}</strong>
-                  <div className="flow-illustration flow-crm" aria-hidden="true">
-                    <span>
-                      <i></i>
-                      <b></b>
-                      <b></b>
-                    </span>
-                    <span>
-                      <i></i>
-                      <b></b>
-                    </span>
-                    <span>
-                      <i></i>
-                      <b></b>
-                      <b></b>
-                    </span>
-                  </div>
-                </button>
-              </li>
-            </ol>
-            <p id="capture-stage-note" className="capture-stage-note" aria-live="off">
-              {t('Anúncios apresentam sua oferta a potenciais clientes.')}
-            </p>
-          </div>
-        </article>
+        <p className="services-summary">
+          {t('Também conectamos anúncios, landing page e CRM para acompanhar suas oportunidades.')}
+        </p>
       </section>
     </>
   );

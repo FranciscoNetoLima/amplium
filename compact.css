@@ -1,0 +1,109 @@
+.services-section {
+  position: relative;
+}
+.services-summary {
+  margin: 28px auto 0;
+  max-width: 58ch;
+  text-align: center;
+  color: #aebdd1;
+  line-height: 1.7;
+}
+.simple-contact {
+  scroll-margin-top: 100px;
+}
+.compact-process {
+  scroll-margin-top: 110px;
+  padding-bottom: 44px;
+  margin-bottom: 54px;
+  border-bottom: 1px solid #8bb6ee24;
+}
+.compact-process h3 {
+  margin: 0 0 24px;
+  font-size: 1rem;
+  color: #a4c7ff;
+}
+.compact-process ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.compact-process li {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-weight: 500;
+}
+.compact-process li > span {
+  color: #7c9dcc;
+  font-size: 0.75rem;
+}
+.simple-contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 6vw, 88px);
+  align-items: start;
+}
+.simple-contact-copy h2 {
+  margin-inline: 0;
+  max-width: 12ch;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+}
+.simple-contact-copy > p {
+  margin-inline: 0;
+  max-width: 40ch;
+}
+.simple-brief.project-brief {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 28px;
+  text-align: left;
+}
+.simple-brief .brief-fields {
+  margin: 0 0 24px;
+}
+.simple-brief .primary {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.simple-brief .field-error {
+  color: #ffb6b6;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  font-weight: 400;
+}
+.simple-brief [aria-invalid='true'] {
+  border-color: #e99292;
+}
+.simple-brief .simple-brief-note {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin: 14px 0 0;
+  color: #aebdd1;
+}
+@media (max-width: 800px) {
+  .compact-process ol {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .compact-process {
+    margin-bottom: 36px;
+    padding-bottom: 30px;
+  }
+  .simple-contact-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .simple-contact-copy h2 {
+    max-width: 18ch;
+  }
+  .simple-brief.project-brief {
+    padding: 22px;
+  }
+}

@@ -6,12 +6,10 @@ import '../styles.css';
 import '../services.css';
 import '../navbar.css';
 import '../brand.css';
-import '../capture.css';
 import '../motion.css';
 import '../footer.css';
-import '../solutions.css';
-import '../process.css';
 import '../hero-art.css';
+import '../compact.css';
 
 function HydratedApp({ restoreLanguage }) {
   useEffect(restoreLanguage, [restoreLanguage]);

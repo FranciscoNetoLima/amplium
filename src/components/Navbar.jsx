@@ -145,16 +145,11 @@ export default function Navbar() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  className="nav-objectives-link"
-                  href="#solucoes"
-                  onClick={() => setSolutionsOpen(false)}
-                >
-                  {t('Escolha a solução pelo seu objetivo')}
-                  <span aria-hidden="true">→</span>
-                </a>
               </div>
             </div>
+            <a href="#portfolio" data-nav-section="portfolio">
+              {t('Portfólio')}
+            </a>
             <a href="#metodo" data-nav-section="metodo">
               {t('Como trabalhamos')}
             </a>
