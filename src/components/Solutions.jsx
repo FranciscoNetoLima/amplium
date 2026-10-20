@@ -26,7 +26,11 @@ export default function Solutions() {
             <div>
               <div className="eyebrow">{t('02 / Objetivos do seu negócio')}</div>
               <h2 id="solutions-heading">{t('Comece pelo que seu negócio precisa resolver.')}</h2>
-              <p>{t('Escolha seu objetivo. Nós combinamos as soluções para chegar lá.')}</p>
+              <p>
+                {t(
+                  'Veja qual solução atende ao seu objetivo: sites, captação de contatos, CRM, IA e sistemas.',
+                )}
+              </p>
             </div>
             <div className="solutions-counter" aria-hidden="true">
               <span id="solution-current">01</span>
@@ -93,9 +97,9 @@ export default function Solutions() {
                 <div className="solution-copy">
                   <div className="solution-meta">
                     <span>{t('01 / Conquistar confiança')}</span>
-                    <span>{t('Plano integrado')}</span>
+                    <span>{t('Site institucional')}</span>
                   </div>
-                  <h3>{t('Mostre por que escolher sua empresa.')}</h3>
+                  <h3>{t('Site institucional para sua empresa.')}</h3>
                   <p className="solution-description">
                     <strong>{t('Seu cliente chega, mas não entende seu diferencial?')}</strong>
                     {t(
@@ -171,9 +175,9 @@ export default function Solutions() {
                 <div className="solution-copy">
                   <div className="solution-meta">
                     <span>{t('02 / Gerar oportunidades')}</span>
-                    <span>{t('Plano integrado')}</span>
+                    <span>{t('Anúncios + landing page')}</span>
                   </div>
-                  <h3>{t('Transforme divulgação em conversas.')}</h3>
+                  <h3>{t('Landing page e tráfego pago.')}</h3>
                   <p className="solution-description">
                     <strong>{t('Sua divulgação gera interesse, mas o contato se perde?')}</strong>
                     {t(
@@ -249,9 +253,9 @@ export default function Solutions() {
                 <div className="solution-copy">
                   <div className="solution-meta">
                     <span>{t('03 / Facilitar a compra')}</span>
-                    <span>{t('Plano integrado')}</span>
+                    <span>{t('E-commerce')}</span>
                   </div>
-                  <h3>{t('Deixe a compra mais simples.')}</h3>
+                  <h3>{t('Loja virtual para vender online.')}</h3>
                   <p className="solution-description">
                     <strong>{t('Vender depende de trocar muitas mensagens?')}</strong>
                     {t(
@@ -259,7 +263,7 @@ export default function Solutions() {
                     )}
                   </p>
                   <p className="solution-mobile-summary">
-                    {t('Menos obstáculos entre a escolha e o pedido.')}
+                    {t('E-commerce com catálogo, pagamentos e pedidos em um só lugar.')}
                   </p>
                   <button type="button" className="solution-details" onClick={showDetail}>
                     {t('Ver detalhes ')}
@@ -327,9 +331,9 @@ export default function Solutions() {
                 <div className="solution-copy">
                   <div className="solution-meta">
                     <span>{t('04 / Acompanhar negociações')}</span>
-                    <span>{t('Plano integrado')}</span>
+                    <span>{t('CRM')}</span>
                   </div>
-                  <h3>{t('Não perca o próximo contato.')}</h3>
+                  <h3>{t('CRM para organizar suas negociações.')}</h3>
                   <p className="solution-description">
                     <strong>
                       {t('Propostas e retornos esquecidos podem interromper uma negociação.')}
@@ -339,7 +343,7 @@ export default function Solutions() {
                     )}
                   </p>
                   <p className="solution-mobile-summary">
-                    {t('Cada negociação com um próximo passo definido.')}
+                    {t('CRM com histórico de contatos, propostas e lembretes de retorno.')}
                   </p>
                   <button type="button" className="solution-details" onClick={showDetail}>
                     {t('Ver detalhes ')}
@@ -407,9 +411,9 @@ export default function Solutions() {
                 <div className="solution-copy">
                   <div className="solution-meta">
                     <span>{t('05 / Agilizar o atendimento')}</span>
-                    <span>{t('Plano integrado')}</span>
+                    <span>{t('Agentes de IA')}</span>
                   </div>
-                  <h3>{t('Responda mais rápido, com contexto.')}</h3>
+                  <h3>{t('Agentes de IA para atendimento.')}</h3>
                   <p className="solution-description">
                     <strong>{t('Perguntas repetidas ocupam o dia da equipe?')}</strong>
                     {t(
@@ -417,7 +421,7 @@ export default function Solutions() {
                     )}
                   </p>
                   <p className="solution-mobile-summary">
-                    {t('Atendimento ágil sem perder a proximidade.')}
+                    {t('Agentes de IA respondem dúvidas e encaminham o contato à sua equipe.')}
                   </p>
                   <button type="button" className="solution-details" onClick={showDetail}>
                     {t('Ver detalhes ')}
@@ -485,9 +489,9 @@ export default function Solutions() {
                 <div className="solution-copy">
                   <div className="solution-meta">
                     <span>{t('06 / Simplificar a operação')}</span>
-                    <span>{t('Plano integrado')}</span>
+                    <span>{t('Aplicações sob medida')}</span>
                   </div>
-                  <h3>{t('Menos trabalho repetido para sua equipe.')}</h3>
+                  <h3>{t('Sistemas e automações sob medida.')}</h3>
                   <p className="solution-description">
                     <strong>
                       {t(
@@ -499,7 +503,7 @@ export default function Solutions() {
                     )}
                   </p>
                   <p className="solution-mobile-summary">
-                    {t('Sua operação flui melhor com sistemas conectados.')}
+                    {t('Aplicações sob medida conectam ferramentas e automatizam tarefas.')}
                   </p>
                   <button type="button" className="solution-details" onClick={showDetail}>
                     {t('Ver detalhes ')}
@@ -567,9 +571,9 @@ export default function Solutions() {
                 <div className="solution-copy">
                   <div className="solution-meta">
                     <span>{t('07 / Decidir com clareza')}</span>
-                    <span>{t('Plano integrado')}</span>
+                    <span>{t('Dashboard')}</span>
                   </div>
-                  <h3>{t('Saiba o que está funcionando.')}</h3>
+                  <h3>{t('Painel de resultados do seu negócio.')}</h3>
                   <p className="solution-description">
                     <strong>{t('Os números estão espalhados e difíceis de comparar?')}</strong>
                     {t(
@@ -577,7 +581,7 @@ export default function Solutions() {
                     )}
                   </p>
                   <p className="solution-mobile-summary">
-                    {t('Decisões melhores começam com indicadores claros.')}
+                    {t('Dashboard que reúne dados de campanhas, contatos e vendas.')}
                   </p>
                   <button type="button" className="solution-details" onClick={showDetail}>
                     {t('Ver detalhes ')}
