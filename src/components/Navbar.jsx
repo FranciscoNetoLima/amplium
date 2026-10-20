@@ -150,9 +150,6 @@ export default function Navbar() {
             <a href="#portfolio" data-nav-section="portfolio">
               {t('Portfólio')}
             </a>
-            <a href="#metodo" data-nav-section="metodo">
-              {t('Como trabalhamos')}
-            </a>
             <a
               className="nav-mobile-contact"
               href={localizedWhatsApp(

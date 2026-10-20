@@ -40,11 +40,12 @@ try {
   assert(en.includes('All rights reserved. Technology, Amplified.'));
   assert(!en.includes('Soluções para seu negócio avançar.'));
   assert(!en.includes('Captação de oportunidades'));
-  assert(en.includes('We understand your needs'));
+  assert(!en.includes('compact-process'));
   assert(!en.includes('solutions-scroll'));
   assert(!en.includes('brief-wizard'));
   assert(!en.includes('tech-strip'));
-  assert(!en.includes('class="band"'));
+  assert(en.includes('class="band"'));
+  assert(!en.includes('brief-direct'));
   assert.equal(document.documentElement.lang, 'en');
   assert.equal(storage.get('amplium-language'), 'en');
   const url = locale.localizedWhatsApp(

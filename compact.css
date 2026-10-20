@@ -11,35 +11,6 @@
 .simple-contact {
   scroll-margin-top: 100px;
 }
-.compact-process {
-  scroll-margin-top: 110px;
-  padding-bottom: 44px;
-  margin-bottom: 54px;
-  border-bottom: 1px solid #8bb6ee24;
-}
-.compact-process h3 {
-  margin: 0 0 24px;
-  font-size: 1rem;
-  color: #a4c7ff;
-}
-.compact-process ol {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-.compact-process li {
-  display: flex;
-  gap: 12px;
-  align-items: baseline;
-  font-weight: 500;
-}
-.compact-process li > span {
-  color: #7c9dcc;
-  font-size: 0.75rem;
-}
 .simple-contact-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -91,14 +62,6 @@
   color: #aebdd1;
 }
 @media (max-width: 800px) {
-  .compact-process ol {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-  .compact-process {
-    margin-bottom: 36px;
-    padding-bottom: 30px;
-  }
   .simple-contact-layout {
     grid-template-columns: 1fr;
     gap: 28px;

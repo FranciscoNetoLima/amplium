@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import { t, useLanguage } from '../i18n.js';
 import { normalizeText, buildWhatsAppUrl } from '../contact-utils.js';
-import Process from './Process.jsx';
 
 export default function Contact() {
   useLanguage();
@@ -45,23 +44,10 @@ export default function Contact() {
   return (
     <section className="closing simple-contact" id="contato" aria-labelledby="contact-heading">
       <div className="wrap">
-        <Process />
         <div className="simple-contact-layout">
           <div className="simple-contact-copy">
-            <div className="eyebrow">{t('O próximo passo é seu')}</div>
             <h2 id="contact-heading">{t('Vamos conversar sobre seu projeto?')}</h2>
             <p>{t('Conte o que você precisa. Vamos encontrar uma solução para o seu negócio.')}</p>
-            <a
-              className="brief-direct"
-              href={buildWhatsAppUrl(
-                t('Olá! Quero conversar sobre um projeto para minha empresa.'),
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {t('Prefiro conversar diretamente ')}
-              <span aria-hidden="true">↗</span>
-            </a>
           </div>
           <form
             ref={formRef}

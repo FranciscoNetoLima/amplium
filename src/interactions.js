@@ -135,8 +135,58 @@ export function initializeInteractions() {
     }
   });
 
+  // Equal-sized groups include their trailing gap, so -50% is exactly one lap.
+  const loopSources = [];
+  for (const track of document.querySelectorAll('.marquee, .tech-track')) {
+    const items = [...track.children].filter((item) => item.getAttribute('aria-hidden') !== 'true');
+    const original = items.map((item) => item.cloneNode(true));
+    restores.push(() => track.replaceChildren(...original));
+    const group = document.createElement('div');
+    group.className = 'loop-group';
+    group.append(...items);
+    loopSources.push({ track, template: group.cloneNode(true) });
+  }
+  const fitLoops = () =>
+    loopSources.forEach(({ track, template }) => {
+      const group = template.cloneNode(true);
+      const localize = (root) => {
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        while (walker.nextNode())
+          walker.currentNode.textContent = t(walker.currentNode.textContent);
+        root
+          .querySelectorAll('[aria-label]')
+          .forEach((element) =>
+            element.setAttribute('aria-label', t(element.getAttribute('aria-label'))),
+          );
+      };
+      localize(group);
+      track.replaceChildren(group);
+      // A lap must cover the viewport even on ultrawide displays.
+      for (
+        let copies = 0;
+        group.getBoundingClientRect().width < track.parentElement.clientWidth && copies < 12;
+        copies++
+      ) {
+        for (const item of template.children) {
+          const copy = item.cloneNode(true);
+          localize(copy);
+          copy.setAttribute('aria-hidden', 'true');
+          group.append(copy);
+        }
+      }
+      const duplicate = group.cloneNode(true);
+      duplicate.setAttribute('aria-hidden', 'true');
+      track.append(duplicate);
+      // Match distance per second across viewport widths and translated labels.
+      const pixelsPerSecond = track.classList.contains('tech-track') ? 75 : 60;
+      track.style.animationDuration = `${group.getBoundingClientRect().width / pixelsPerSecond}s`;
+    });
+  fitLoops();
+  listen(window, 'resize', fitLoops);
+
   document.fonts.ready.then(() => {
     if (disposed) return;
+    fitLoops();
     const destination = document.getElementById(location.hash.slice(1));
     if (destination) {
       const margin = parseFloat(getComputedStyle(destination).scrollMarginTop) || 0;
@@ -271,6 +321,7 @@ export function initializeInteractions() {
     destination.focus({ preventScroll: true });
   });
   listen(window, 'languagechange', () => {
+    fitLoops();
     menu.setAttribute(
       'aria-label',
       t(menu.getAttribute('aria-expanded') === 'true' ? 'Fechar menu' : 'Abrir menu'),
