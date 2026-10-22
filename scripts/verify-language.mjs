@@ -30,6 +30,28 @@ try {
   assert(!footer.includes('href="#inicio"'));
   assert(footer.includes('href="https://www.instagram.com/amplium.pro/"'));
   assert(footer.includes('href="https://wa.me/5588992431477"'));
+  assert(footer.includes('>WhatsApp</b>'));
+  assert(footer.includes('>Instagram</b>'));
+  assert(!footer.includes('footer-social-icon'));
+  const services = pt.slice(pt.indexOf('id="services"'), pt.indexOf('id="portfolio"'));
+  const portfolio = pt.slice(pt.indexOf('id="portfolio"'), pt.indexOf('id="contact"'));
+  const contact = pt.slice(
+    pt.indexOf('id="contact"'),
+    pt.indexOf('</section>', pt.indexOf('id="contact"')),
+  );
+  assert(
+    !services.includes(
+      'aria-labelledby="services-heading"><div><div class="eyebrow">01 / Soluções</div><h2 id="services-heading">Soluções para seu negócio avançar.</h2><p>',
+    ),
+  );
+  assert(
+    !portfolio.includes(
+      'aria-labelledby="portfolio-heading"><div><div class="eyebrow">02 / Portfólio</div><h2 id="portfolio-heading">Ideias colocadas em prática.</h2><p>',
+    ),
+  );
+  assert(
+    !contact.includes('Conte o que você precisa. Vamos encontrar uma solução para o seu negócio.'),
+  );
   assert(footer.includes('Todos os direitos reservados. Tecnologia, Amplified.'));
   locale.setLanguage('en');
   const en = renderToStaticMarkup(React.createElement(App));

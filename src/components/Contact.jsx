@@ -47,7 +47,6 @@ export default function Contact() {
         <div className="simple-contact-layout">
           <div className="simple-contact-copy">
             <h2 id="contact-heading">{t('Vamos conversar sobre seu projeto?')}</h2>
-            <p>{t('Conte o que você precisa. Vamos encontrar uma solução para o seu negócio.')}</p>
           </div>
           <form
             ref={formRef}

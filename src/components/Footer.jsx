@@ -25,14 +25,8 @@ export default function Footer() {
               rel="noopener noreferrer"
               aria-label={t('WhatsApp da Amplium')}
             >
-              <span className="footer-social-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5Z" />
-                </svg>
-              </span>
               <span className="footer-social-copy">
-                <b>{t('Whatsapp')}</b>
-                <small>{t('Conversar agora')}</small>
+                <b>{t('WhatsApp')}</b>
               </span>
             </a>
             <a
@@ -42,16 +36,8 @@ export default function Footer() {
               rel="noopener noreferrer"
               aria-label={t('Instagram da Amplium')}
             >
-              <span className="footer-social-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <rect x="3" y="3" width="18" height="18" rx="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <path d="M17.5 6.5h.01" />
-                </svg>
-              </span>
               <span className="footer-social-copy">
                 <b>{t('Instagram')}</b>
-                <small>@amplium.pro</small>
               </span>
             </a>
           </div>

@@ -14,9 +14,6 @@ export default function Services() {
             <div className="eyebrow">{t('01 / Soluções')}</div>
             <h2 id="services-heading">{t('Soluções para seu negócio avançar.')}</h2>
           </div>
-          <p>
-            {t('Da primeira visita à venda, conectamos tecnologia aos resultados que você busca.')}
-          </p>
         </div>
         <div className="services-grid">
           <article id="servico-sites" className="service-card service-card--sites reveal">

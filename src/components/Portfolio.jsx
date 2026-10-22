@@ -60,7 +60,6 @@ export default function Portfolio() {
           <div className="eyebrow">{t('02 / Portfólio')}</div>
           <h2 id="portfolio-heading">{t('Ideias colocadas em prática.')}</h2>
         </div>
-        <p>{t('Conheça alguns projetos desenvolvidos pela Amplium.')}</p>
       </div>
       <div className="portfolio-grid">
         {projects.map((project) => (
