@@ -57,30 +57,28 @@ export default function Hero() {
           </div>
         </div>
       </section>
-      <div className="band-wrap">
-        <div className="band" tabIndex="0" aria-label={t('Serviços da Amplium')}>
-          <div className="marquee">
-            <span className="marquee-item">
-              {t('SITES ')}
-              <b aria-hidden="true">✦</b>
-            </span>
-            <span className="marquee-item">
-              {t('LANDING PAGES ')}
-              <b aria-hidden="true">✦</b>
-            </span>
-            <span className="marquee-item">
-              {t('SISTEMAS & CRM ')}
-              <b aria-hidden="true">✦</b>
-            </span>
-            <span className="marquee-item">
-              {t('AGENTES DE IA ')}
-              <b aria-hidden="true">✦</b>
-            </span>
-            <span className="marquee-item">
-              {t('TRÁFEGO PAGO ')}
-              <b aria-hidden="true">✦</b>
-            </span>
-          </div>
+      <div className="band" tabIndex="0" aria-label={t('Serviços da Amplium')}>
+        <div className="marquee">
+          <span className="marquee-item">
+            {t('SITES ')}
+            <b aria-hidden="true">✦</b>
+          </span>
+          <span className="marquee-item">
+            {t('LANDING PAGES ')}
+            <b aria-hidden="true">✦</b>
+          </span>
+          <span className="marquee-item">
+            {t('SISTEMAS & CRM ')}
+            <b aria-hidden="true">✦</b>
+          </span>
+          <span className="marquee-item">
+            {t('AGENTES DE IA ')}
+            <b aria-hidden="true">✦</b>
+          </span>
+          <span className="marquee-item">
+            {t('TRÁFEGO PAGO ')}
+            <b aria-hidden="true">✦</b>
+          </span>
         </div>
       </div>
     </>

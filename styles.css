@@ -206,39 +206,26 @@ a:focus-visible {
 .hero-symbol {
   animation: float 7s ease-in-out infinite;
 }
-.band-wrap {
-  overflow: clip;
-  padding-block: calc(16px + 1.75vw);
-}
 .band {
-  position: relative;
-  left: -16px;
-  width: calc(100% + 32px);
-  border-top: 1px solid #5c9bff;
-  border-bottom: 1px solid #194da1;
+  border-bottom: 1px solid var(--line);
   overflow: hidden;
-  background: #2869d6;
-  box-shadow: 0 6px 0 #16499c;
-  transform: rotate(-2deg);
+  background: #0c0f17;
 }
 .marquee {
-  --marquee-gap: clamp(24px, 3vw, 48px);
   display: flex;
   width: max-content;
   animation: marquee 28s linear infinite;
-  padding: 24px 0;
+  padding: 18px 0;
   gap: 0;
   white-space: nowrap;
-  color: #fff;
+  color: #bcc3d2;
   font-weight: 650;
-  letter-spacing: 0.01em;
-  font-size: clamp(1.05rem, 1.65vw, 1.65rem);
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
 }
 .marquee b {
-  color: inherit;
+  color: #578ee9;
   font-weight: 400;
-  font-size: 0.9em;
-  line-height: 1;
 }
 section {
   scroll-margin-top: 40px;
@@ -481,22 +468,19 @@ section {
   padding-right: 12px;
 }
 .marquee .loop-group {
-  gap: var(--marquee-gap);
-  padding-right: var(--marquee-gap);
+  gap: 24px;
+  padding-right: 24px;
 }
 .marquee-item {
   display: flex;
   align-items: center;
-  gap: var(--marquee-gap);
+  gap: 24px;
   flex-shrink: 0;
 }
 .band:focus-visible,
 .tech-strip:focus-visible {
   outline: 2px solid #79a8ff;
   outline-offset: -3px;
-}
-.band:focus-visible {
-  outline-color: #fff;
 }
 .primary {
   display: inline-flex;
