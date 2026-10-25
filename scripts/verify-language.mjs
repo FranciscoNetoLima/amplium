@@ -52,6 +52,13 @@ try {
   assert(
     !contact.includes('Conte o que você precisa. Vamos encontrar uma solução para o seu negócio.'),
   );
+  assert(
+    pt.includes(
+      'Conte sua ideia ou o que você quer melhorar. Vamos pensar no melhor caminho juntos.',
+    ),
+  );
+  assert(!pt.includes('O WhatsApp será aberto com sua mensagem pronta para enviar.'));
+  assert(!pt.includes('<small>Opcional</small>'));
   assert(footer.includes('Todos os direitos reservados. Tecnologia, Amplified.'));
   locale.setLanguage('en');
   const en = renderToStaticMarkup(React.createElement(App));

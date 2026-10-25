@@ -47,6 +47,11 @@ export default function Contact() {
         <div className="simple-contact-layout">
           <div className="simple-contact-copy">
             <h2 id="contact-heading">{t('Vamos conversar sobre seu projeto?')}</h2>
+            <p>
+              {t(
+                'Conte sua ideia ou o que você quer melhorar. Vamos pensar no melhor caminho juntos.',
+              )}
+            </p>
           </div>
           <form
             ref={formRef}
@@ -76,7 +81,7 @@ export default function Contact() {
                 )}
               </label>
               <label htmlFor="project-email">
-                {t('E-mail')} <small>{t('Opcional')}</small>
+                {t('E-mail')}
                 <input
                   id="project-email"
                   name="email"
@@ -118,9 +123,6 @@ export default function Contact() {
             <button type="submit" className="primary is-ready">
               {t('Conversar no WhatsApp')} <span aria-hidden="true">↗</span>
             </button>
-            <p className="simple-brief-note">
-              {t('O WhatsApp será aberto com sua mensagem pronta para enviar.')}
-            </p>
           </form>
         </div>
       </div>
