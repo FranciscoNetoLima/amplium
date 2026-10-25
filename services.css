@@ -65,28 +65,6 @@
   font-size: 1rem;
   line-height: 1.7;
 }
-.service-portfolio-link {
-  position: relative;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-  margin-top: 18px;
-  color: #cbd9f8;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-decoration: none;
-  text-underline-offset: 4px;
-}
-.service-portfolio-link:hover {
-  color: #fff;
-  text-decoration: underline;
-}
-.service-portfolio-link:focus-visible {
-  outline: 2px solid #a5bfff;
-  outline-offset: 5px;
-  border-radius: 2px;
-}
 .service-anchor {
   position: absolute;
   top: 0;

@@ -54,9 +54,6 @@ export default function Services() {
                 </div>
               </div>
             </div>
-            <a className="service-portfolio-link" href="#portfolio">
-              {t('Conhecer portfólio')} <span aria-hidden="true">↓</span>
-            </a>
           </article>
           <article id="servico-trafego-pago" className="service-card service-card--ads reveal">
             <span className="service-number">02 //</span>
