@@ -164,7 +164,7 @@ export function initializeInteractions() {
       // A lap must cover the viewport even on ultrawide displays.
       for (
         let copies = 0;
-        group.getBoundingClientRect().width < track.parentElement.clientWidth && copies < 12;
+        group.offsetWidth < track.parentElement.clientWidth && copies < 12;
         copies++
       ) {
         for (const item of template.children) {
@@ -179,7 +179,7 @@ export function initializeInteractions() {
       track.append(duplicate);
       // Match distance per second across viewport widths and translated labels.
       const pixelsPerSecond = track.classList.contains('tech-track') ? 75 : 60;
-      track.style.animationDuration = `${group.getBoundingClientRect().width / pixelsPerSecond}s`;
+      track.style.animationDuration = `${group.offsetWidth / pixelsPerSecond}s`;
     });
   fitLoops();
   listen(window, 'resize', fitLoops);
