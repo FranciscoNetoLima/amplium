@@ -1,6 +1,17 @@
 .section.portfolio-section {
+  position: relative;
   padding-block: 90px;
   scroll-margin-top: 100px;
+}
+.portfolio-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  border-top: 1px solid var(--line);
+  transform: translateX(-50%);
+  pointer-events: none;
 }
 .portfolio-section .eyebrow {
   color: #9ebffe;
