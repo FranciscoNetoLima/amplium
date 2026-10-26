@@ -156,7 +156,7 @@ export default function HeroBackdrop() {
   return (
     <div className="hero-backdrop">
       <div className="hero-aura hero-aura-blue" />
-      <div className="hero-aura hero-aura-violet" />
+      <div className="hero-aura hero-aura-accent" />
       <canvas ref={canvasRef} className="hero-ribbons" />
       <div className="hero-core-glow" />
     </div>

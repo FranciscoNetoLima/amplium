@@ -65,9 +65,9 @@ export function drawRibbons(ctx, canvas, now, pointer, strandCount = 64) {
         : ctx.createLinearGradient(185, 165, 620, 20);
     gradient.addColorStop(0, '#168dff00');
     gradient.addColorStop(0.22, '#238eff');
-    gradient.addColorStop(0.58, index === 0 ? '#329cff' : '#6369ff');
-    gradient.addColorStop(0.85, index === 0 ? '#246bd9' : '#a078ff');
-    gradient.addColorStop(1, '#8c5eff00');
+    gradient.addColorStop(0.58, index === 0 ? '#329cff' : '#3788fb');
+    gradient.addColorStop(0.85, index === 0 ? '#246bd9' : '#3788fb');
+    gradient.addColorStop(1, '#3788fb00');
     ctx.strokeStyle = gradient;
     for (let strand = 0; strand < strandCount; strand++) {
       const offset = (strand - (strandCount - 1) / 2) / ((strandCount - 1) / 2);
