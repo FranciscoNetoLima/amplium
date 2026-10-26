@@ -12,7 +12,7 @@ export default function Footer() {
               srcSet="assets/amplium-logo-360.webp 360w, assets/amplium-logo-720.webp 720w"
               sizes="210px"
               alt={t('Amplium — Technology, Amplified.')}
-              width="2167"
+              width="2170"
               height="725"
               loading="lazy"
             />
