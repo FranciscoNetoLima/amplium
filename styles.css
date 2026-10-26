@@ -333,7 +333,7 @@ section {
   margin-right: 11px;
 }
 .closing {
-  background: radial-gradient(ellipse 60% 100% at 50% 100%, #26335840, transparent 68%), #090c13;
+  background: radial-gradient(ellipse 60% 100% at 50% 100%, #3788fb1f, transparent 68%), #0d1c32;
   border-top: 1px solid var(--line);
   padding: 118px 0;
 }

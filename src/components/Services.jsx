@@ -2,12 +2,8 @@ import { t, useLanguage } from '../i18n.js';
 export default function Services() {
   useLanguage();
   return (
-    <>
-      <section
-        className="section wrap services-section"
-        id="servicos"
-        aria-labelledby="services-heading"
-      >
+    <section className="section services-section" id="servicos" aria-labelledby="services-heading">
+      <div className="wrap">
         <span id="solucoes" className="service-anchor" aria-hidden="true" />
         <div className="section-head">
           <div>
@@ -119,7 +115,7 @@ export default function Services() {
         <p className="services-summary">
           {t('Também conectamos anúncios, landing page e CRM para acompanhar suas oportunidades.')}
         </p>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
