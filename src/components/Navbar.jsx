@@ -13,7 +13,7 @@ export default function Navbar() {
               srcSet="assets/amplium-logo-360.webp 360w, assets/amplium-logo-720.webp 720w"
               sizes="(max-width: 639px) 175px, 210px"
               alt={t('Amplium — Technology, Amplified.')}
-              width="2170"
+              width="2167"
               height="725"
               fetchPriority="high"
               decoding="async"
