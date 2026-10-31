@@ -172,6 +172,13 @@
   border-radius: 15px;
   aspect-ratio: 390 / 844;
 }
+.portfolio-project--oral-face .portfolio-desktop img,
+.portfolio-project--oral-face .portfolio-phone img {
+  aspect-ratio: auto;
+}
+.portfolio-project--oral-face .portfolio-phone {
+  padding-top: 12px;
+}
 .portfolio-phone-camera {
   position: absolute;
   top: 6px;
@@ -307,6 +314,15 @@
     width: 22%;
     right: 5%;
     bottom: 7%;
+  }
+  .portfolio-project--oral-face .portfolio-phone {
+    width: 20%;
+  }
+  .portfolio-project--oral-face .portfolio-preview {
+    aspect-ratio: 1.55;
+  }
+  .portfolio-project--oral-face .portfolio-desktop {
+    top: 10%;
   }
   .portfolio-project {
     border-radius: 20px;

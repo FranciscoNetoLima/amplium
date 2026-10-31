@@ -4,6 +4,9 @@ import './portfolio.css';
 const projects = [
   {
     id: 'oral-face',
+    preview: 'oral-face-complete',
+    desktopHeight: 857,
+    mobileHeight: 925,
     name: 'Oral Face Odontologia',
     description:
       'Site institucional para apresentar a clínica, os tratamentos e facilitar o agendamento.',
@@ -82,11 +85,11 @@ export default function Portfolio() {
                   <span>{project.name}</span>
                 </div>
                 <img
-                  src={`assets/portfolio/${project.id}-desktop-1440.webp`}
-                  srcSet={`assets/portfolio/${project.id}-desktop-1440.webp 1440w, assets/portfolio/${project.id}-desktop-2880.webp 2880w`}
+                  src={`assets/portfolio/${project.preview ?? project.id}-desktop-1440.webp`}
+                  srcSet={`assets/portfolio/${project.preview ?? project.id}-desktop-1440.webp 1440w, assets/portfolio/${project.preview ?? project.id}-desktop-2880.webp 2880w`}
                   sizes="(max-width: 760px) 80vw, (max-width: 1100px) 40vw, 510px"
                   width="1440"
-                  height="820"
+                  height={project.desktopHeight ?? 820}
                   loading="lazy"
                   decoding="async"
                   alt={t(project.desktopAlt)}
@@ -95,10 +98,10 @@ export default function Portfolio() {
               <div className="portfolio-phone">
                 <span className="portfolio-phone-camera" aria-hidden="true" />
                 <img
-                  src={`assets/portfolio/${project.id}-mobile.webp`}
-                  srcSet={`assets/portfolio/${project.id}-mobile.webp 1x, assets/portfolio/${project.id}-mobile-780.webp 2x`}
+                  src={`assets/portfolio/${project.preview ?? project.id}-mobile.webp`}
+                  srcSet={`assets/portfolio/${project.preview ?? project.id}-mobile.webp 1x, assets/portfolio/${project.preview ?? project.id}-mobile-780.webp 2x`}
                   width="390"
-                  height="844"
+                  height={project.mobileHeight ?? 844}
                   loading="lazy"
                   decoding="async"
                   alt={t(project.mobileAlt)}
