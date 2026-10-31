@@ -52,6 +52,10 @@
   --portfolio-accent: #c9b8eb;
   --portfolio-tint: #3a304f;
 }
+.portfolio-project--oral-face {
+  --portfolio-accent: #e9b9c6;
+  --portfolio-tint: #47303b;
+}
 .portfolio-preview {
   position: relative;
   aspect-ratio: 1.35;

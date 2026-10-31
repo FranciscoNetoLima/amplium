@@ -3,14 +3,14 @@ import './portfolio.css';
 
 const projects = [
   {
-    id: 'petshow',
-    name: 'Pet Show Cariri',
+    id: 'oral-face',
+    name: 'Oral Face Odontologia',
     description:
-      'Proposta independente, não contratada pela empresa, para apresentar serviços e facilitar o contato.',
-    url: 'https://petshowcariri.vercel.app/#inicio',
-    desktopAlt: 'Página inicial do projeto Pet Show Cariri em uma tela de computador.',
-    mobileAlt: 'Versão mobile do projeto Pet Show Cariri.',
-    linkLabel: 'Explorar o site Pet Show Cariri (abre em nova aba)',
+      'Site institucional para apresentar a clínica, os tratamentos e facilitar o agendamento.',
+    url: 'https://clinicaoralface.vercel.app/#inicio',
+    desktopAlt: 'Página inicial do projeto Oral Face Odontologia em uma tela de computador.',
+    mobileAlt: 'Versão mobile do projeto Oral Face Odontologia.',
+    linkLabel: 'Explorar o site Oral Face Odontologia (abre em nova aba)',
   },
   {
     id: 'ana-victoria',
