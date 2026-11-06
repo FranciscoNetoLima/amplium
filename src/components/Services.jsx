@@ -91,10 +91,10 @@ export default function Services() {
           </article>
           <article id="servico-aplicacoes-crm" className="service-card service-card--crm reveal">
             <span className="service-number">04 //</span>
-            <h3>{t('Aplicações e CRM')}</h3>
+            <h3>{t('Sistemas sob medida')}</h3>
             <p>
               {t(
-                'Aplicações sob medida e CRM ajustado à sua operação para organizar contatos, negociações e processos.',
+                'Criamos sistemas para gerenciar agendamentos, acompanhar pedidos e organizar processos internos.',
               )}
             </p>
             <div className="service-visual crm-preview" aria-hidden="true">
@@ -117,7 +117,9 @@ export default function Services() {
           </article>
         </div>
         <p className="services-summary">
-          {t('Também conectamos anúncios, landing page e CRM para acompanhar suas oportunidades.')}
+          {t(
+            'Também conectamos anúncios, landing page e um agente de IA para atrair interessados e agilizar o primeiro atendimento.',
+          )}
         </p>
       </section>
     </>

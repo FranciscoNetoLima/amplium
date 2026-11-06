@@ -64,8 +64,8 @@ function updateMetadata() {
       : 'Amplium — Tecnologia que amplia negócios';
   const description =
     language === 'en'
-      ? 'Websites, landing pages, CRM, AI agents, and paid advertising to expand your business possibilities.'
-      : 'Sites, landing pages, CRM, agentes de IA e tráfego pago para ampliar as possibilidades do seu negócio.';
+      ? 'Websites, landing pages, custom systems, AI agents, and paid advertising to expand your business possibilities.'
+      : 'Sites, landing pages, sistemas sob medida, agentes de IA e tráfego pago para ampliar as possibilidades do seu negócio.';
   document.querySelector('meta[name="description"]')?.setAttribute('content', description);
   document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
   document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
