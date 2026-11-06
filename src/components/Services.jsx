@@ -91,7 +91,7 @@ export default function Services() {
           </article>
           <article id="servico-aplicacoes-crm" className="service-card service-card--crm reveal">
             <span className="service-number">04 //</span>
-            <h3>{t('Sistemas sob medida')}</h3>
+            <h3>{t('Sistemas')}</h3>
             <p>
               {t(
                 'Criamos sistemas para gerenciar agendamentos, acompanhar pedidos e organizar processos internos.',

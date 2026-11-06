@@ -68,7 +68,7 @@ export default function Hero() {
             <b aria-hidden="true">✦</b>
           </span>
           <span className="marquee-item">
-            {t('SISTEMAS SOB MEDIDA ')}
+            {t('SISTEMAS ')}
             <b aria-hidden="true">✦</b>
           </span>
           <span className="marquee-item">
