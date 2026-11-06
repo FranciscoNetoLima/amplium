@@ -60,7 +60,7 @@ export default function Portfolio() {
     >
       <div className="section-head">
         <div>
-          <div className="eyebrow">{t('02 / Portfólio')}</div>
+          <div className="eyebrow">{t('Portfólio')}</div>
           <h2 id="portfolio-heading">{t('Ideias colocadas em prática.')}</h2>
         </div>
       </div>

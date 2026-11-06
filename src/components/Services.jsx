@@ -11,7 +11,7 @@ export default function Services() {
         <span id="solucoes" className="service-anchor" aria-hidden="true" />
         <div className="section-head">
           <div>
-            <div className="eyebrow">{t('01 / Soluções')}</div>
+            <div className="eyebrow">{t('Soluções')}</div>
             <h2 id="services-heading">{t('Soluções para seu negócio avançar.')}</h2>
           </div>
         </div>
