@@ -1,0 +1,34 @@
+.cursor-multifollow {
+  pointer-events: none;
+  user-select: none;
+}
+.multifollow-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  pointer-events: none;
+  border: 2px solid;
+  border-radius: 50%;
+}
+.multifollow-dot {
+  width: 5px;
+  height: 5px;
+  border: 0;
+  background: #ffffff;
+}
+.multifollow-inner {
+  width: 13px;
+  height: 13px;
+  border-color: #9dcaff;
+}
+.multifollow-middle {
+  width: 21px;
+  height: 21px;
+  border-color: #64a5ff;
+}
+.multifollow-outer {
+  width: 29px;
+  height: 29px;
+  border-color: #3788fb;
+}

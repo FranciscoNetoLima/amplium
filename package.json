@@ -13,6 +13,7 @@
     "check:git": "node scripts/verify-git-sync.mjs"
   },
   "dependencies": {
+    "motion": "^14.14.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },

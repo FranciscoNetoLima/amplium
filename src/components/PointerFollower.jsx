@@ -1,99 +1,42 @@
-import { useEffect, useRef } from 'react';
-import './pointer-follower.css';
+import { useEffect, useRef, useState } from 'react';
 
 export default function PointerFollower() {
-  const followerRef = useRef(null);
+  const [Cursor, setCursor] = useState(null);
+  const pointer = useRef({ x: 0, y: 0, visible: false });
 
   useEffect(() => {
-    const follower = followerRef.current;
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let frame = 0;
-    let positioned = false;
-    let x = 0;
-    let y = 0;
-    let targetX = 0;
-    let targetY = 0;
-
-    const draw = () => {
-      frame = 0;
-      x += (targetX - x) * 0.3;
-      y += (targetY - y) * 0.3;
-      const moving = Math.abs(targetX - x) + Math.abs(targetY - y) > 0.1;
-      if (!moving) {
-        x = targetX;
-        y = targetY;
-      }
-      follower.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      if (moving) frame = window.requestAnimationFrame(draw);
-    };
-
+    if (Cursor) return;
+    let cancelled = false;
+    let loading = false;
     const hide = () => {
-      follower.removeAttribute('data-visible');
-      follower.removeAttribute('data-interactive');
-      window.cancelAnimationFrame(frame);
-      frame = 0;
-      positioned = false;
+      pointer.current.visible = false;
     };
-
-    const updateMotion = () => {
-      if (!reducedMotion.matches) return;
-      window.cancelAnimationFrame(frame);
-      frame = 0;
-      x = targetX;
-      y = targetY;
-      if (positioned) draw();
-    };
-
     const move = (event) => {
-      if (event.pointerType === 'touch') {
-        hide();
-        return;
-      }
-      targetX = event.clientX;
-      targetY = event.clientY;
-      if (!positioned || reducedMotion.matches) {
-        x = targetX;
-        y = targetY;
-        follower.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-        positioned = true;
-      }
-      follower.setAttribute('data-visible', '');
-      if (!frame && !reducedMotion.matches) frame = window.requestAnimationFrame(draw);
+      pointer.current = {
+        x: event.clientX,
+        y: event.clientY,
+        visible: event.pointerType !== 'touch',
+      };
+      if (!pointer.current.visible || loading) return;
+      loading = true;
+      import('./ui/motion-cursor-multifollow.jsx')
+        .then((module) => {
+          if (!cancelled) setCursor(() => module.default);
+        })
+        .catch(() => {
+          loading = false;
+        });
     };
-
-    const updateTarget = (event) => {
-      if (event.pointerType === 'touch') {
-        hide();
-        return;
-      }
-      follower.toggleAttribute(
-        'data-interactive',
-        event.target instanceof Element &&
-          Boolean(event.target.closest('a[href], button:not(:disabled), [role="button"]')),
-      );
-    };
-
     window.addEventListener('pointermove', move, { passive: true });
-    document.addEventListener('pointerover', updateTarget);
-    document.addEventListener('pointerleave', hide);
-    document.addEventListener('visibilitychange', hide);
     window.addEventListener('blur', hide);
-    reducedMotion.addEventListener('change', updateMotion);
-
+    document.addEventListener('pointerleave', hide);
     return () => {
-      hide();
+      cancelled = true;
       window.removeEventListener('pointermove', move);
-      document.removeEventListener('pointerover', updateTarget);
-      document.removeEventListener('pointerleave', hide);
-      document.removeEventListener('visibilitychange', hide);
       window.removeEventListener('blur', hide);
-      reducedMotion.removeEventListener('change', updateMotion);
+      document.removeEventListener('pointerleave', hide);
     };
-  }, []);
+  }, [Cursor]);
 
-  return (
-    <div className="pointer-follower" ref={followerRef} aria-hidden="true">
-      <span className="pointer-follower-ring">◎</span>
-    </div>
-  );
+  return Cursor ? <Cursor initialPointer={pointer.current} /> : null;
 }
