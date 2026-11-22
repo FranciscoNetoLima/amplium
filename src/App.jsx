@@ -6,6 +6,7 @@ import Services from './components/Services.jsx';
 import Portfolio from './components/Portfolio.jsx';
 import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
+import PointerFollower from './components/PointerFollower.jsx';
 
 export default function App() {
   useEffect(() => initializeInteractions(), []);
@@ -19,6 +20,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <PointerFollower />
     </>
   );
 }
