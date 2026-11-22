@@ -71,9 +71,9 @@ function Cursor({ className, spring, variants }) {
   const y = useSpring(pointer.y.get(), spring);
 
   useEffect(() => {
-    const updateX = (value) => (reducedMotion ? x.jump(value) : x.set(value));
-    const updateY = (value) => (reducedMotion ? y.jump(value) : y.set(value));
-    // Keep the four layers together on re-entry and when motion is reduced.
+    const updateX = (value) => x.set(value);
+    const updateY = (value) => y.set(value);
+    // Align the layers on entry, then let each spring follow the pointer.
     x.jump(pointer.x.get());
     y.jump(pointer.y.get());
     const unsubscribeX = pointer.x.on('change', updateX);
@@ -89,7 +89,7 @@ function Cursor({ className, spring, variants }) {
       unsubscribeY();
       unsubscribeOpacity();
     };
-  }, [pointer.x, pointer.y, pointer.opacity, reducedMotion, x, y]);
+  }, [pointer.x, pointer.y, pointer.opacity, x, y]);
 
   return (
     <motion.div
