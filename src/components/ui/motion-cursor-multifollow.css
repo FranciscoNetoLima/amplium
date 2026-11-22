@@ -1,3 +1,9 @@
+html[data-cursor-multifollow-active],
+html[data-cursor-multifollow-active] *,
+html[data-cursor-multifollow-active] *::before,
+html[data-cursor-multifollow-active] *::after {
+  cursor: none !important;
+}
 .cursor-multifollow {
   pointer-events: none;
   user-select: none;

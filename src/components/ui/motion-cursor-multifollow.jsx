@@ -12,6 +12,7 @@ function Stage({ children, initialPointer }) {
 
   useEffect(() => {
     const hide = () => {
+      document.documentElement.removeAttribute('data-cursor-multifollow-active');
       opacity.set(0);
       setPressed(false);
     };
@@ -22,6 +23,9 @@ function Stage({ children, initialPointer }) {
       }
       x.set(event.clientX);
       y.set(event.clientY);
+      if (opacity.get() === 0) {
+        document.documentElement.setAttribute('data-cursor-multifollow-active', '');
+      }
       opacity.set(1);
     };
     const press = (event) => {
@@ -29,6 +33,9 @@ function Stage({ children, initialPointer }) {
       else setPressed(true);
     };
     const release = () => setPressed(false);
+    if (initialPointer.visible) {
+      document.documentElement.setAttribute('data-cursor-multifollow-active', '');
+    }
     window.addEventListener('pointermove', move, { passive: true });
     window.addEventListener('pointerdown', press);
     window.addEventListener('pointerup', release);
@@ -37,6 +44,7 @@ function Stage({ children, initialPointer }) {
     document.addEventListener('pointerleave', hide);
     document.addEventListener('visibilitychange', hide);
     return () => {
+      document.documentElement.removeAttribute('data-cursor-multifollow-active');
       window.removeEventListener('pointermove', move);
       window.removeEventListener('pointerdown', press);
       window.removeEventListener('pointerup', release);
@@ -45,7 +53,7 @@ function Stage({ children, initialPointer }) {
       document.removeEventListener('pointerleave', hide);
       document.removeEventListener('visibilitychange', hide);
     };
-  }, [x, y, opacity]);
+  }, [x, y, opacity, initialPointer.visible]);
 
   return (
     <CursorContext.Provider value={{ x, y, opacity, pressed }}>
@@ -106,7 +114,7 @@ export function CursorMultifollow({ initialPointer = { x: 0, y: 0, visible: fals
       />
       <Cursor
         className="multifollow-inner"
-        spring={{ stiffness: 1000, damping: 50 }}
+        spring={{ stiffness: 700, damping: 50 }}
         variants={{
           default: { scale: 1, borderColor: '#ff0088' },
           pressed: { scale: 0.6, borderColor: '#dd00ee' },
@@ -114,7 +122,7 @@ export function CursorMultifollow({ initialPointer = { x: 0, y: 0, visible: fals
       />
       <Cursor
         className="multifollow-middle"
-        spring={{ stiffness: 800, damping: 70 }}
+        spring={{ stiffness: 350, damping: 50 }}
         variants={{
           default: { scale: 1, borderColor: '#dd00ee' },
           pressed: { scale: 0.7, borderColor: '#9911ff' },
@@ -122,7 +130,7 @@ export function CursorMultifollow({ initialPointer = { x: 0, y: 0, visible: fals
       />
       <Cursor
         className="multifollow-outer"
-        spring={{ stiffness: 700, damping: 90 }}
+        spring={{ stiffness: 180, damping: 45 }}
         variants={{
           default: { scale: 1, borderColor: '#9911ff' },
           pressed: { scale: 0.8, borderColor: '#1e75f7' },
