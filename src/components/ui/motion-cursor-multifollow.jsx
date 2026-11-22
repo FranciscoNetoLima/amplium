@@ -116,24 +116,24 @@ export function CursorMultifollow({ initialPointer = { x: 0, y: 0, visible: fals
         className="multifollow-inner"
         spring={{ stiffness: 700, damping: 50 }}
         variants={{
-          default: { scale: 1, borderColor: '#ff0088' },
-          pressed: { scale: 0.6, borderColor: '#dd00ee' },
+          default: { scale: 1, borderColor: '#b7d6ff' },
+          pressed: { scale: 0.6, borderColor: '#ffffff' },
         }}
       />
       <Cursor
         className="multifollow-middle"
         spring={{ stiffness: 350, damping: 50 }}
         variants={{
-          default: { scale: 1, borderColor: '#dd00ee' },
-          pressed: { scale: 0.7, borderColor: '#9911ff' },
+          default: { scale: 1, borderColor: '#64a5ff' },
+          pressed: { scale: 0.7, borderColor: '#b7d6ff' },
         }}
       />
       <Cursor
         className="multifollow-outer"
         spring={{ stiffness: 180, damping: 45 }}
         variants={{
-          default: { scale: 1, borderColor: '#9911ff' },
-          pressed: { scale: 0.8, borderColor: '#1e75f7' },
+          default: { scale: 1, borderColor: '#3788fb' },
+          pressed: { scale: 0.8, borderColor: '#64a5ff' },
         }}
       />
     </Stage>

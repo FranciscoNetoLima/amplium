@@ -27,15 +27,15 @@ html[data-cursor-multifollow-active] *::after {
 .multifollow-inner {
   width: 13px;
   height: 13px;
-  border-color: #ff0088;
+  border-color: #b7d6ff;
 }
 .multifollow-middle {
   width: 21px;
   height: 21px;
-  border-color: #dd00ee;
+  border-color: #64a5ff;
 }
 .multifollow-outer {
   width: 29px;
   height: 29px;
-  border-color: #9911ff;
+  border-color: #3788fb;
 }
