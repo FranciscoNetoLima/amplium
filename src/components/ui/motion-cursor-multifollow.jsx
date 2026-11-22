@@ -56,7 +56,7 @@ function Stage({ children, initialPointer }) {
   );
 }
 
-function Cursor({ className, spring, pressedScale }) {
+function Cursor({ className, spring, variants }) {
   const pointer = useContext(CursorContext);
   const reducedMotion = useReducedMotion();
   const x = useSpring(pointer.x.get(), spring);
@@ -88,8 +88,9 @@ function Cursor({ className, spring, pressedScale }) {
       className={`multifollow-layer ${className}`}
       data-cursor=""
       initial={false}
-      animate={{ scale: pointer.pressed ? pressedScale : 1 }}
-      transition={reducedMotion ? { duration: 0 } : { duration: 0.15 }}
+      animate={pointer.pressed ? 'pressed' : 'default'}
+      variants={variants}
+      transition={reducedMotion ? { duration: 0 } : undefined}
       style={{ x, y, opacity: pointer.opacity, translateX: '-50%', translateY: '-50%' }}
     />
   );
@@ -101,22 +102,31 @@ export function CursorMultifollow({ initialPointer = { x: 0, y: 0, visible: fals
       <Cursor
         className="multifollow-dot"
         spring={{ stiffness: 900, damping: 55 }}
-        pressedScale={0.5}
+        variants={{ default: { scale: 1 }, pressed: { scale: 0.5 } }}
       />
       <Cursor
         className="multifollow-inner"
         spring={{ stiffness: 1000, damping: 50 }}
-        pressedScale={0.6}
+        variants={{
+          default: { scale: 1, borderColor: '#ff0088' },
+          pressed: { scale: 0.6, borderColor: '#dd00ee' },
+        }}
       />
       <Cursor
         className="multifollow-middle"
         spring={{ stiffness: 800, damping: 70 }}
-        pressedScale={0.7}
+        variants={{
+          default: { scale: 1, borderColor: '#dd00ee' },
+          pressed: { scale: 0.7, borderColor: '#9911ff' },
+        }}
       />
       <Cursor
         className="multifollow-outer"
         spring={{ stiffness: 700, damping: 90 }}
-        pressedScale={0.8}
+        variants={{
+          default: { scale: 1, borderColor: '#9911ff' },
+          pressed: { scale: 0.8, borderColor: '#1e75f7' },
+        }}
       />
     </Stage>
   );
