@@ -6,9 +6,7 @@ export default function PointerFollower() {
 
   useEffect(() => {
     const follower = followerRef.current;
-    const enabled = window.matchMedia(
-      '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
-    );
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let frame = 0;
     let positioned = false;
     let x = 0;
@@ -37,23 +35,37 @@ export default function PointerFollower() {
       positioned = false;
     };
 
+    const updateMotion = () => {
+      if (!reducedMotion.matches) return;
+      window.cancelAnimationFrame(frame);
+      frame = 0;
+      x = targetX;
+      y = targetY;
+      if (positioned) draw();
+    };
+
     const move = (event) => {
-      if (!enabled.matches || event.pointerType !== 'mouse') {
+      if (event.pointerType === 'touch') {
         hide();
         return;
       }
       targetX = event.clientX;
       targetY = event.clientY;
-      if (!positioned) {
+      if (!positioned || reducedMotion.matches) {
         x = targetX;
         y = targetY;
+        follower.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         positioned = true;
       }
       follower.setAttribute('data-visible', '');
-      if (!frame) frame = window.requestAnimationFrame(draw);
+      if (!frame && !reducedMotion.matches) frame = window.requestAnimationFrame(draw);
     };
 
     const updateTarget = (event) => {
+      if (event.pointerType === 'touch') {
+        hide();
+        return;
+      }
       follower.toggleAttribute(
         'data-interactive',
         event.target instanceof Element &&
@@ -66,7 +78,7 @@ export default function PointerFollower() {
     document.addEventListener('pointerleave', hide);
     document.addEventListener('visibilitychange', hide);
     window.addEventListener('blur', hide);
-    enabled.addEventListener('change', hide);
+    reducedMotion.addEventListener('change', updateMotion);
 
     return () => {
       hide();
@@ -75,7 +87,7 @@ export default function PointerFollower() {
       document.removeEventListener('pointerleave', hide);
       document.removeEventListener('visibilitychange', hide);
       window.removeEventListener('blur', hide);
-      enabled.removeEventListener('change', hide);
+      reducedMotion.removeEventListener('change', updateMotion);
     };
   }, []);
 

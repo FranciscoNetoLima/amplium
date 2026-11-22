@@ -1,5 +1,5 @@
 .pointer-follower {
-  display: none;
+  visibility: hidden;
   position: fixed;
   z-index: 1000;
   top: 0;
@@ -26,14 +26,15 @@
     color 240ms ease;
 }
 .pointer-follower[data-visible] {
+  visibility: visible;
   opacity: 1;
 }
 .pointer-follower[data-interactive] .pointer-follower-ring {
   color: #b7d6ff;
   transform: translate(-50%, -50%) scale(1.15);
 }
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .pointer-follower {
-    display: block;
+@media (prefers-reduced-motion: reduce) {
+  .pointer-follower-ring {
+    transition: none;
   }
 }
